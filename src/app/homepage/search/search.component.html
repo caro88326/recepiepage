@@ -3,5 +3,6 @@
         <p-inputIcon styleClass="pi pi-search" />
         <input class="search-bar" type="text" pInputText placeholder="Suche...">
     </p-iconField>
-    <p-button label="Filter" severity="success" icon="pi pi-filter"/>
+    <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="showDialog()"/>
+    <p-dialog  header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }"></p-dialog>
 </div>
