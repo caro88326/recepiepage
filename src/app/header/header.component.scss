@@ -1,0 +1,26 @@
+.header {
+	display: flex; 
+	padding: 10px; 
+	align-items: center; 
+	gap: 16px;
+	border-bottom: 1px solid gray;
+	background-color: white;
+	position: sticky;
+	top: 0;
+	height: 40px;
+
+	p {
+		font-size: 23px;
+		margin: 0;
+		cursor: pointer;
+	}
+
+    i {
+        size: 1.7rem;
+    }
+
+    i:active {
+        padding: 0.4rem;
+        margin:0.1rem;
+    }
+}
