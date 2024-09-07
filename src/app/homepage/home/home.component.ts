@@ -4,11 +4,13 @@ import { RecepieInterface } from '../../interfaces/recepie-interface';
 import { timeUnit } from '../../utils/timeUnit'; 
 import { SearchComponent } from '../search/search.component';
 import { RouterModule } from '@angular/router';
+import { NgFor } from '@angular/common';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchComponent, RouterModule],
+  imports: [SearchComponent, RouterModule, NgFor, TagModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

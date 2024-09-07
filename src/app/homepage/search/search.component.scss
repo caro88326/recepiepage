@@ -1,12 +1,15 @@
 .search {
     display: flex;
-    padding: 1rem, 0;
-    gap: 1rem;
-    margin: 1rem 2rem;
-    background-color: white;
+    padding: 1rem 0rem;
+    gap: 1.14rem;
+    margin: 0rem 2rem;
+    background-color: rgb(255, 255, 255);
+    position: sticky;
+    top: 4.3rem;
+
     .search-bar {
-        padding-left: 25px;
-        height: 34px;
+        padding-left: 1.79rem;
+        height: 2.43rem;
     }
 
     .dialog-content {
@@ -14,15 +17,7 @@
         flex-direction: row;
         justify-content: space-between;
         gap: 0.5rem;
-    }
-
-    .filter-tags {
-    display: flex;
-
-    }
-    .listbox {
-        display: flex;
-
-    }
+        padding-top: 2rem;
     
+    }
 }

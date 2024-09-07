@@ -41,7 +41,7 @@ export class RecepiesData{
     {
       id: 0,
       name: 'Dumplings', 
-      picture: '../assets/images/Dumplings.jpg',
+      picture: '../assets/images/Beispielbild.jpg',
       time: 120, //min
       person: 4,
       ingredients: {
