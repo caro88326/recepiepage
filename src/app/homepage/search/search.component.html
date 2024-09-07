@@ -4,5 +4,14 @@
         <input class="search-bar" type="text" pInputText placeholder="Suche...">
     </p-iconField>
     <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="showDialog()"/>
-    <p-dialog  header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }"></p-dialog>
+    <p-dialog  header="Filter" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <p-listbox 
+        [options]="cities" 
+        [(ngModel)]="selectedCity"
+        optionLabel="name" 
+        [filter]="true" 
+        [style]="{ width: '15rem' }" 
+        [listStyle]="{'max-height': '220px'}" />
+
+    </p-dialog>
 </div>
