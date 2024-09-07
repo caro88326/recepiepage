@@ -1,46 +1,54 @@
 import { Ingredient } from "../../src/app/interfaces/ingredients-interface"; 
 
+function sc (x :string, y: string) {
+    return {rep: x ,  texture : y}
+}
+
 export class ISU {
 
     static ingredients =  {
         // Trockenprodukte
-        mehl : {    rep : 'Mehl',    texture : 'fine'},
-        nudeln : {rep: 'Nudeln'},
-        roteLinsen : {rep : 'Rote Linsen'},
-        zucker : {
-            rep : 'Zucker',
-            texture : 'grainy',
-        },
+        mehl :          sc('Mehl','fine'),
+        nudeln :        sc('Nudeln', ''),
+        roteLinsen :    sc('Rote Linsen', ''),
+        zucker :        sc('Zucker', 'grainy'),
 
         // Fleisch
-        hackfleisch : {rep : 'Hackfleisch'},
+        hackfleisch :   sc('Hackfleisch', ''),
 
         // Gemüse
-        chinakohl : {rep : 'Chinakohl'},
-        karotten : {rep: 'Karotte(n)'},
-        tomaten : {rep : 'Tomate(n)'},
-        zucchini : {rep : 'Zucchini(s)'},
-        zwiebeln : {rep : 'Zwiebel(n)'},
+        chinakohl :     sc('Chinakohl',  ''),
+        karotten :      sc('Karotte(n)', ''),
+        tomaten :       sc('Tomate(n)', ''),
+        zucchini :      sc('Zucchini(s)', ''),
+        zwiebeln :      sc('Zwiebel(n)', ''),
 
         // Fertigteig
-        dumplingteig : {rep : 'TK-Dumplingteig'},
+        dumplingteig :  sc('TK-Dumplingteig', ''),
 
         // Dosenprodukte 
-        kokosmilch : {rep: 'Kokosnussmilch'},
-        passierteTomaten : {rep : 'passierte Tomaten'},
+        kokosmilch :    sc('Kokosnussmilch', ''),
+        passierteTomaten : sc('passierte Tomaten', ''),
 
         // Milchprodukte
-        butter : {
-            rep : 'Butter',
-            texture : 'BUTTER'
-        },
-        joghurt : {rep : 'Joghurt'},
-        sahne : {rep : 'Sahne'},
-        mozarella : {rep : 'Mozarella'},
+        butter :        sc('Butter', 'BUTTER'),
+        joghurt :       sc('Joghurt', ''),
+        sahne :         sc('Sahne', ''),
+        mozarella :     sc('Mozarella', ''),
 
         // Nüsse und Kerne
-        pinienkerne : {rep : 'Pinienkerne'}
+        pinienkerne :   sc('Pinienkerne', ''),
     };
+
+    static getIng(x : string) {
+        let keys = Object.keys(this.ingredients)
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] == x) {
+                return Object.values(this.ingredients)[i]
+            }
+        }
+        throw "wrong key"
+    }
 
 // fine: 1TL = 3g, 1El = 10g
 // grainy: 1Tl = 5g, 1EL = 10 g 
@@ -53,112 +61,78 @@ export class ISU {
 
     static spices = {
         // Triebbackmittel
-        trockenhefe : {
-            rep : 'Trockenhefe',
-            texture: 'grainy'
-        },
-        backpulver : {
-            rep : 'Backpulver',
-            texture : 'fine'
-        }, 
+        trockenhefe :       sc('Trockenhefe', 'grainy'),
+        backpulver :        sc('Backpulver', 'fine'),
 
         // Gewürze trocken
-        curry : {
-            rep : 'Currypulver',
-            texture : 'pulverSpices'
-        },
-        garamMasala : {
-            rep : 'Garam Masala',
-            texture : 'pulverSpices'
-        },
-        gemüsebrühe : {
-            rep : 'Gemüsebrühe',
-            texture : 'pulverSpices'
-        },
-        italienischeKräuter : {
-            rep : 'italienische Kräuter',
-            texture : 'dried'
-        },
-        koriander : {
-            rep : 'Koriander', 
-            texture : 'pulverSpices'
-        }, 
-        kreuzkümmel : {
-            rep: 'Kreuzkümmel',
-            texture: 'pulverSpices',
-        },
-        kurkuma : {
-            rep : 'Kurkuma',
-            texture : 'pulverSpices'
-        }, 
-        paprikaEdelsüß : {
-            rep : 'Paprikapulver edelsüß', 
-            texture : 'pulverSpices',
-        },
-        pfeffer : {
-            rep: 'Pfeffer',
-            texture: 'ground'
-        },
-        salz : {
-            rep : 'Salz',
-            texture : 'grainy',
-        },
+        curry :             sc('Currypulver', 'pulverSpices'), 
+        garamMasala :       sc('Garam Masala', 'pulverSpices'), 
+        gemüsebrühe :       sc('Gemüsebrühe', 'pulverSpices'), 
+        italienischeKräuter : sc('italienische Kräuter', 'dried'), 
+        koriander :         sc('Koriander', 'pulverSpices'),
+        kreuzkümmel :       sc('Kreuzkümmel', 'pulverSpices'),
+        kurkuma :           sc('Kurkuma', 'pulverSpices'),
+        paprikaEdelsüß :    sc('Paprikapulver edelsüß', 'pulverSpices'),
+        pfeffer :           sc('Pfeffer', 'ground'),
+        salz :              sc('Salz', 'grainy'),
 
         // Gewürze frisch
-        basilikum : {rep : 'Basilikum'},
-        ingwer : {rep : 'Ingwer'}, 
-        knoblauchzehen : {rep : 'Knoblauchzehen'}, 
-        knoblauchknolle : {rep : 'Knoblauchknolle'},
-        minze : {rep : 'Minze'},
-
+        basilikum :         sc('Basilikum', ''),
+        ingwer :            sc('Ingwer', ''),
+        knoblauchzehen :    sc('Knoblauchzehe(n)', ''),
+        knoblauchknolle :   sc('Knoblauchknolle', ''),
+        minze :             sc('Minze', ''),
 
         // Gewürze flüssig
-        sojasauce : {
-            rep: 'Sojasauce',
-            texture: 'fluid'
-        },        
-        zitronensaft : {
-            rep : 'Zitronensaft',
-            texture: 'fluid'
-        },
+        sojasauce :         sc('Sojasauce', 'fluid'),    
+        zitronensaft :      sc('Zitronensaft', 'fluid'),
 
         // Öl
-        öl : {
-            rep : 'Öl',
-            texture : 'fluid'
-        },
-        olivenöl : {
-            rep : 'Olivenöl',
-            texture : 'fluid'
-        },
-        sesamöl : {
-            rep : 'Sesamöl', 
-            texture : 'fluid'
-        },
+        öl :                sc('Öl', 'fluid'),
+        olivenöl :          sc('Olivenöl', 'fluid'),
+        sesamöl :           sc('Sesamöl', 'fluid'),
 
         // Essig
-        balsamicoDunkel : {
-            rep : 'Aceto Balsamico Essig',
-            texture : 'fluid'
-        }
+        balsamicoDunkel :   sc('Aceto Balsamico Essig', 'fluid'),
     }
 
+    static getSpices(x : string) {
+        let keys = Object.keys(this.spices)
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] == x) {
+                return Object.values(this.spices)[i]
+            }
+        }
+        throw "wrong key"
+    }
+
+
     static units = {
-        g : {unit: 'g'}, 
-        kg: {unit: 'kg'}, 
-        ml: {unit: 'ml'}, 
-        l: {unit: 'l'}, 
-        EL: {unit: 'EL'},
-        TL: {unit: 'TL'},
-        Pr: {unit: 'Pr'},
-        stk: {unit: 'Stk.'},
-        pck: {unit: 'Pck.'},
-        dose: {unit: 'Dose'},
+        g:     {unit: 'g'}, 
+        kg:     {unit: 'kg'}, 
+        ml:     {unit: 'ml'}, 
+        l:      {unit: 'l'}, 
+        EL:     {unit: 'EL'},
+        TL:     {unit: 'TL'},
+        Pr:     {unit: 'Pr'},
+        stk:    {unit: 'Stk.'},
+        pck:    {unit: 'Pck.'},
+        dose:   {unit: 'Dose'},
         flasche: {unit: 'Fl'},
-        glas: {unit: 'Glas'},
-        nb: {unit: 'nb'},
-        bund: {unit: 'Bund'},
-        stängel: {unit: 'Stängel'}
+        glas:   {unit: 'Glas'},
+        nb:     {unit: ''},
+        bund:   {unit: 'Bund'},
+        stängel: {unit: 'Stängel'},
+    }
+
+    static getUnit(x : string) {
+        let keys = Object.keys(this.units)
+        for (var i = 0; i < keys.length; i++) {
+            if (keys[i] == x) {
+                return Object.values(this.units)[i]
+            }
+        }
+        throw "wrong key"
     }
 
 

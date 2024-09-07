@@ -8,5 +8,21 @@
         padding-left: 25px;
         height: 34px;
     }
+
+    .dialog-content {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        
+    }
+
+    .filter-tags {
+    display: flex;
+
+    }
+    .listbox {
+        display: flex;
+
+    }
     
 }

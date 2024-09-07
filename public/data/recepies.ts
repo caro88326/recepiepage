@@ -1,6 +1,22 @@
 import { RecepieInterface } from '../../src/app/interfaces/recepie-interface'; 
 import { ISU } from './ingredients'; 
 
+function sci (x: number, y:string ,z:string) {
+  return { 
+    quantitie : x,
+    unit : ISU.getUnit(y),
+    ingredient : ISU.getIng(z),
+  }
+}
+
+function scs (x: number, y:string ,z:string) {
+  return { 
+    quantitie : x,
+    unit : ISU.getUnit(y),
+    ingredient : ISU.getSpices(z),
+  }
+}
+
 export class RecepiesData{
   static recepieList: RecepieInterface [] = [
     // {
@@ -10,21 +26,14 @@ export class RecepiesData{
     //   time: 0000, //min
     //   person: 00,
     //   ingredients: {
-    //     food: [{
-    //       quantitie: 00,
-    //       unit: ISU.units.u,
-    //       ingredient: ISU.ingredients.i,
-    //     }, ], 
-    //     spice: [{
-    //       quantitie: 00,
-    //       unit: ISU.units.u,
-    //       ingredient: ISU.spices.i
-    //     },], 
+    //     food: [ sci(00, '', ''),], 
+    //     spice: [scs(00, '', ''),], 
     //   },
     //   instruction: [
     //     'text', 
     //     'text',
     //   ],
+    //   author: 'Aus...
     //   tagE: 'Fleisch',
     //   tagN: 'chinesisch',
     // }, 
@@ -36,52 +45,21 @@ export class RecepiesData{
       time: 120, //min
       person: 4,
       ingredients: {
-        food: [{ 
-          quantitie: 1,
-          unit: ISU.units.pck,
-          ingredient: ISU.ingredients.dumplingteig,
-        }, {
-          quantitie: 400,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.hackfleisch,
-        }, {
-          quantitie: 300,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.chinakohl,
-        }, {
-          quantitie: 4,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.karotten,
-        }],
-        spice: [{
-          quantitie: 2,
-          unit: ISU.units.stk,
-          ingredient: ISU.spices.knoblauchzehen
-        },{
-          quantitie: 4,
-          unit: ISU.units.stk,
-          ingredient: ISU.spices.ingwer
-        },{
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.sojasauce
-        },{
-          quantitie: 1, 
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.sesamöl
-        }, {
-          quantitie: 1, 
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.öl,
-        },{
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.salz,
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.pfeffer,
-        }, ],
+        food: [
+          sci(1, 'pck', 'dumplingteig'),
+          sci(400, 'g', 'hackfleisch'),
+          sci(300, 'g', 'chinakohl'),
+          sci(4, 'stk', 'karotten'),
+        ],
+        spice: [
+          scs(2, 'stk', 'knoblauchzehen'),
+          scs(4, 'stk', 'ingwer'),
+          scs(1, 'nb', 'sojasauce'),
+          scs(1, 'nb', 'sesamöl'),
+          scs(1, 'nb', 'öl'),
+          scs(1, 'nb', 'salz'),
+          scs(1, 'nb', 'pfeffer'),
+        ],
       },
       instruction: [
         'Den Dumplingteig auftauen lassen.',
@@ -105,80 +83,27 @@ export class RecepiesData{
       time: 30, //min
       person: 4,
       ingredients: {
-        food: [{
-          quantitie: 300,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.roteLinsen,
-        }, {
-          quantitie: 2,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.zwiebeln
-        },{
-          quantitie: 250,
-          unit: ISU.units.ml,
-          ingredient: ISU.ingredients.kokosmilch,
-        }, {
-          quantitie: 250,
-          unit: ISU.units.ml,
-          ingredient: ISU.ingredients.passierteTomaten,
-        }, {
-          quantitie: 1,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.joghurt,
-        }],
-        spice: [{
-          quantitie: 4,
-          unit: ISU.units.stk,
-          ingredient: ISU.spices.knoblauchzehen
-        },{
-          quantitie: 2,
-          unit: ISU.units.stk,
-          ingredient: ISU.spices.ingwer
-        },{
-          quantitie: 1,
-          unit: ISU.units.TL,
-          ingredient: ISU.spices.kurkuma
-        },{
-          quantitie: 1, 
-          unit: ISU.units.TL,
-          ingredient: ISU.spices.koriander
-        }, {
-          quantitie: 1, 
-          unit: ISU.units.TL,
-          ingredient: ISU.spices.kreuzkümmel,
-        },{
-          quantitie: 1,
-          unit: ISU.units.TL,
-          ingredient: ISU.spices.paprikaEdelsüß,
-        }, {
-          quantitie: 1,
-          unit: ISU.units.TL,
-          ingredient: ISU.spices.garamMasala,
-        }, {
-          quantitie: 780,
-          unit: ISU.units.ml,
-          ingredient: ISU.spices.gemüsebrühe,
-        }, {
-          quantitie: 2 || 3,
-          unit: ISU.units.EL,
-          ingredient: ISU.spices.zitronensaft
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.salz
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.pfeffer
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.olivenöl
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.minze
-        }],
+        food: [
+          sci(300, 'g', 'roteLinsen'),
+          sci(2, 'stk', 'zwiebeln'),
+          sci(250, 'ml', 'kokosmilch'),
+          sci(250, 'ml', 'passierteTomaten'),
+          sci(1, 'stk', 'joghurt'),
+        ],
+        spice: [
+          scs(4, 'stk', 'knoblauchzehen'),
+          scs(2, 'stk', 'ingwer'),
+          scs(1, 'TL', 'kurkuma'),
+          scs(1, 'TL', 'koriander'),
+          scs(1, 'TL', 'kreuzkümmel'),
+          scs(1, 'TL', 'paprikaEdelsüß'),
+          scs(1, 'TL', 'garamMasala'),
+          scs(780, 'ml', 'gemüsebrühe'),
+          scs(2 || 3, 'EL', 'zitronensaft'),
+          scs(1, 'nb', 'salz'),
+          scs(1, 'nb', 'pfeffer'),
+          scs(1, 'nb', 'olivenöl'),
+          scs(1, 'nb', 'minze'),],
       },
       instruction: [
         'Die Zwiebeln in kleine Würfel hacken, den Knoblauch pressen und den Ingwer reiben oder mit dem Messer fein hacken. Die Linsen in ein feines Sieb geben und unter fließendem kaltem Wasser abspülen.',
@@ -199,48 +124,20 @@ export class RecepiesData{
       time: 20, //min
       person: 4,
       ingredients: {
-        food: [{
-          quantitie: 400,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.nudeln,
-        }, {
-          quantitie: 1,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.zwiebeln,
-        }, {
-          quantitie: 2,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.zucchini,
-        }, {
-          quantitie: 2,
-          unit: ISU.units.EL,
-          ingredient: ISU.ingredients.butter ,
-        }, {
-          quantitie: 250,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.sahne,
-        }, {
-          quantitie: 50,
-          unit: ISU.units.g,
-          ingredient: ISU.ingredients.pinienkerne,
-        } ], 
-        spice: [{
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.salz
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.pfeffer
-        }, {
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.curry
-        }, {
-          quantitie: 5,
-          unit: ISU.units.stängel,
-          ingredient: ISU.spices.minze
-        }], 
+        food: [
+          sci(400, 'g', 'nudeln'),
+          sci(1, 'stk', 'zwiebeln'),
+          sci(2, 'stk', 'zucchini'),
+          sci(2, 'EL', 'butter'),
+          sci(250, 'g', 'sahne'),
+          sci(50, 'g', 'pinienkerne')
+        ], 
+        spice: [
+          scs(1, 'nb', 'salz'),
+          scs(1, 'nb', 'pfeffer'),
+          scs(1, 'nb', 'curry'),
+          scs(5, 'stängel', 'minze'),
+        ], 
       },
       instruction: [
         'Die Fusilli nach Packungsanweisung in Salzwasser bissfest garen. ', 
@@ -261,36 +158,17 @@ export class RecepiesData{
       time: 10, //min
       person: 2,
       ingredients: {
-        food: [{
-          quantitie: 1,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.mozarella,
-        }, {
-          quantitie: 3,
-          unit: ISU.units.stk,
-          ingredient: ISU.ingredients.tomaten,
-        }, ], 
-        spice: [{
-          quantitie: 3,
-          unit: ISU.units.EL,
-          ingredient: ISU.spices.olivenöl
-        }, {      
-          quantitie: 3,
-          unit: ISU.units.EL,
-          ingredient: ISU.spices.balsamicoDunkel
-        }, { 
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.salz
-        }, { 
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.pfeffer
-        }, { 
-          quantitie: 1,
-          unit: ISU.units.nb,
-          ingredient: ISU.spices.basilikum + 'oder' + ISU.spices.italienischeKräuter
-        }], 
+        food: [
+          sci(1, 'stk', 'mozarella'),
+          sci(3, 'stk', 'tomaten'),
+        ], 
+        spice: [
+          scs(3, 'EL', 'olivenöl'),
+          scs(3, 'EL', 'balsamicoDunkel'),
+          scs(1, 'nb', 'salz'),
+          scs(1, 'nb', 'pfeffer'),
+          scs(1, 'nb', 'basilikum'),
+        ], 
       },
       instruction: [
         'Die Tomaten und den Mozarella in Würfel schneiden. Falls vorhanden, den frischen Balikilum klein hacken.', 
@@ -301,7 +179,4 @@ export class RecepiesData{
       tagE: 'Vegetarisch',
       tagN: 'italienisch',
     }
-]
-}
-
-
+]}
