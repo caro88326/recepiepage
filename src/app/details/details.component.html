@@ -33,7 +33,18 @@
             <p-button label="Klingt lecker!" severity="success" />
 
             <p-overlayPanel #op>
-                <div>Test</div>
+                <p-inputNumber 
+                inputId="integeronly" 
+                [(ngModel)]="inputType"
+                mode="decimal"
+                inputId="minmax"
+                [min]="1" 
+                [max]="100" 
+                placeholder="{{recepie.person}}"
+                size="1"
+                /> 
+                <p-button label="Speichern" severity="success" (onClick)="op.hide()"/>
+
             </p-overlayPanel>
         </div>    
     </div>

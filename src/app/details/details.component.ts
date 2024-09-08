@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
@@ -15,7 +17,7 @@ import { nb } from '../utils/nb';
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule],
+  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule, InputNumberModule, FormsModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -26,11 +28,12 @@ export class DetailsComponent {
   timeUnit = timeUnit;
   cols! : {field : string, header : string} [];
   ing! : {quantitie:string, unit:string, ingredient:string} [];
+  inputType! : number;
 
   constructor () {
     const recepieId = Number(this.route.snapshot.params['id'])
     this.recepie = this.recepieService.getRecepiesById(recepieId)!;
-  }
+    }
 
   ngOnInit() {
     this.cols = [

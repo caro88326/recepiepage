@@ -29,27 +29,7 @@
                     padding-top: 2.2rem; 
 
                 }
-
-                .ingrediants {
-                    display: flex;
-                    flex-direction: column;
-
-                    .details-ing {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 2px;
-
-                        .quantitie {
-                            width: 40px;
-                        }
-
-                        .unit {
-                            width: 70px;
-                        }
-                    }
-                }
             }
-            
         }
         .variables {
             display: flex;
