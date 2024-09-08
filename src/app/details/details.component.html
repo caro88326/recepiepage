@@ -1,1 +1,53 @@
-<p>details works!</p>
+<div class="detailpage">
+    <div class="recepie-name">{{recepie.name}}</div>
+    <div class="top-section">
+        <div class="info">
+            <div class="picture-ingrediants">
+                <img class="recepie-picture" src="{{recepie.picture}}">
+                <div class="card">
+                    <p-table [columns]="cols" [value]="ing" [tableStyle]="{ 'min-width': '20rem' }" [styleClass]="'p-datatable-sm' " id="tabel" >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{ col.header }}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns">
+                                    {{ rowData[col.field] }}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div> 
+            </div>
+        </div> 
+        <div class="variables">
+            <div class="time-person">
+                <div class="time">{{timeUnit(recepie.time)}}</div>
+                <div class="person">{{recepie.person}}</div>
+            </div>
+            <p-button label="Personenanzahl ändern" severity="success" [text]="true"/>
+            <p-button label="Klingt lecker!" severity="success" />
+        </div>    
+    </div>
+    <div class="bottom-section">
+        <p class="zubereitung">Zubereitung</p>
+        <div class="instruction">
+            <ol>
+                @for (instruction of recepie.instruction; track $index) {
+                    <p-divider align="left" type="solid">
+                        <b>{{$index+1}}</b>
+                    </p-divider>
+                    <p>
+                        {{instruction}}
+                    </p>
+
+                } 
+            </ol>
+        </div>
+        <p class="author">{{recepie.author}}</p>
+    </div>
+</div>

@@ -1,4 +1,6 @@
-<app-search></app-search>
+<div style="position: relative; z-index: 10;">
+    <app-search></app-search>
+</div>
 <div class="recepie-scss" *ngFor = "let recepie of recepieList" [routerLink]="['/details', recepie.id]" >
     <div>
         <img class="food-picture-scss" [src]="recepie.picture" alt="Exterior photo of {{recepie.picture}}">
@@ -16,4 +18,5 @@
             </div>        
         </div>
     </div>
+    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" /> <!--Vielleicht bei mehr rezepten-->
 </div>

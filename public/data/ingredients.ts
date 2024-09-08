@@ -120,7 +120,7 @@ export class ISU {
         dose:   {unit: 'Dose'},
         flasche: {unit: 'Fl'},
         glas:   {unit: 'Glas'},
-        nb:     {unit: ''},
+        nb:     {unit: 'nb'},
         bund:   {unit: 'Bund'},
         stängel: {unit: 'Stängel'},
     }

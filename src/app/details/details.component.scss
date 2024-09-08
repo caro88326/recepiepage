@@ -1,0 +1,96 @@
+.detailpage {
+    margin: 1.8rem 2.9rem;
+    padding-bottom: 2.1rem;
+    
+    .recepie-name {
+        font-size: 1.7rem;
+        padding-bottom: 1.4rem;
+        color: var(--titel-green);
+        font-weight:600;
+    }
+
+    .top-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2.1rem;
+            
+            .picture-ingrediants {
+                display: flex;
+                flex-direction: row;
+                gap: 2.1rem;
+                align-items: center;
+
+                .recepie-picture {
+                    height: 14.3rem;
+
+                }
+
+                .ingrediants {
+                    display: flex;
+                    flex-direction: column;
+
+                    .details-ing {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 2px;
+
+                        .quantitie {
+                            width: 40px;
+                        }
+
+                        .unit {
+                            width: 70px;
+                        }
+                    }
+                }
+            }
+            
+        }
+        .variables {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+
+            .time-person {
+                display: flex;
+                flex-direction: row;
+                gap: 1.5rem;
+                justify-content: space-around;
+
+                .time {
+                    background: url("/assets/icons/clock.svg") no-repeat 5px;
+                    background-size: 1.21rem;
+                    padding-left: 1.79rem;
+                }
+
+                .person {
+                    background: url("/assets/icons/group.svg") no-repeat 5px;
+                    padding-left: 2.36rem;
+                    background-size: 1.57rem;
+                }
+            }
+        }
+    }
+
+    .bottom-section {
+
+        .zubereitung {
+            font-size: 1.3rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .author {
+            font-size: 0.86rem;
+            text-align: right;
+        }
+    }
+}

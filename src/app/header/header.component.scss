@@ -8,12 +8,17 @@
 	position: sticky;
 	top: 0;
 	height: 4.3rem;
-	z-index: 500;
+	z-index: 1;
 
 	p {
 		font-size: 1.64rem;
 		margin: 0;
 		cursor: pointer;
+		transition: 0.14s;
+	}
+
+	p:active {
+		color: var(--titel-green);
 	}
 
     i {
