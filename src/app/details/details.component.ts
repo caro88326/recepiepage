@@ -1,18 +1,21 @@
 import { Component, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DividerModule } from 'primeng/divider';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import { timeUnit } from '../utils/timeUnit';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { DividerModule } from 'primeng/divider';
 import { nb } from '../utils/nb';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [ButtonModule, TableModule, CommonModule, DividerModule],
+  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })

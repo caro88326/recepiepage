@@ -1,0 +1,22 @@
+<p-dialog class="dialog" header="Filter" [(visible)]="FilterDialog" [style]="{ width: '55rem' }" closeOnEscape="true" [modal]="true" (onHide)="updateDialogVisible()">
+    <p-button 
+        class="save-button"
+        label="Speichern" 
+        severity="success" 
+        (onClick)="updateDialogVisible()"
+        />
+    <div class="dialog-content">
+        <div class="filter-tags" *ngFor="let tagX of tag">
+            <p-listbox 
+                class="listbox"
+                [options]="tagX.t" 
+                [(ngModel)]="tagX.st"
+                [filter]="true" 
+                [filterPlaceHolder]="tagX.pch"
+                [style]="{ width: '9.5rem' }" 
+                [listStyle]="{'max-height': '220px'}"
+                [multiple]="true" 
+                />      
+        </div>
+    </div>
+</p-dialog>

@@ -29,8 +29,12 @@
                 <div class="time">{{timeUnit(recepie.time)}}</div>
                 <div class="person">{{recepie.person}}</div>
             </div>
-            <p-button label="Personenanzahl ändern" severity="success" [text]="true"/>
+            <p-button label="Personenanzahl ändern" severity="success" [text]="true" (onClick)="op.toggle($event)"/>
             <p-button label="Klingt lecker!" severity="success" />
+
+            <p-overlayPanel #op>
+                <div>Test</div>
+            </p-overlayPanel>
         </div>    
     </div>
     <div class="bottom-section">
@@ -38,7 +42,7 @@
         <div class="instruction">
             <ol>
                 @for (instruction of recepie.instruction; track $index) {
-                    <p-divider align="left" type="solid">
+                    <p-divider align="left" type="solid" [style]="{'color' : 'var(--titel-green)'}">
                         <b>{{$index+1}}</b>
                     </p-divider>
                     <p>
