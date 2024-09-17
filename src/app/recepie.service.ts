@@ -57,8 +57,7 @@ export class RecepieService {
 
   changeIngredientServings (ing : Ingredient [], inputValue : number, recepiePerson : number ){
     for (var i of ing) {
-      i.quantitie = i.quantitie * inputValue / recepiePerson
-      console.log(Math.round(i.quantitie).toFixed(2))
+      i.quantitie = Math.round((i.quantitie * inputValue / recepiePerson)*100)/100
     }
     return ing
   }
