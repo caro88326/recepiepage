@@ -37,7 +37,7 @@ export class RecepieService {
 
   // changed = false
   // newQuantities : number [] = []
-// 
+  // 
   // changeServings(recepieId : number, newQuantity : number) : RecepieInterface | undefined {
   //   let index = -1;
   //   this.data.update(recepies => {
