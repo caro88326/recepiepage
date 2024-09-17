@@ -2,7 +2,7 @@
     <app-filter-dialog [(FilterDialog)]="FilterDialogVisible"></app-filter-dialog>
 </div>
 <app-search [(FilterDialogSearch)]="FilterDialogVisible"></app-search>
-<div class="recepie-scss" *ngFor = "let recepie of recepieList" [routerLink]="['/details', recepie.id]" >
+<div class="recepie-scss" *ngFor = "let recepie of recepieService.data()" [routerLink]="['/details', recepie.id]" >
     <div>
         <img class="food-picture-scss" [src]="recepie.picture" alt="Exterior photo of {{recepie.picture}}">
     </div>

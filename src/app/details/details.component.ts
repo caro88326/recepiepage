@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import { timeUnit } from '../utils/timeUnit';
-import { nb } from '../utils/nb';
+import { Ingredient } from '../interfaces/ingredients-interface';
 
 @Component({
   selector: 'app-details',
@@ -27,14 +27,14 @@ export class DetailsComponent {
   recepie: RecepieInterface;
   timeUnit = timeUnit;
   cols! : {field : string, header : string} [];
-  ing! : {quantitie:string, unit:string, ingredient:string} [];
-  inputType! : number;
+  ing! : Ingredient [];
+  inputValue! : number;
 
   constructor () {
     const recepieId = Number(this.route.snapshot.params['id'])
-    this.recepie = this.recepieService.getRecepiesById(recepieId)!;
-    }
-
+    this.recepie = this.recepieService.getRecepiesById(recepieId)!; // deep copy for local copy
+  }
+  
   ngOnInit() {
     this.cols = [
       { field: 'quantitie', header: 'Menge' },
@@ -42,28 +42,37 @@ export class DetailsComponent {
       { field: 'ingredient', header: 'Zutat' },
     ];
 
-    let ingredients = this.recepie.ingredients.food.map( i => {
+    let ingredientFood = this.recepie.ingredients.food.map( i => {
       return {
-        quantitie : nb(i.quantitie!.toString(), i.unit.unit! as string),  
-        unit: i.unit.unit! as string, 
-        ingredient : i.ingredient.rep! as string
+        quantitie : i.quantitie,  
+        unit: i.unit.unit!, 
+        ingredient : i.ingredient.rep!
       }
-    }) ;
-
-    let spices = this.recepie.ingredients.spice.map( i => {
+    })
+    let ingredientSpice = this.recepie.ingredients.spice.map( i => {
       return {
-        quantitie : nb(i.quantitie!.toString(), i.unit.unit! as string), 
-        unit: i.unit.unit! as string, 
-        ingredient : i.ingredient.rep! as string
+        quantitie : i.quantitie,  
+        unit: i.unit.unit!, 
+        ingredient : i.ingredient.rep!
       }
-    });
+    })
 
-    this.ing = [...ingredients, ...spices]
+    this.ing = [...ingredientFood, ...ingredientSpice]
 
-    // const index = Object.keys(Array.apply(1, Array(this.recepie.instruction.length))).map(Number)
     let index = new Array()
     for(var i = 1; i<=this.recepie.instruction.length; i++) {
       index[i] = i
     }
+    // this.recepieService.changeIngredientServings(this.ing, this.inputValue)
+  }
+  
+  updatePerson() {
+
+    // falls in cart: in cart ändern
+    // falls nicht, lokale copie hier ändern
+    this.recepieService.changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
+    this.recepie.person = this.inputValue
+    // this.recepie = this.recepieService.changeServings(this.recepie.id, this.inputValue)!;
+
   }
 }

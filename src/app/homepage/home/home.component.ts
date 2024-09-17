@@ -18,12 +18,10 @@ import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component'
 })
 export class HomeComponent {
   recepieService = inject(RecepieService);
-  recepieList : RecepieInterface [];
   timeUnit = timeUnit
 
   FilterDialogVisible: boolean = false;
 
   constructor() {
-    this.recepieList = this.recepieService.getAllRecepies(); 
     }
 }

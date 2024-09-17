@@ -15,9 +15,13 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-columns="columns">
                             <tr>
-                                <td *ngFor="let col of columns">
-                                    {{ rowData[col.field] }}
-                                </td>
+                                @for (column of columns; track $index) {
+                                    <td>
+                                        @if ($index !== 0 || rowData[columns[1].field] !== 'nb') {
+                                            {{ rowData[column.field] }}
+                                        }
+                                    </td>
+                                }
                             </tr>
                         </ng-template>
                     </p-table>
@@ -35,7 +39,7 @@
             <p-overlayPanel #op>
                 <p-inputNumber 
                 inputId="integeronly" 
-                [(ngModel)]="inputType"
+                [(ngModel)]="inputValue"
                 mode="decimal"
                 inputId="minmax"
                 [min]="1" 
@@ -43,7 +47,7 @@
                 placeholder="{{recepie.person}}"
                 size="1"
                 /> 
-                <p-button label="Speichern" severity="success" (onClick)="op.hide()"/>
+                <p-button label="Speichern" severity="success" (onClick)="updatePerson()" (onClick)="op.hide()" />
 
             </p-overlayPanel>
         </div>    

@@ -30,7 +30,7 @@ recepieList : RecepieInterface [];
 ingredients = {};
 
 constructor () {
-  this.recepieList = this.recepieService.getAllRecepies();
+  this.recepieList = this.recepieService.data();
   this.ingredients = this.recepieService.getAllIngredients();
 }
 // Filter
