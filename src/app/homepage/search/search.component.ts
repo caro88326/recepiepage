@@ -6,9 +6,6 @@ import { ButtonModule } from 'primeng/button';
 
 import { RecepieService } from '../../recepie.service';
 
-
-
-
 @Component({
   selector: 'app-search',
   standalone: true,
