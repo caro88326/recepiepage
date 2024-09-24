@@ -54,7 +54,7 @@ export class RecepieService {
   // filtered
   applyFilter(newFilters : FilterInterface) {
     var filtered = this.allRecepies().filter( value => {
-      return value.name.includes(newFilters.searchTerm) //&& value.tagE.includes(newFilters.tagE)
+      return value.name.toLocaleLowerCase().includes(newFilters.searchTerm.toLocaleLowerCase()) //&& value.tagE.includes(newFilters.tagE)
     })
     this.filteredRecepies.set(filtered);
     // set filtered recepies to filtered version of all recepies
