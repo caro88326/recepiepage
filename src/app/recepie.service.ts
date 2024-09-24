@@ -1,27 +1,47 @@
 import { Injectable, signal } from '@angular/core';
+
 import { RecepiesData } from '../../public/data/recepies';
 import { RecepieInterface } from './interfaces/recepie-interface';
-import { Ingredient } from './interfaces/ingredients-interface';
-import { ISU } from '../../public/data/ingredients';
+import { FilterInterface } from './interfaces/filter-interface';
+
+import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class RecepieService {
 
-  data = signal<RecepieInterface[]>(RecepiesData.recepieList)
-  cart = []
-  constructor() { }
+  allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
+  cart = signal<RecepieInterface[]>([])
 
-  // deep copy of recepies
+  filteredRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList)
+  currentFilters : FilterInterface = { searchTerm : '', tagN : [''], tagE : [''], includedIngredients : [''], excludedIngredients : [''] } // TODO obj containing search term and filters, (Wenn ich die nächste Filterfunktion einfüre, da n zweiten wert hin schreiben)
+
+  constructor(private filterService: FilterService) { }
+
+  // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
-    var obj = this.data().find(recepie => recepie.id === id);
+    // this returns a deep copy of the object
+    var obj = this.allRecepies().find(recepie => recepie.id === id);
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  // cart
+  addToCart(recepie : RecepieInterface) {
+    // check if alredy in cart
+    // if not add
+  }
+
+  removeFromCart(recepie : RecepieInterface) {
+    // check if in cart
+    // if so, remove
+    // update -> get index -> slice
   }
 
   // Change dataset
   updateRecepie(newRecepie : RecepieInterface) {
-    this.data.update( recepies => {  
+    this.allRecepies.update( recepies => {  
       const index = recepies.findIndex(recepie => recepie.id === newRecepie.id);
       if (index === -1) {
         return recepies;
@@ -31,9 +51,19 @@ export class RecepieService {
     });
   }
 
-  getAllIngredients () {
-    return ISU.ingredients
+  // filtered
+  applyFilter(newFilters : FilterInterface) {
+    var filtered = this.allRecepies().filter( value => {
+      return value.name.includes(newFilters.searchTerm) //&& value.tagE.includes(newFilters.tagE)
+    })
+    this.filteredRecepies.set(filtered);
+    // set filtered recepies to filtered version of all recepies
+    // update current filters
   }
+
+
+
+
 
   // changed = false
   // newQuantities : number [] = []
@@ -55,10 +85,32 @@ export class RecepieService {
   //   return undefined
   // }
 
-  changeIngredientServings (ing : Ingredient [], inputValue : number, recepiePerson : number ){
-    for (var i of ing) {
-      i.quantitie = Math.round((i.quantitie * inputValue / recepiePerson)*100)/100
-    }
-    return ing
-  }
+  // Filter
+
+  // matchModeOptions!: SelectItem[];
+
+  // ngOnit ( SearchFilter : string ){
+    // this.getData
+
+
+  //   const customFilterName = 'custom-equals';
+
+  //   let values = this.data()
+
+  //   this.filterService.register(customFilterName, (values, SearchFilter): boolean => {
+  //     if (SearchFilter === undefined || SearchFilter === null || SearchFilter.trim() === '') {
+  //         return true;
+  //     }
+  //     if (values === undefined || values === null) {
+  //         return false;
+  //     }
+  //     return values.toString() === SearchFilter.toString();
+  // });
+
+  // this.matchModeOptions = [
+  //   {label: 'Contains', value: FilterMatchMode.CONTAINS},
+  // ]
+  // }
+
+
 }

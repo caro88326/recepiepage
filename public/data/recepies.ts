@@ -41,7 +41,7 @@ export class RecepiesData{
     {
       id: 0,
       name: 'Dumplings', 
-      picture: '../assets/images/Beispielbild.jpg',
+      picture: '../assets/images/Dumplings.jpg',
       time: 120, //min
       person: 4,
       ingredients: {
@@ -178,5 +178,35 @@ export class RecepiesData{
       author: 'Carolin Büchter',
       tagE: 'Vegetarisch',
       tagN: 'italienisch',
-    }
+    }, 
+    {
+        id: 4,
+        name: 'Kässpätzle', 
+        picture: '../assets/images/Kässpätzle.jpg',
+        time: 60, //min
+        person: 4,
+        ingredients: {
+          food: [ 
+            sci(400, 'g', 'mehl'),
+            sci(4, 'stk', 'eier'),
+            sci(220, 'ml', 'wasser'),
+            sci(5, 'stk', 'zwiebeln'),
+            sci(250, 'g', 'geriebenerGratinkäse')
+          ], 
+          spice: [
+            scs(1, 'TL', 'salz'),
+            scs(1, 'nb', 'muskat'),
+          ], 
+        },
+        instruction: [
+          'Mehl, Eier Wasser, Salz und Muskat zu einem glatten Teig verrühren. ', 
+          'Den Teig durch eine Spätzlespresse pressen oder die Spätzle per Hand in heißes Wasser schaben. Nachdem sie an der Wasseroberfläche schwimmen, noch etwas länger warten und dann in ein Sieb hinausschöpfen. ',
+          'Die Spätzle in einer Form mit Käse schichten und in dem Ofen bei Umluft 180 °C backen, bis der Käse geschmolzen ist und gold-gelbe Farbe annimmt. ',
+          'Währenddessen die Zwiebeln schneiden und in einer Pfanne gold-braun anbraten. ',
+          'Die Zwiebeln beim Servieren über die Kässpätzle verteilen.',
+        ],
+        author: 'Teigrezept aus "Emmi kocht einfach" "Omas Spätzle Rezept - Spätzleteig selber machen"',
+        tagE: 'Vegetarisch',
+        tagN: 'schwäbisch',
+      }, 
 ]}

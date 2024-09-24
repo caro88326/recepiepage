@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RecepieService } from '../../recepie.service';
 import { RecepieInterface } from '../../interfaces/recepie-interface';
+import { ISU } from '../../../../public/data/ingredients';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -30,8 +31,8 @@ recepieList : RecepieInterface [];
 ingredients = {};
 
 constructor () {
-  this.recepieList = this.recepieService.data();
-  this.ingredients = this.recepieService.getAllIngredients();
+  this.recepieList = this.recepieService.allRecepies();
+  this.ingredients = ISU.ingredients;
 }
 // Filter
 tagN : string[] = [];

@@ -7,6 +7,9 @@ function sc (x :string, y: string) {
 export class ISU {
 
     static ingredients =  {
+        // Wasser 
+        wasser :        sc('Wasser', 'fluid'),
+
         // Trockenprodukte
         mehl :          sc('Mehl','fine'),
         nudeln :        sc('Nudeln', ''),
@@ -30,11 +33,13 @@ export class ISU {
         kokosmilch :    sc('Kokosnussmilch', ''),
         passierteTomaten : sc('passierte Tomaten', ''),
 
-        // Milchprodukte
+        // Milchprodukte / Eier
         butter :        sc('Butter', 'BUTTER'),
         joghurt :       sc('Joghurt', ''),
         sahne :         sc('Sahne', ''),
         mozarella :     sc('Mozarella', ''),
+        eier :          sc('Ei(er)', ''),
+        geriebenerGratinkäse : sc('geriebener Gratinkäse', ''),
 
         // Nüsse und Kerne
         pinienkerne :   sc('Pinienkerne', ''),
@@ -72,6 +77,7 @@ export class ISU {
         koriander :         sc('Koriander', 'pulverSpices'),
         kreuzkümmel :       sc('Kreuzkümmel', 'pulverSpices'),
         kurkuma :           sc('Kurkuma', 'pulverSpices'),
+        muskat:             sc('Muskat', 'pulverSpices'),
         paprikaEdelsüß :    sc('Paprikapulver edelsüß', 'pulverSpices'),
         pfeffer :           sc('Pfeffer', 'ground'),
         salz :              sc('Salz', 'grainy'),

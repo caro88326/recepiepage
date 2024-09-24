@@ -13,6 +13,7 @@ import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import { timeUnit } from '../utils/timeUnit';
 import { Ingredient } from '../interfaces/ingredients-interface';
+import { changeIngredientServings } from '../utils/changeServings';
 
 @Component({
   selector: 'app-details',
@@ -70,7 +71,7 @@ export class DetailsComponent {
 
     // falls in cart: in cart ändern
     // falls nicht, lokale copie hier ändern
-    this.recepieService.changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
+    changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
     this.recepie.person = this.inputValue
     // this.recepie = this.recepieService.changeServings(this.recepie.id, this.inputValue)!;
 
