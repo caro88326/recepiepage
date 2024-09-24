@@ -26,7 +26,7 @@ export class SearchComponent {
     this.FilterDialogSearchChange.emit(this.FilterDialogSearch)
   }
 
-  updateCurrentFilter (event: KeyboardEvent) {
+  updateCurrentFilter () {
       this.recepieService.currentFilters.searchTerm = this.searchFilter
       this.recepieService.applyFilter(this.recepieService.currentFilters)  
     }

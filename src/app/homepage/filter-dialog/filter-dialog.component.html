@@ -7,17 +7,18 @@
         (onClick)="updateDialogVisible()"
         />
     <div class="dialog-content">
-        <div class="filter-tags" *ngFor="let tagX of tag">
-            <p-listbox 
-                class="listbox"
-                [options]="tagX.t" 
-                [(ngModel)]="tagX.st"
+        <div class="filter-tags">
+            @for (filterGroup of filters; track $index) {
+                <p-listbox 
+                [options]="filterGroup.options" 
+                [(ngModel)]="filterGroup.selected"
                 [filter]="true" 
-                [filterPlaceHolder]="tagX.pch"
+                [filterPlaceHolder]="filterGroup.label"
                 [style]="{ width: '9.5rem' }" 
                 [listStyle]="{'max-height': '220px'}"
-                [multiple]="true" 
-                />      
+                [multiple]="true"
+                />            
+            }
         </div>
     </div>
 </p-dialog>

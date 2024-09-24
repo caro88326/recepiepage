@@ -7,6 +7,13 @@ import { DialogModule } from 'primeng/dialog';
 import { RecepieService } from '../../recepie.service';
 import { RecepieInterface } from '../../interfaces/recepie-interface';
 import { ISU } from '../../../../public/data/ingredients';
+import { Ingredient } from '../../interfaces/ingredients-interface';
+
+interface FilterInterface {
+  label : string,
+  options : string[],
+  selected : string[]
+}
 
 @Component({
   selector: 'app-filter-dialog',
@@ -16,54 +23,61 @@ import { ISU } from '../../../../public/data/ingredients';
   styleUrl: './filter-dialog.component.scss'
 })
 export class FilterDialogComponent {
-// Dialog 
-@Input() FilterDialog : boolean = true;
-@Output () FilterDialogChange = new EventEmitter<boolean>();
+  // Data
+  recepieService = inject(RecepieService);
+  recepieList : RecepieInterface [];
 
-updateDialogVisible ():void {
-  this.FilterDialog = false;
-  this.FilterDialogChange.emit(this.FilterDialog)
-}
+  // Filter
+  filters! : FilterInterface[] 
 
-// Data
-recepieService = inject(RecepieService);
-recepieList : RecepieInterface []; 
-ingredients = {};
+  // Dialog 
+  @Input() FilterDialog : boolean = true;
+  @Output () FilterDialogChange = new EventEmitter<boolean>();
 
-constructor () {
-  this.recepieList = this.recepieService.allRecepies();
-  this.ingredients = ISU.ingredients;
-}
-// Filter
-tagN : string[] = [];
-selectedTagN! : string;
-tagE : string [] = [];
-selectedTagE! : string;
-eat : string [] = [];
-selectedEat! : string;
-notEat : string [] = [];
-selectedNotEat! : string;
-time : string [] = ['unter 30min', '30min bis 1h', 'über 1h']
-selectedTime!: string;
-tag : { pch : string; t: string[]; st: string; }[] = [];
-
-ngOnInit() {
-  const ing : {rep: string, texture:string} []= Object.values(this.ingredients);
-
-  for (var recepie of this.recepieList) {
-    const n = recepie.tagN
-    if (n != '' && this.tagN.includes(n) === false) {this.tagN.push(n!)}
-    const e = recepie.tagE
-    if (e != '' && this.tagE.includes(e) === false) {this.tagE.push(e!)}
-  }
-  for (var i of ing) {
-    const n = i.rep
-    if (n != '' && this.eat.includes(n) === false) {this.eat.push(n!)}
-    if (n != '' && this.notEat.includes(n) === false) {this.notEat.push('ohne ' + n!)}
+  updateDialogVisible ():void {
+    this.FilterDialog = false;
+    this.FilterDialogChange.emit(this.FilterDialog)
   }
 
-  this.tag = [{pch: 'Dauer', t: this.time, st: this.selectedTime}, {pch: 'Ernärung', t : this.tagE.sort(), st : this.selectedTagE}, {pch: 'Nationalität', t: this.tagN.sort(), st : this.selectedTagN}, {pch: 'Mit', t : this.eat.sort(), st : this.selectedEat}, {pch: 'Ohne', t : this.notEat.sort(), st : this.selectedNotEat}]
-  
+  // Data
+  constructor () {
+    this.recepieList = this.recepieService.allRecepies();
+
+    this.filters = [
+      { label : 'Dauer', options : [], selected : [] },
+      { label : 'Ernärung', options : [], selected : [] },
+      { label : 'Nationalität', options : [], selected : [] },
+      { label : 'Mit', options : [], selected : [] },
+      { label : 'Ohne', options : [], selected : [] },
+    ]
+  }
+
+  // Filter
+  ngOnInit() {
+    const ing = Object.values(ISU.ingredients);
+
+    // Dauer
+    this.filters[0].options = [ '<00:30', '00:30 - 01:30', '>01:30']
+
+    // Ernährung
+    let eTags = new Set(this.recepieList.map( recepie => recepie.tagE).filter( tag => tag !== ''))
+    this.filters[1].options = Array.from(eTags)
+
+    // Nationalität
+    let nTags = new Set(this.recepieList.map( recepie => recepie.tagN).filter( tag => tag !== ''))
+    this.filters[2].options = Array.from(nTags)
+
+    // Mit
+    const allIngredients = Object.values(ISU.ingredients).map( x => x.rep)
+    this.filters[3].options = allIngredients
+    
+    // Ohne
+    this.filters[4].options = allIngredients.map( ing => 'ohne ' + ing)
+  }
+
+
+  updateCurrentFilter () {
+    this.recepieService.applyFilter(this.recepieService.currentFilters)  
   }
 }
 
