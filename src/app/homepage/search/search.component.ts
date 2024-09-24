@@ -19,7 +19,7 @@ import { RecepieService } from '../../recepie.service';
 export class SearchComponent {
   recepieService = inject(RecepieService);
   searchFilter!: string;
-  
+ 
 // Dialog 
   @Input() FilterDialogSearch : boolean = false;
   @Output () FilterDialogSearchChange = new EventEmitter<boolean>();
@@ -29,5 +29,13 @@ export class SearchComponent {
     this.FilterDialogSearchChange.emit(this.FilterDialogSearch)
   }
 
+  updateCurrentFilter (event: KeyboardEvent) {
+      this.recepieService.currentFilters.searchTerm = this.searchFilter
+      this.recepieService.applyFilter(this.recepieService.currentFilters)  
+    }
+
+  // applyFilter (event:KeyboardEvent) {
+  //   this.recepieService.applyFilter(this.recepieService.currentFilters)
+  // }
 }
 

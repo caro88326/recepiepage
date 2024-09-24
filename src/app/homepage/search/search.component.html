@@ -1,7 +1,8 @@
 <div class="search">
     <p-iconField iconPosition="left" styleClass="text">
         <p-inputIcon styleClass="pi pi-search"/>
-        <input class="search-bar" type="text" pInputText placeholder="Suche..." style="width: 35.7rem;" [(ngModel)]="searchFilter"> <!--bei eingabe irgendeiner Taste wird apply filter aufgerufen-->
+        <input class="search-bar" type="text" pInputText placeholder="Suche..." style="width: 35.7rem;" 
+        [(ngModel)]="searchFilter"(keyup)="updateCurrentFilter($event)"> <!--bei eingabe irgendeiner Taste wird apply filter aufgerufen-->
     </p-iconField>
-    <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="updateDialogVisible()"/>
+    <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="updateDialogVisible()" />
 </div>
