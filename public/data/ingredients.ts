@@ -1,5 +1,3 @@
-import { Ingredient } from "../../src/app/interfaces/recepie-interface"; 
-
 function sc (x :string, y: string) {
     return {rep: x ,  texture : y}
 }

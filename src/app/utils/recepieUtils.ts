@@ -1,9 +1,8 @@
-import { Ingredient } from "../interfaces/recepie-interface";
+import { FoodItem } from "./ingredients";
 
-
-export function  changeIngredientServings(ing : Ingredient [], inputValue : number, recepiePerson : number ){
-    for (var i of ing) {
-      i.quantitie = Math.round((i.quantitie * inputValue / recepiePerson)*100)/100
+export function  changeIngredientServings(ing : FoodItem [], inputValue : number, recepiePerson : number ){
+  for (let i of ing) {
+      i.quantity = Math.round((i.quantity * inputValue / recepiePerson)*100)/100
     }
     return ing
   };

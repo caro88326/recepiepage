@@ -10,7 +10,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 import { RecepieService } from '../recepie.service';
-import { Ingredient, RecepieInterface } from '../interfaces/recepie-interface';
+import { RecepieInterface } from '../interfaces/recepie-interface';
 import { changeIngredientServings, formatTime } from '../utils/recepieUtils';
 
 @Component({
@@ -28,6 +28,7 @@ export class DetailsComponent {
   timeUnit = formatTime;
   cols! : {field : string, header : string} [];
   ing! : any [];
+  inputValue! : number 
 
   constructor () {
     const recepieId = Number(this.route.snapshot.params['id'])
@@ -36,38 +37,30 @@ export class DetailsComponent {
   
   ngOnInit() {
     this.cols = [
-      { field: 'quantitie', header: 'Menge' },
+      { field: 'quantity', header: 'Menge' },
       { field: 'unit', header: 'Einheit' },
       { field: 'ingredient', header: 'Zutat' },
     ];
 
-    let ingredientFood = this.recepie.ingredients.food.map( i => {
+    const ingredientOfRecepie = this.recepie.ingredients.map(i => {
       return {
-        quantitie : i.quantitie,  
-        unit: i.unit, 
-        ingredient : i.ingredient.rep
-      }
-    })
-    let ingredientSpice = this.recepie.ingredients.spice.map( i => {
-      return {
-        quantitie : i.quantitie,  
-        unit: i.unit, 
+        quantity : i.quantity, 
+        unit : i.unit as string,
         ingredient : i.ingredient.rep
       }
     })
 
-    this.ing = [...ingredientFood, ...ingredientSpice]
+    this.ing = ingredientOfRecepie
 
 
     // this.recepieService.changeIngredientServings(this.ing, this.inputValue)
   }
   
-  updatePerson(inputValue : number) {
-
+  updatePerson() {
     // falls in cart: in cart ändern
     // falls nicht, lokale copie hier ändern
-    changeIngredientServings(this.ing, inputValue, this.recepie.person) //Muss darüber stehen, anson
-    this.recepie.person = inputValue
+    this.ing = changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
+    this.recepie.person = this.inputValue
     // this.recepie = this.recepieService.changeServings(this.recepie.id, this.inputValue)!;
 
   }

@@ -1,10 +1,4 @@
-import { FoodGroup, FoodItem } from "../utils/ingredients";
-
-export interface Ingredient {
-    quantitie: number,
-    unit: string,
-    ingredient: { rep: string; texture: string; }
-}
+import { FoodItem } from "../utils/ingredients";
 
 export interface RecepieInterface {
     id: number,
