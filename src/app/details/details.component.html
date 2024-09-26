@@ -38,8 +38,8 @@
 
             <p-overlayPanel #op>
                 <p-inputNumber 
-                inputId="integeronly" 
-                [(ngModel)]="inputValue"
+                #ref
+                inputId="integeronly"
                 mode="decimal"
                 inputId="minmax"
                 [min]="1" 
@@ -47,7 +47,7 @@
                 placeholder="{{recepie.person}}"
                 size="1"
                 /> 
-                <p-button label="Speichern" severity="success" (onClick)="updatePerson()" (onClick)="op.hide()" />
+                <p-button label="Speichern" severity="success" (onClick)="updatePerson(ref.value ? ref.value! : recepie.person)" (onClick)="op.hide()" />
 
             </p-overlayPanel>
         </div>    

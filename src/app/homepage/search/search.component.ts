@@ -26,10 +26,10 @@ export class SearchComponent {
     this.FilterDialogSearchChange.emit(this.FilterDialogSearch)
   }
 
-  updateCurrentFilter () {
-      this.recepieService.currentFilters.searchTerm = this.searchFilter
-      this.recepieService.applyFilter(this.recepieService.currentFilters)  
-    }
+  // updateCurrentFilter () {
+  //     this.recepieService.currentFilters.searchTerm = this.searchFilter
+  //     this.recepieService.applyFilter(this.recepieService.currentFilters)  
+  //   }
 
   // applyFilter (event:KeyboardEvent) {
   //   this.recepieService.applyFilter(this.recepieService.currentFilters)

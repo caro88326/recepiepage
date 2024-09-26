@@ -1,23 +1,25 @@
-<div style="position: relative; z-index: 10;">
+<div style="display: flex; flex-direction: column;">
     <app-filter-dialog [(FilterDialog)]="FilterDialogVisible"></app-filter-dialog>
-</div>
-<app-search [(FilterDialogSearch)]="FilterDialogVisible"></app-search>
-<div class="recepie-scss" *ngFor = "let recepie of recepieService.filteredRecepies()" [routerLink]="['/details', recepie.id]" >
-    <div>
-        <img class="food-picture-scss" [src]="recepie.picture" alt="Exterior photo of {{recepie.picture}}">
+    <div style="position: sticky; z-index: 5; top: 4.3rem;">
+        <app-search [(FilterDialogSearch)]="FilterDialogVisible"></app-search>
     </div>
-    <div class="recepie-titel-data">
-        <div class="recepie-titel-scss">{{recepie.name}}</div>
-        <div class="recepie-data-scss">
-            <div class="recepie-time-person">
-                <div class="recepie-time-scss">{{timeUnit(recepie.time)}}</div>
-                <div class="recepie-person-scss">{{recepie.person}}</div>
+
+    <div class="recepie-scss" *ngFor = "let recepie of recepieService.filteredRecepies()" [routerLink]="['/details', recepie.id]">
+        <div>
+            <img class="food-picture-scss" [src]="recepie.picture" alt="Exterior photo of {{recepie.picture}}">
+        </div>
+        <div class="recepie-titel-data">
+            <div class="recepie-titel-scss">{{recepie.name}}</div>
+            <div class="recepie-data-scss">
+                <div class="recepie-time-person">
+                    <div class="recepie-time-scss">{{timeUnit(recepie.time)}}</div>
+                    <div class="recepie-person-scss">{{recepie.person}}</div>
+                </div>
+                <div class="all-tags">
+                    <p-tag severity="success" value="{{recepie.tagN}}" [hidden] = "recepie.tagN  === ''" />
+                    <p-tag severity="success" value="{{recepie.tagE}}" [hidden] = "recepie.tagE  === ''"/>
+                </div>        
             </div>
-            <div class="all-tags">
-                <p-tag severity="success" value="{{recepie.tagN}}" [hidden] = "recepie.tagN  === ''" />
-                <p-tag severity="success" value="{{recepie.tagE}}" [hidden] = "recepie.tagE  === ''"/>
-            </div>        
         </div>
     </div>
-    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" /> <!--Vielleicht funktioniert er bei mehr rezepten-->
 </div>

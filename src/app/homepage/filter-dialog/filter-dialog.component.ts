@@ -7,18 +7,18 @@ import { DialogModule } from 'primeng/dialog';
 import { RecepieService } from '../../recepie.service';
 import { RecepieInterface } from '../../interfaces/recepie-interface';
 import { ISU } from '../../../../public/data/ingredients';
-import { Ingredient } from '../../interfaces/ingredients-interface';
+import { TagModule } from 'primeng/tag';
 
 interface FilterInterface {
   label : string,
   options : string[],
-  selected : string[]
+  selected : string []
 }
 
 @Component({
   selector: 'app-filter-dialog',
   standalone: true,
-  imports: [ListboxModule, FormsModule, NgFor, ButtonModule, DialogModule],
+  imports: [ListboxModule, FormsModule, NgFor, ButtonModule, DialogModule, TagModule],
   templateUrl: './filter-dialog.component.html',
   styleUrl: './filter-dialog.component.scss'
 })
@@ -29,6 +29,8 @@ export class FilterDialogComponent {
 
   // Filter
   filters! : FilterInterface[] 
+
+  allSelected : string [] = []
 
   // Dialog 
   @Input() FilterDialog : boolean = true;
@@ -57,7 +59,7 @@ export class FilterDialogComponent {
     const ing = Object.values(ISU.ingredients);
 
     // Dauer
-    this.filters[0].options = [ '<00:30', '00:30 - 01:30', '>01:30']
+    this.filters[0].options = [ '&#x2264 00:30', '00:30 - 01:30', '&#x2265 01:30']
 
     // Ernährung
     let eTags = new Set(this.recepieList.map( recepie => recepie.tagE).filter( tag => tag !== ''))
@@ -75,9 +77,19 @@ export class FilterDialogComponent {
     this.filters[4].options = allIngredients.map( ing => 'ohne ' + ing)
   }
 
+  // updateCurrentFilter () {
+  //   this.recepieService.applyFilter({
+  //     time : this.filters[0].selected,
+  //     tagN : this.filters[1].selected,
+  //     tagE : this.filters[2].selected,
+  //     includedIngredients : this.filters[3].selected,
+  //     excludedIngredients : this.filters[4].selected
+  //   })
 
-  updateCurrentFilter () {
-    this.recepieService.applyFilter(this.recepieService.currentFilters)  
-  }
+  //   this.allSelected = [
+  //     ...this.filters[0].selected, ...this.filters[1].selected, 
+  //     ...this.filters[2].selected, ...this.filters[3].selected, 
+  //     ...this.filters[4].selected]
+  // }
 }
 

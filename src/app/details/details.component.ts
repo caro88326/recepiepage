@@ -10,10 +10,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 
 import { RecepieService } from '../recepie.service';
-import { RecepieInterface } from '../interfaces/recepie-interface';
-import { timeUnit } from '../utils/timeUnit';
-import { Ingredient } from '../interfaces/ingredients-interface';
-import { changeIngredientServings } from '../utils/changeServings';
+import { Ingredient, RecepieInterface } from '../interfaces/recepie-interface';
+import { changeIngredientServings, formatTime } from '../utils/recepieUtils';
 
 @Component({
   selector: 'app-details',
@@ -23,13 +21,13 @@ import { changeIngredientServings } from '../utils/changeServings';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
+  
   route: ActivatedRoute = inject(ActivatedRoute);
   recepieService = inject(RecepieService);
   recepie: RecepieInterface;
-  timeUnit = timeUnit;
+  timeUnit = formatTime;
   cols! : {field : string, header : string} [];
-  ing! : Ingredient [];
-  inputValue! : number;
+  ing! : any [];
 
   constructor () {
     const recepieId = Number(this.route.snapshot.params['id'])
@@ -46,33 +44,30 @@ export class DetailsComponent {
     let ingredientFood = this.recepie.ingredients.food.map( i => {
       return {
         quantitie : i.quantitie,  
-        unit: i.unit.unit!, 
-        ingredient : i.ingredient.rep!
+        unit: i.unit, 
+        ingredient : i.ingredient.rep
       }
     })
     let ingredientSpice = this.recepie.ingredients.spice.map( i => {
       return {
         quantitie : i.quantitie,  
-        unit: i.unit.unit!, 
-        ingredient : i.ingredient.rep!
+        unit: i.unit, 
+        ingredient : i.ingredient.rep
       }
     })
 
     this.ing = [...ingredientFood, ...ingredientSpice]
 
-    let index = new Array()
-    for(var i = 1; i<=this.recepie.instruction.length; i++) {
-      index[i] = i
-    }
+
     // this.recepieService.changeIngredientServings(this.ing, this.inputValue)
   }
   
-  updatePerson() {
+  updatePerson(inputValue : number) {
 
     // falls in cart: in cart ändern
     // falls nicht, lokale copie hier ändern
-    changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
-    this.recepie.person = this.inputValue
+    changeIngredientServings(this.ing, inputValue, this.recepie.person) //Muss darüber stehen, anson
+    this.recepie.person = inputValue
     // this.recepie = this.recepieService.changeServings(this.recepie.id, this.inputValue)!;
 
   }

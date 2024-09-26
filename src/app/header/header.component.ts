@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { RouterModule } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-header',
   standalone: true,

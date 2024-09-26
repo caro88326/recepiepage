@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { RecepieService } from '../../recepie.service'; 
 import { RecepieInterface } from '../../interfaces/recepie-interface';
-import { timeUnit } from '../../utils/timeUnit'; 
 import { SearchComponent } from '../search/search.component';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { formatTime } from '../../utils/recepieUtils';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component'
 })
 export class HomeComponent {
   recepieService = inject(RecepieService);
-  timeUnit = timeUnit
+  timeUnit = formatTime
 
   FilterDialogVisible: boolean = false;
 

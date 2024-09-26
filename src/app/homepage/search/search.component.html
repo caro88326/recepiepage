@@ -2,7 +2,8 @@
     <p-iconField iconPosition="left" styleClass="text">
         <p-inputIcon styleClass="pi pi-search"/>
         <input class="search-bar" type="text" pInputText placeholder="Suche..." style="width: 35.7rem;" 
-        [(ngModel)]="searchFilter"(keydown)="updateCurrentFilter()"> 
+        [(ngModel)]="searchFilter"> 
+        <!-- (keydown)="updateCurrentFilter()" -->
     </p-iconField>
     <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="updateDialogVisible()" />
 </div>

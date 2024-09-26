@@ -15,8 +15,9 @@ export class RecepieService {
   allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
   cart = signal<RecepieInterface[]>([])
 
+  private filteredByFilters : RecepieInterface[] = [...RecepiesData.recepieList]
   filteredRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList)
-  currentFilters : FilterInterface = { searchTerm : '', tagN : [''], tagE : [''], includedIngredients : [''], excludedIngredients : [''] } // TODO obj containing search term and filters, (Wenn ich die nächste Filterfunktion einfüre, da n zweiten wert hin schreiben)
+  currentFilters : FilterInterface = { time : [''], tagN : [''], tagE : [''], includedIngredients : [''], excludedIngredients : [''] } // TODO obj containing search term and filters, (Wenn ich die nächste Filterfunktion einfüre, da n zweiten wert hin schreiben)
 
   constructor(private filterService: FilterService) { }
 
@@ -52,11 +53,24 @@ export class RecepieService {
   }
 
   // filtered
+  applySearch(newSearchTerm : string) {
+      // return value.name.toLocaleLowerCase().includes(newFilters.searchTerm.toLocaleLowerCase()) 
+    }
+
   applyFilter(newFilters : FilterInterface) {
     var filtered = this.allRecepies().filter( value => {
-      return value.name.toLocaleLowerCase().includes(newFilters.searchTerm.toLocaleLowerCase()) //&& value.tagE.includes(newFilters.tagE)
+      // && newFilters.time.includes(value.tagE)
+      newFilters.tagE.includes(value.tagE)
+      && newFilters.tagN.includes(value.tagN)
+      // && newFilters.includedIngredients.forEach( ingredient => {
+      //   return value.ingredients.food.map(i=> {return [i.ingredient.rep]}).includes(ingredient)
+      // })
+      // && newFilters.includedIngredients.forEach( ingredient => {
+      //   return value.ingredients.food.map(i=> {return [i.ingredient as string]} ).includes(ingredient)
+      // })
     })
     this.filteredRecepies.set(filtered);
+    console.log(newFilters.includedIngredients)
     // set filtered recepies to filtered version of all recepies
     // update current filters
   }

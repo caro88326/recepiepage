@@ -1,4 +1,4 @@
-import { Ingredient } from "../../src/app/interfaces/ingredients-interface"; 
+import { Ingredient } from "../../src/app/interfaces/recepie-interface"; 
 
 function sc (x :string, y: string) {
     return {rep: x ,  texture : y}
@@ -131,11 +131,11 @@ export class ISU {
         stängel: {unit: 'Stängel'},
     }
 
-    static getUnit(x : string) {
+    static getUnit(x : string) :string {
         let keys = Object.keys(this.units)
         for (var i = 0; i < keys.length; i++) {
             if (keys[i] == x) {
-                return Object.values(this.units)[i]
+                return Object.values(this.units)[i].unit
             }
         }
         throw "wrong key"

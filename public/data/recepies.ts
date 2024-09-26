@@ -1,21 +1,5 @@
 import { RecepieInterface } from '../../src/app/interfaces/recepie-interface'; 
-import { ISU } from './ingredients'; 
-
-function sci (x: number, y:string ,z:string) {
-  return { 
-    quantitie : x,
-    unit : ISU.getUnit(y),
-    ingredient : ISU.getIng(z),
-  }
-}
-
-function scs (x: number, y:string ,z:string) {
-  return { 
-    quantitie : x,
-    unit : ISU.getUnit(y),
-    ingredient : ISU.getSpices(z),
-  }
-}
+import { item, ingredients, Unit } from '../../src/app/utils/ingredients';
 
 export class RecepiesData{
   static recepieList: RecepieInterface [] = [
@@ -25,10 +9,9 @@ export class RecepiesData{
     //   picture: '../assets/images/Beispielbild.jpg',
     //   time: 0000, //min
     //   person: 00,
-    //   ingredients: {
-    //     food: [ sci(00, '', ''),], 
-    //     spice: [scs(00, '', ''),], 
-    //   },
+    //   ingredients: [
+      // item(ingredients.zutat, 000),
+  // ]
     //   instruction: [
     //     'text', 
     //     'text',
@@ -44,23 +27,20 @@ export class RecepiesData{
       picture: '../assets/images/Dumplings.jpg',
       time: 120, //min
       person: 4,
-      ingredients: {
-        food: [
-          sci(1, 'pck', 'dumplingteig'),
-          sci(400, 'g', 'hackfleisch'),
-          sci(300, 'g', 'chinakohl'),
-          sci(4, 'stk', 'karotten'),
-        ],
-        spice: [
-          scs(2, 'stk', 'knoblauchzehen'),
-          scs(4, 'stk', 'ingwer'),
-          scs(1, 'nb', 'sojasauce'),
-          scs(1, 'nb', 'sesamöl'),
-          scs(1, 'nb', 'öl'),
-          scs(1, 'nb', 'salz'),
-          scs(1, 'nb', 'pfeffer'),
-        ],
-      },
+      ingredients: [
+        item(ingredients.dumplingteig, 1),
+        item(ingredients.hackfleisch, 400),
+        item(ingredients.chinakohl, 300),
+        item(ingredients.karotten, 4),
+
+        item(ingredients.knoblauchzehen, 2),
+        item(ingredients.ingwer, 4, Unit.stk),
+        item(ingredients.sojasauce, 1, Unit.nb),
+        item(ingredients.sesamöl, 1, Unit.nb),
+        item(ingredients.öl, 1, Unit.nb),
+        item(ingredients.salz, 1, Unit.nb),
+        item(ingredients.pfeffer, 1, Unit.nb),
+      ],
       instruction: [
         'Den Dumplingteig auftauen lassen.',
         'Für die Füllung den Chinakohl waschen, trocken tupfen, fein hacken. Den gehackten Chinakohl in eine Schüssel geben, salzen und ca. 10 Minuten ziehen lassen. Den Kohl in ein Passier- oder Geschirrtuch geben und die Flüssigkeit ausdrücken.',
@@ -73,6 +53,7 @@ export class RecepiesData{
       author : 'Genius Rezeptewelt: Gastrezept - Klassische Dumplings von Ute',
       tagE: 'Fleisch',
       tagN: 'chinesisch',
+      duration: '>01:00'
     }, 
     
     
@@ -82,29 +63,27 @@ export class RecepiesData{
       picture: '../assets/images/Beispielbild.jpg',
       time: 30, //min
       person: 4,
-      ingredients: {
-        food: [
-          sci(300, 'g', 'roteLinsen'),
-          sci(2, 'stk', 'zwiebeln'),
-          sci(250, 'ml', 'kokosmilch'),
-          sci(250, 'ml', 'passierteTomaten'),
-          sci(1, 'stk', 'joghurt'),
-        ],
-        spice: [
-          scs(4, 'stk', 'knoblauchzehen'),
-          scs(2, 'stk', 'ingwer'),
-          scs(1, 'TL', 'kurkuma'),
-          scs(1, 'TL', 'koriander'),
-          scs(1, 'TL', 'kreuzkümmel'),
-          scs(1, 'TL', 'paprikaEdelsüß'),
-          scs(1, 'TL', 'garamMasala'),
-          scs(780, 'ml', 'gemüsebrühe'),
-          scs(2 || 3, 'EL', 'zitronensaft'),
-          scs(1, 'nb', 'salz'),
-          scs(1, 'nb', 'pfeffer'),
-          scs(1, 'nb', 'olivenöl'),
-          scs(1, 'nb', 'minze'),],
-      },
+      ingredients: [
+        item(ingredients.roteLinsen, 300),
+        item(ingredients.zwiebeln, 2),
+        item(ingredients.kokosmilch, 250, Unit.ml),
+        item(ingredients.passierteTomaten, 250, Unit.ml),
+        item(ingredients.joghurt, 1, Unit.stk),
+
+        item(ingredients.knoblauchzehen, 4),
+        item(ingredients.ingwer, 2, Unit.stk),
+        item(ingredients.kurkuma, 1, Unit.TL),
+        item(ingredients.koriander, 1, Unit.TL),
+        item(ingredients.kreuzkümmel, 1, Unit.TL),
+        item(ingredients.paprikaEdelsüß, 1, Unit.TL),
+        item(ingredients.garamMasala, 1, Unit.TL),
+        item(ingredients.gemüsebrühe, 780, Unit.ml),
+        item(ingredients.zitronensaft, 2||3, Unit.EL),
+        item(ingredients.salz, 1, Unit.nb),
+        item(ingredients.pfeffer, 1, Unit.nb),
+        item(ingredients.olivenöl, 1, Unit.nb),
+        item(ingredients.minze, 1, Unit.nb),
+      ],
       instruction: [
         'Die Zwiebeln in kleine Würfel hacken, den Knoblauch pressen und den Ingwer reiben oder mit dem Messer fein hacken. Die Linsen in ein feines Sieb geben und unter fließendem kaltem Wasser abspülen.',
         'Das Olivenöl in einer Pfanne oder einem Topf erhitzen. Die gehackten Zwiebeln dazugeben und 2-3 Minuten glasig dünsten. Dann den Knoblauch und Ingwer hinzugeben und eine weitere Minute anbraten, bis es gut duftet. Zuletzt die Gewürze hinzugeben und einige Sekunden anschwitzen, damit sich die Aromen entfalten.',
@@ -116,6 +95,7 @@ export class RecepiesData{
       author: 'unbekannt',
       tagE: 'Vegan',
       tagN: 'indisch',
+      duration: ' '
     }, 
     {
       id: 2,
@@ -123,22 +103,19 @@ export class RecepiesData{
       picture: '../assets/images/Beispielbild.jpg',
       time: 20, //min
       person: 4,
-      ingredients: {
-        food: [
-          sci(400, 'g', 'nudeln'),
-          sci(1, 'stk', 'zwiebeln'),
-          sci(2, 'stk', 'zucchini'),
-          sci(2, 'EL', 'butter'),
-          sci(250, 'g', 'sahne'),
-          sci(50, 'g', 'pinienkerne')
-        ], 
-        spice: [
-          scs(1, 'nb', 'salz'),
-          scs(1, 'nb', 'pfeffer'),
-          scs(1, 'nb', 'curry'),
-          scs(5, 'stängel', 'minze'),
-        ], 
-      },
+      ingredients: [
+        item(ingredients.nudeln, 400),
+        item(ingredients.zwiebeln, 1),
+        item(ingredients.zucchini, 2),
+        item(ingredients.butter, 2, Unit.EL),
+        item(ingredients.sahne, 250),
+        item(ingredients.pinienkerne, 50),
+
+        item(ingredients.salz, 1, Unit.nb),
+        item(ingredients.pfeffer, 1, Unit.nb),
+        item(ingredients.curry, 1, Unit.nb),
+        item(ingredients.minze, 5),
+      ],
       instruction: [
         'Die Fusilli nach Packungsanweisung in Salzwasser bissfest garen. ', 
         'Während die Nudeln kochen, die Zwiebeln schälen und klein würfeln. Zucchini waschen, putzen, längs vierteln und quer in dünne Scheiben schneiden.',
@@ -151,25 +128,24 @@ export class RecepiesData{
       author: 'Aus "Die Familiencampingküche" von Sonja Stötzel (etwas abgeändert)',
       tagE: 'Vegetarisch',
       tagN: '',
+      duration: ''
     }, {
       id: 3,
       name: 'Tomate-Mozarella-Salat', 
       picture: '../assets/images/Beispielbild.jpg',
       time: 10, //min
       person: 2,
-      ingredients: {
-        food: [
-          sci(1, 'stk', 'mozarella'),
-          sci(3, 'stk', 'tomaten'),
-        ], 
-        spice: [
-          scs(3, 'EL', 'olivenöl'),
-          scs(3, 'EL', 'balsamicoDunkel'),
-          scs(1, 'nb', 'salz'),
-          scs(1, 'nb', 'pfeffer'),
-          scs(1, 'nb', 'basilikum'),
-        ], 
-      },
+      ingredients: [        
+        item(ingredients.mozzarella, 1),
+        item(ingredients.tomaten, 3),
+
+        item(ingredients.olivenöl, 3, Unit.EL),
+        item(ingredients.balsamicoDunkel, 3, Unit.EL),
+        item(ingredients.salz, 1, Unit.nb),
+        item(ingredients.pfeffer, 1, Unit.nb),
+        item(ingredients.basilikum, 1, Unit.nb),
+        item(ingredients.zucker, 1, Unit.nb),
+      ], 
       instruction: [
         'Die Tomaten und den Mozarella in Würfel schneiden. Falls vorhanden, den frischen Balikilum klein hacken.', 
         'In einer kleinen Schüssel je 3 EL Olivenöl und Essig geben. Mit Salz, Pfeffer und frischem Basilikum oder italienischen Kräutern würzen.',
@@ -178,6 +154,7 @@ export class RecepiesData{
       author: 'Carolin Büchter',
       tagE: 'Vegetarisch',
       tagN: 'italienisch',
+      duration: ''
     }, 
     {
         id: 4,
@@ -185,19 +162,16 @@ export class RecepiesData{
         picture: '../assets/images/Kässpätzle.jpg',
         time: 60, //min
         person: 4,
-        ingredients: {
-          food: [ 
-            sci(400, 'g', 'mehl'),
-            sci(4, 'stk', 'eier'),
-            sci(220, 'ml', 'wasser'),
-            sci(5, 'stk', 'zwiebeln'),
-            sci(250, 'g', 'geriebenerGratinkäse')
-          ], 
-          spice: [
-            scs(1, 'TL', 'salz'),
-            scs(1, 'nb', 'muskat'),
-          ], 
-        },
+        ingredients: [        
+          item(ingredients.mehl, 400),
+          item(ingredients.eier, 4),
+          item(ingredients.wasser, 220),
+          item(ingredients.zwiebeln, 5),
+          item(ingredients.geriebenerGratinkäse, 250),
+
+          item(ingredients.salz, 1, Unit.TL),
+          item(ingredients.muskat, 1, Unit.nb),
+        ], 
         instruction: [
           'Mehl, Eier Wasser, Salz und Muskat zu einem glatten Teig verrühren. ', 
           'Den Teig durch eine Spätzlespresse pressen oder die Spätzle per Hand in heißes Wasser schaben. Nachdem sie an der Wasseroberfläche schwimmen, noch etwas länger warten und dann in ein Sieb hinausschöpfen. ',
@@ -208,5 +182,6 @@ export class RecepiesData{
         author: 'Teigrezept aus "Emmi kocht einfach" "Omas Spätzle Rezept - Spätzleteig selber machen"',
         tagE: 'Vegetarisch',
         tagN: 'schwäbisch',
+        duration: ''
       }, 
 ]}

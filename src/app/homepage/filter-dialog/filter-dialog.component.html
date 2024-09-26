@@ -2,12 +2,14 @@
     closeOnEscape="true" dismissableMask="true" [modal]="true" (onHide)="updateDialogVisible()">
     <p-button 
         class="save-button"
-        label="Speichern" 
+        label="Schließen" 
         severity="success" 
         (onClick)="updateDialogVisible()"
         />
+        @for (tag of allSelected; track $index) {
+        <p-tag severity="success" value="{{tag}}"/>
+        }
     <div class="dialog-content">
-        <div class="filter-tags">
             @for (filterGroup of filters; track $index) {
                 <p-listbox 
                 [options]="filterGroup.options" 
@@ -17,8 +19,9 @@
                 [style]="{ width: '9.5rem' }" 
                 [listStyle]="{'max-height': '220px'}"
                 [multiple]="true"
-                />            
+                />      
+                <!-- (onChange)="updateCurrentFilter()" -->
+      
             }
-        </div>
     </div>
 </p-dialog>
