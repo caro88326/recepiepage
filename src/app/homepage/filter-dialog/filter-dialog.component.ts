@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { ListboxModule } from 'primeng/listbox';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+
+import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { TagModule } from 'primeng/tag';
+
 import { RecepieService } from '../../recepie.service';
 import { RecepieInterface } from '../../interfaces/recepie-interface';
-import { ISU } from '../../../../public/data/ingredients';
-import { TagModule } from 'primeng/tag';
+import { getAllIngredients } from '../../utils/ingredients';
 
 interface FilterInterface {
   label : string,
@@ -56,10 +58,9 @@ export class FilterDialogComponent {
 
   // Filter
   ngOnInit() {
-    const ing = Object.values(ISU.ingredients);
 
     // Dauer
-    this.filters[0].options = [ '&#x2264 00:30', '00:30 - 01:30', '&#x2265 01:30']
+    this.filters[0].options = ['bis zu 30 min', 'über 30 min bis 1h', 'über 1h']
 
     // Ernährung
     let eTags = new Set(this.recepieList.map( recepie => recepie.tagE).filter( tag => tag !== ''))
@@ -70,7 +71,7 @@ export class FilterDialogComponent {
     this.filters[2].options = Array.from(nTags)
 
     // Mit
-    const allIngredients = Object.values(ISU.ingredients).map( x => x.rep)
+    const allIngredients = getAllIngredients().map(i => i.rep)
     this.filters[3].options = allIngredients
     
     // Ohne

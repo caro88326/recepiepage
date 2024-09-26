@@ -19,6 +19,7 @@ export class RecepiesData{
     //   author: 'Aus...
     //   tagE: 'Fleisch',
     //   tagN: 'chinesisch',
+    //   duration: 'bis zu 30 min', 'über 30 min bis 1h', 'über 1h'
     // }, 
 
     {
@@ -53,7 +54,7 @@ export class RecepiesData{
       author : 'Genius Rezeptewelt: Gastrezept - Klassische Dumplings von Ute',
       tagE: 'Fleisch',
       tagN: 'chinesisch',
-      duration: '>01:00'
+      duration: 'über 1h'
     }, 
     
     
@@ -95,7 +96,7 @@ export class RecepiesData{
       author: 'unbekannt',
       tagE: 'Vegan',
       tagN: 'indisch',
-      duration: ' '
+      duration: 'bis zu 30 min',
     }, 
     {
       id: 2,
@@ -128,7 +129,7 @@ export class RecepiesData{
       author: 'Aus "Die Familiencampingküche" von Sonja Stötzel (etwas abgeändert)',
       tagE: 'Vegetarisch',
       tagN: '',
-      duration: ''
+      duration: 'bis zu 30 min'
     }, {
       id: 3,
       name: 'Tomate-Mozarella-Salat', 
@@ -154,7 +155,7 @@ export class RecepiesData{
       author: 'Carolin Büchter',
       tagE: 'Vegetarisch',
       tagN: 'italienisch',
-      duration: ''
+      duration: 'bis zu 30 min'
     }, 
     {
         id: 4,
@@ -182,6 +183,6 @@ export class RecepiesData{
         author: 'Teigrezept aus "Emmi kocht einfach" "Omas Spätzle Rezept - Spätzleteig selber machen"',
         tagE: 'Vegetarisch',
         tagN: 'schwäbisch',
-        duration: ''
+        duration: 'über 30 min bis 1h'
       }, 
 ]}
