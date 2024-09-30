@@ -2,9 +2,10 @@ import { Injectable, signal } from '@angular/core';
 
 import { RecepiesData } from '../../public/data/recepies';
 import { RecepieInterface } from './interfaces/recepie-interface';
-import { FilterInterface } from './interfaces/filter-interface';
+import { FilterInterface, ListboxFiltersInterface } from './interfaces/filter-interface';
 
-import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
+import { FilterService } from 'primeng/api';
+import { filter } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,22 @@ export class RecepieService {
 
   private filteredByFilters : RecepieInterface[] = [...RecepiesData.recepieList]
   filteredRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList)
-  currentFilters : FilterInterface = { duration : [''], tagN : [''], tagE : [''], includedIngredients : [''], excludedIngredients : [''] } // TODO obj containing search term and filters, (Wenn ich die nächste Filterfunktion einfüre, da n zweiten wert hin schreiben)
+  currentFilters : FilterInterface = { duration : [''], tagN : [''], tagE : [''], includedIngredients : [''], excludedIngredients : [''] } 
 
-  includedFilter : any [ ] = [] 
+  includedFilter : any [] = [] 
+  allSelectedFilters : string [] = []
+  filters! : ListboxFiltersInterface[] 
 
-  constructor(private filterService: FilterService) { }
+
+  constructor(private filterService: FilterService) { 
+    this.filters = [
+      { label : 'Dauer', options : [], selected : [] },
+      { label : 'Ernärung', options : [], selected : [] },
+      { label : 'Nationalität', options : [], selected : [] },
+      { label : 'Mit', options : [], selected : [] },
+      { label : 'Ohne', options : [], selected : [] },
+    ]
+  }
 
   // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
@@ -62,9 +74,8 @@ export class RecepieService {
     this.filteredRecepies.set(filtered)
     
   }
-  
+
   applyFilter(newFilters : FilterInterface) {
-    console.log(newFilters)
     var filtered = this.allRecepies().filter( recepie => {
       if (newFilters.duration.length > 0 && !newFilters.duration.includes(recepie.duration)) return false
 
@@ -73,18 +84,73 @@ export class RecepieService {
       if (newFilters.tagN.length > 0 && !newFilters.tagN.includes(recepie.tagN)) return false
 
       const ingredients = recepie.ingredients.map(item => item.ingredient.rep)
-      if (!newFilters.includedIngredients.every(fingIngredient => ingredients.includes(fingIngredient) )) return false
+      if (!newFilters.includedIngredients.every(fingIngredient => ingredients.includes(fingIngredient))) return false
 
       const notIngredients = recepie.ingredients.map(item => item.ingredient.rep)
       if (newFilters.excludedIngredients.some(fingIngredient => notIngredients.includes(fingIngredient) )) return false 
-      return true
 
+      return true
     })
+
+    // update current Filters and filtered recepies
     this.currentFilters = newFilters
     this.filteredRecepies.set(filtered);
-    // set filtered recepies to filtered version of all recepies
-    // update current filters
+
+
+    // Wenn mit Zuccini ausgewählt, verschwindet ohne Zuccini
+    const includesAny = (ing : string [], filter : string []) => filter.some(f => ing.includes(f))
+    let notEqualLists = (filterdArray : string [], fullArray : string [], selectedArray : string []) => fullArray.filter(v1 => !filterdArray.includes(v1)).filter(v2 => !selectedArray.includes(v2))
+    let removeValuesOfArray = (array : string [], values : string []) => array.filter(val => !values.includes(val))
+
+    if (includesAny(this.filters[4].options, newFilters.includedIngredients)) {
+      this.filters[4].options = removeValuesOfArray(this.filters[4].options, newFilters.includedIngredients)
+    } else if (notEqualLists(this.filters[4].options, this.filters[3].options, this.filters[3].selected)) {
+      this.filters[4].options = [...this.filters[4].options, ...notEqualLists(this.filters[4].options, this.filters[3].options, this.filters[3].selected)].sort()
+    } 
+    if (includesAny(this.filters[3].options, newFilters.excludedIngredients)) {
+      this.filters[3].options = removeValuesOfArray(this.filters[3].options, newFilters.excludedIngredients)
+    } else if (notEqualLists(this.filters[3].options, this.filters[4].options, this.filters[4].selected)) {
+      this.filters[3].options = [...this.filters[3].options, ...notEqualLists(this.filters[3].options, this.filters[4].options, this.filters[4].selected)].sort()
+    }
+
+    // Filter on top of the Array of the listbox
+    let durationWithoutSelected = removeValuesOfArray(this.filters[0].options, this.filters[0].selected)
+    this.filters[0].options = [...this.filters[0].selected.sort(), ...durationWithoutSelected]
+
+    let eTagsWithoutSelected = removeValuesOfArray(this.filters[1].options, this.filters[1].selected)
+    this.filters[1].options = [...this.filters[1].selected.sort(), ...eTagsWithoutSelected]
+
+    let nTagsWithoutSelected = removeValuesOfArray(this.filters[2].options, this.filters[2].selected)
+    this.filters[2].options = [...this.filters[2].selected.sort(), ...nTagsWithoutSelected]
+
+    let incWithoutSelected = removeValuesOfArray(this.filters[3].options, this.filters[3].selected)
+    this.filters[3].options = [...this.filters[3].selected.sort(), ...incWithoutSelected]
+
+    let excWithoutSelected = removeValuesOfArray(this.filters[4].options, this.filters[4].selected)
+    this.filters[4].options = [...this.filters[4].selected.sort(), ...excWithoutSelected]
+
+    // Tags
+    let filterOhne = this.currentFilters.excludedIngredients.map(i => i = 'ohne '+ i)
+    this.allSelectedFilters = [
+      ...this.currentFilters.duration, ...this.currentFilters.tagN, 
+      ...this.currentFilters.tagE, ...this.currentFilters.includedIngredients, 
+      ...filterOhne]
   }
+
+  deleteFilter () {
+    this.applyFilter ({duration : [], tagN : [], tagE : [], includedIngredients : [], excludedIngredients : [] })
+    this.filters[1].selected = []
+    this.filters[2].selected = []
+    this.filters[3].selected = []
+    this.filters[4].selected = []
+  }
+
+
+
+
+
+
+  // -----------------------------------------------------------
 
 
   // changed = false

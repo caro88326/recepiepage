@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { RecepieService } from '../../recepie.service'; 
-import { RecepieInterface } from '../../interfaces/recepie-interface';
 import { SearchComponent } from '../search/search.component';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';

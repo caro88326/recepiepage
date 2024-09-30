@@ -1,15 +1,25 @@
 .search {
     display: flex;
+    flex-direction: column;
     padding: 1rem 0rem;
-    gap: 1.14rem;
     margin: 0rem 2rem;
     background-color: rgb(255, 255, 255);
     position: sticky;
     top: 4.3rem;
 
-    .search-bar {
-        padding-left: 1.79rem;
-        height: 2.45rem;
-    }
+    .topSection {
+        display: flex;
+        gap: 1.14rem;
 
+        .search-bar {
+            padding-left: 1.79rem;
+            height: 2.45rem;
+        }
+    }
+    
+    .tags {
+        display: flex;
+        gap: 1.14rem;
+        padding-top: 1rem;
+    }
 }

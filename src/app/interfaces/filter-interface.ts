@@ -5,3 +5,9 @@ export interface FilterInterface {
   includedIngredients : string[],
   excludedIngredients : string[],
 }
+
+export interface ListboxFiltersInterface { //F
+  label : string,
+  options : string[],
+  selected : string []
+} 

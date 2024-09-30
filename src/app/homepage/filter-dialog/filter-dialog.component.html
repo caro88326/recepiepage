@@ -2,14 +2,14 @@
     closeOnEscape="true" dismissableMask="true" [modal]="true" (onHide)="updateDialogVisible()">
     <div class="middelSection" >
         <div class="tagSection">
-            @for (tag of allSelected; track $index) {
+            @for (tag of recepieService.allSelectedFilters; track $index) {
             <p-tag severity="success" value="{{tag}}"/>
             }
         </div>
     </div>
 
     <div class="dialog-content">
-            @for (filterGroup of filters; track $index) {
+            @for (filterGroup of recepieService.filters; track $index) {
                 <p-listbox 
                 [options]="filterGroup.options" 
                 [(ngModel)]="filterGroup.selected"
@@ -33,7 +33,7 @@
             label="Löschen" 
             severity="success" 
             (onClick)="updateDialogVisible()"
-            (onClick)="deleteFilter()"
+            (onClick)="recepieService.deleteFilter()"
         />
     </div>
 </p-dialog>

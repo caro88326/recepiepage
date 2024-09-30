@@ -11,7 +11,12 @@ html, body {
 
 *:focus {
     box-shadow: none !important;
+    background-color: white !important;
   }
+
+  .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
+    background: none;
+}
 
 :root {
     --titel-green : #4d7c24
