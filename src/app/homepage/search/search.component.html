@@ -8,7 +8,7 @@
             [(ngModel)]="searchFilter" 
             (input)="updateSearchFilter()">
         </p-iconField>
-        <p-button label="Filter" severity="success" icon="pi pi-filter" (onClick)="updateDialogVisible()" />
+        <p-button label="Filter" severity="success" icon="pi pi-sliders-h" (onClick)="updateDialogVisible()" />
         <p-button label="Filter Löschen" severity="success" icon="pi pi-trash" (onClick)="recepieService.deleteFilter()"/>
     </div>
     @if (recepieService.allSelectedFilters.length > 0) {

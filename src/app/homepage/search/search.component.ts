@@ -8,8 +8,6 @@ import { TagModule } from 'primeng/tag';
 import { RecepieService } from '../../recepie.service';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 
-
-
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -30,16 +28,5 @@ export class SearchComponent {
   updateSearchFilter () {
     this.recepieService.applySearch(this.searchFilter)
   }
-
-  
-
-  // deleteFilter () {
-  //   this.recepieService.applyFilter ({duration : [], tagN : [], tagE : [], includedIngredients : [], excludedIngredients : [] })
-  //   this.recepieService.currentFilters.duration = []
-  //   this.recepieService.currentFilters.tagE = []
-  //   this.recepieService.currentFilters.tagN = []
-  //   this.recepieService.currentFilters.includedIngredients = []
-  //   this.recepieService.currentFilters.excludedIngredients = []
-  // }
 }
 
