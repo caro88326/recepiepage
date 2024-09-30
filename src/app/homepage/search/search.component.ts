@@ -5,34 +5,40 @@ import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 
 import { RecepieService } from '../../recepie.service';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [IconFieldModule, InputIconModule, ButtonModule, FormsModule],
+  imports: [IconFieldModule, InputIconModule, ButtonModule, FormsModule, FilterDialogComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
   recepieService = inject(RecepieService);
-  searchFilter!: string;
+  ff = inject(FilterDialogComponent)
+  searchFilter: string = '';
  
-// Dialog 
-  @Input() FilterDialogSearch : boolean = false;
-  @Output () FilterDialogSearchChange = new EventEmitter<boolean>();
+  FilterDialogVisible: boolean = false;
 
   updateDialogVisible() : void {
-    this.FilterDialogSearch = true;
-    this.FilterDialogSearchChange.emit(this.FilterDialogSearch)
+    this.FilterDialogVisible = true;
+      }
+
+  updateSearchFilter () {
+    this.recepieService.applySearch(this.searchFilter)
   }
 
-  // updateCurrentFilter () {
-  //     this.recepieService.currentFilters.searchTerm = this.searchFilter
-  //     this.recepieService.applyFilter(this.recepieService.currentFilters)  
-  //   }
+  
 
-  // applyFilter (event:KeyboardEvent) {
-  //   this.recepieService.applyFilter(this.recepieService.currentFilters)
+  // deleteFilter () {
+  //   this.recepieService.applyFilter ({duration : [], tagN : [], tagE : [], includedIngredients : [], excludedIngredients : [] })
+  //   this.recepieService.currentFilters.duration = []
+  //   this.recepieService.currentFilters.tagE = []
+  //   this.recepieService.currentFilters.tagN = []
+  //   this.recepieService.currentFilters.includedIngredients = []
+  //   this.recepieService.currentFilters.excludedIngredients = []
   // }
 }
 

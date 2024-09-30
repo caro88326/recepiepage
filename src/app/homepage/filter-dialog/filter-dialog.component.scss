@@ -1,8 +1,28 @@
+.middelSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+
+    .tagSection {
+        display: flex;
+        flex-direction: row;
+        gap : 0.7rem
+    }
+}
+
 .dialog-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 0.5rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
+}
 
+.buttonSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap : 0.7rem;
+    padding-top: 1rem;
 }

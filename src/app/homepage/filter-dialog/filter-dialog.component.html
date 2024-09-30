@@ -1,27 +1,39 @@
 <p-dialog class="dialog" header="Filter" [(visible)]="FilterDialog" [style]="{ width: '55rem' }" 
     closeOnEscape="true" dismissableMask="true" [modal]="true" (onHide)="updateDialogVisible()">
-    <p-button 
-        class="save-button"
-        label="Schließen" 
-        severity="success" 
-        (onClick)="updateDialogVisible()"
-        />
-        @for (tag of allSelected; track $index) {
-        <p-tag severity="success" value="{{tag}}"/>
-        }
+    <div class="middelSection" >
+        <div class="tagSection">
+            @for (tag of allSelected; track $index) {
+            <p-tag severity="success" value="{{tag}}"/>
+            }
+        </div>
+    </div>
+
     <div class="dialog-content">
             @for (filterGroup of filters; track $index) {
                 <p-listbox 
                 [options]="filterGroup.options" 
                 [(ngModel)]="filterGroup.selected"
                 [filter]="true" 
+                filterMatchMode="startsWith"
                 [filterPlaceHolder]="filterGroup.label"
                 [style]="{ width: '9.5rem' }" 
                 [listStyle]="{'max-height': '220px'}"
                 [multiple]="true"
-                />      
-                <!-- (onChange)="updateCurrentFilter()" -->
-      
+                (onChange)="updateCurrentFilter()" 
+                /> 
             }
+    </div>
+    <div class="buttonSection">
+        <p-button 
+            label="Schließen" 
+            severity="success" 
+            (onClick)="updateDialogVisible()"
+        />
+        <p-button 
+            label="Löschen" 
+            severity="success" 
+            (onClick)="updateDialogVisible()"
+            (onClick)="deleteFilter()"
+        />
     </div>
 </p-dialog>

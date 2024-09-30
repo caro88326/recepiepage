@@ -1,7 +1,7 @@
 export interface FilterInterface {
-  time : string[]
-  tagN : string[],
-  tagE : string[], 
+  duration : string[]
+  tagE : string[],
+  tagN : string[], 
   includedIngredients : string[],
   excludedIngredients : string[],
 }

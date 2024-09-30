@@ -96,7 +96,7 @@ export const ingredients = {
     joghurt :       createIngredient('Joghurt', Texture.notDefined, FoodGroup.dairyProducts),
     sahne :         createIngredient('Sahne', Texture.notDefined, FoodGroup.dairyProducts),
     mozzarella :    createIngredient('Mozzarella', Texture.notDefined, FoodGroup.dairyProducts, Unit.pck),
-    geriebenerGratinkäse : createIngredient('geriebener Gratinkäse', Texture.notDefined, FoodGroup.dairyProducts),
+    geriebenerGratinkäse : createIngredient('Geriebener Gratinkäse', Texture.notDefined, FoodGroup.dairyProducts),
 
     // Eier
     eier :          createIngredient('Ei(er)', Texture.notDefined, FoodGroup.eggs, Unit.stk),
@@ -105,7 +105,7 @@ export const ingredients = {
 
     // Konservendosen
     kokosmilch :    createIngredient('Kokosnussmilch', Texture.notDefined, FoodGroup.cans, Unit.dose),
-    passierteTomaten : createIngredient('passierte Tomaten', Texture.notDefined, FoodGroup.cans),
+    passierteTomaten : createIngredient('Passierte Tomaten', Texture.notDefined, FoodGroup.cans),
 
     // Fertigteig
     dumplingteig :  createIngredient('TK-Dumplingteig', Texture.notDefined, FoodGroup.readyMadeDough, Unit.pck),

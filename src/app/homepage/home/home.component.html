@@ -1,7 +1,6 @@
 <div style="display: flex; flex-direction: column;">
-    <app-filter-dialog [(FilterDialog)]="FilterDialogVisible"></app-filter-dialog>
     <div style="position: sticky; z-index: 5; top: 4.3rem;">
-        <app-search [(FilterDialogSearch)]="FilterDialogVisible"></app-search>
+        <app-search ></app-search> 
     </div>
 
     <div class="recepie-scss" *ngFor = "let recepie of recepieService.filteredRecepies()" [routerLink]="['/details', recepie.id]">

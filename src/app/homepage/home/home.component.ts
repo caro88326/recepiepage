@@ -6,21 +6,18 @@ import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { ScrollTopModule } from 'primeng/scrolltop';
-import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { formatTime } from '../../utils/recepieUtils';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchComponent, RouterModule, NgFor, TagModule, ScrollTopModule, FilterDialogComponent],
+  imports: [SearchComponent, RouterModule, NgFor, TagModule, ScrollTopModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   recepieService = inject(RecepieService);
   timeUnit = formatTime
-
-  FilterDialogVisible: boolean = false;
 
   constructor() {
     }
