@@ -15,27 +15,6 @@ export class RecepieService {
   allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
   cart = signal<RecepieInterface[]>([])
 
-  private filteredByFilters : RecepieInterface[] = [...RecepiesData.recepieList]
-  filteredRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList)
-  currentFilters : FilterInterface = { duration : [''], tagE : [''], tagN : [''], includedIngredients : [''], excludedIngredients : [''] } 
-
-  includedFilter : any[] = [] 
-  allSelectedFilters : string[] = []
-  filters! : ListboxFiltersInterface[] 
-
-
-  constructor(private filterService: FilterService) { 
-    this.filters = [
-      { label : 'Dauer', options : [], selected : [] },
-      { label : 'Ernärung', options : [], selected : [] },
-      { label : 'Nationalität', options : [], selected : [] },
-      { label : 'Mit', options : [], selected : [] },
-      { label : 'Ohne', options : [], selected : [] },
-    ]
-  }
-
-
-
   // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
     // this returns a deep copy of the object
@@ -67,107 +46,7 @@ export class RecepieService {
     });
   }
 
-  // filtered
-  applySearch(newSearchTerm : string) {
-    let filtered = this.allRecepies().filter( value => {
-      return value.name.toLocaleLowerCase().includes(newSearchTerm.toLocaleLowerCase()) 
-    })
-    this.filteredRecepies.set(filtered)
-  }
-
-  applyFilter() {
-    var filtered = this.allRecepies().filter( recepie => {
-      if (this.filters[0].selected.length > 0 && !this.filters[0].selected.includes(recepie.duration)) return false
-
-      if (this.filters[1].selected.length > 0 && !this.filters[1].selected.includes(recepie.tagE)) return false
-
-      if (this.filters[2].selected.length > 0 && !this.filters[2].selected.includes(recepie.tagN)) return false
-
-      const ingredients = recepie.ingredients.map(item => item.ingredient.rep)
-      if (!this.filters[3].selected.every(fingIngredient => ingredients.includes(fingIngredient))) return false
-
-      const notIngredients = recepie.ingredients.map(item => item.ingredient.rep)
-      if (this.filters[4].selected.some(fingIngredient => notIngredients.includes(fingIngredient) )) return false 
-
-      return true
-    })
-
-    // var filtered = this.allRecepies().filter( recepie => {
-    //   if (newFilters.duration.length > 0 && !newFilters.duration.includes(recepie.duration)) return false
-
-    //   if (newFilters.tagE.length > 0 && !newFilters.tagE.includes(recepie.tagE)) return false
-
-    //   if (newFilters.tagN.length > 0 && !newFilters.tagN.includes(recepie.tagN)) return false
-
-    //   const ingredients = recepie.ingredients.map(item => item.ingredient.rep)
-    //   if (!newFilters.includedIngredients.every(fingIngredient => ingredients.includes(fingIngredient))) return false
-
-    //   const notIngredients = recepie.ingredients.map(item => item.ingredient.rep)
-    //   if (newFilters.excludedIngredients.some(fingIngredient => notIngredients.includes(fingIngredient) )) return false 
-
-    //   return true
-    // })
-
-    // update current Filters and filtered recepies
-    this.currentFilters.duration = this.filters[0].selected
-    this.currentFilters.tagE = this.filters[1].selected
-    this.currentFilters.tagN = this.filters[2].selected
-    this.currentFilters.includedIngredients = this.filters[3].selected
-    this.currentFilters.excludedIngredients = this.filters[4].selected
-
-
-    this.filteredRecepies.set(filtered);
-
-
-    // Wenn mit Zuccini ausgewählt, verschwindet ohne Zuccini
-    const includesAny = (ing : string [], filter : string []) => filter.some(f => ing.includes(f))
-    let notEqualLists = (filterdArray : string [], fullArray : string [], selectedArray : string []) => fullArray.filter(v1 => !filterdArray.includes(v1)).filter(v2 => !selectedArray.includes(v2))
-    let removeValuesOfArray = (array : string [], values : string []) => array.filter(val => !values.includes(val))
-
-    for (let i of [[3,4], [4,3]]) {
-      if (includesAny(this.filters[i[0]].options,  this.filters[i[1]].selected)) {
-        this.filters[i[0]].options = removeValuesOfArray(this.filters[i[0]].options, this.filters[i[1]].selected)
-      } else if (notEqualLists(this.filters[i[0]].options, this.filters[i[1]].options, this.filters[i[1]].selected)) {
-        this.filters[i[0]].options = [...this.filters[i[0]].options, ...notEqualLists(this.filters[i[0]].options, this.filters[i[1]].options, this.filters[i[1]].selected)].sort()
-      } 
-    }
-
-    // if (includesAny(this.filters[4].options, newFilters.includedIngredients)) {
-    //   this.filters[4].options = removeValuesOfArray(this.filters[4].options, newFilters.includedIngredients)
-    // } else if (notEqualLists(this.filters[4].options, this.filters[3].options, this.filters[3].selected)) {
-    //   this.filters[4].options = [...this.filters[4].options, ...notEqualLists(this.filters[4].options, this.filters[3].options, this.filters[3].selected)].sort()
-    // } 
-    // if (includesAny(this.filters[3].options, newFilters.excludedIngredients)) {
-    //   this.filters[3].options = removeValuesOfArray(this.filters[3].options, newFilters.excludedIngredients)
-    // } else if (notEqualLists(this.filters[3].options, this.filters[4].options, this.filters[4].selected)) {
-    //   this.filters[3].options = [...this.filters[3].options, ...notEqualLists(this.filters[3].options, this.filters[4].options, this.filters[4].selected)].sort()
-    // }
-
-    // Filter on top of the Array of the listbox
-    for (let i of [0,1,2,3,4]) {
-      let WithoutSelected = removeValuesOfArray(this.filters[i].options, this.filters[i].selected)
-      this.filters[i].options = [...this.filters[i].selected.sort(), ...WithoutSelected.sort()]
-    }
-
-    // Tags
-    let filterOhne = this.currentFilters.excludedIngredients.map(i => i = 'ohne '+ i)
-    this.allSelectedFilters = [
-      ...this.currentFilters.duration, ...this.currentFilters.tagN, 
-      ...this.currentFilters.tagE, ...this.currentFilters.includedIngredients, 
-      ...filterOhne]
-  }
-
-  deleteFilter () {
-    this.applyFilter()
-    // {duration : [], tagN : [], tagE : [], includedIngredients : [], excludedIngredients : [] }
-    for (let i of [0,1,2,3,4]){
-      this.filters[i].selected = []
-    }
-
-  }
-
-
-
+  
   // -----------------------------------------------------------
 
 

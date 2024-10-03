@@ -6,6 +6,7 @@ import { NgFor } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { formatTime } from '../../utils/recepieUtils';
+import { FilterService } from '../../filter.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { formatTime } from '../../utils/recepieUtils';
 })
 export class HomeComponent {
   recepieService = inject(RecepieService);
+  filterService = inject(FilterService)
   timeUnit = formatTime
 
   constructor() {

@@ -2,6 +2,7 @@
     class="dialog" 
     header="Filter" 
     [(visible)]="FilterDialog" 
+    (onShow)="getData()"
     [style]="{ width: '55rem' }" 
     closeOnEscape="true" 
     dismissableMask="true" 
@@ -10,7 +11,7 @@
     
     <div class="middelSection" >
         <div class="tagSection">
-            @for (tag of recepieService.allSelectedFilters; track $index) {
+            @for (tag of allSelectedFilters; track $index) {
             <p-tag 
                 severity="success" 
                 value="{{tag}}"
@@ -20,30 +21,33 @@
     </div>
 
     <div class="dialog-content">
-            @for (filterGroup of recepieService.filters; track $index) {
-                <p-listbox 
-                [options]="filterGroup.options" 
-                [(ngModel)]="filterGroup.selected"
-                [filter]="true" 
-                filterMatchMode="startsWith"
-                [filterPlaceHolder]="filterGroup.label"
-                [style]="{ width: '9.5rem' }" 
-                [listStyle]="{'max-height': '220px'}"
-                [multiple]="true"
-                (onChange)="recepieService.applyFilter()" 
-                /> 
-            }
+        @for (filterGroup of listboxFilters; track $index) {
+            <p-listbox 
+            [options]="filterGroup.options" 
+            [(ngModel)]="filterGroup.selected"
+            [filter]="true" 
+            filterMatchMode="startsWith"
+            [filterPlaceHolder]="filterGroup.label"
+            [style]="{ width: '9.5rem' }" 
+            [listStyle]="{'max-height': '220px'}"
+            [multiple]="true"
+            (onChange)="selectedFilter()" 
+            /> 
+        }
     </div>
+
     <div class="buttonSection">
         <p-button 
-            label="Schließen" 
+            label="Speichern" 
             severity="success" 
             (onClick)="updateDialogVisible()"
+            (onClick)="saveFilter()"
+            (onClick)="filterService.getTags()"
         />
         <p-button 
             label="Löschen" 
             severity="success" 
-            (onClick)="recepieService.deleteFilter()"
+            (onClick)="deleteFilter()"
             (onClick)="updateDialogVisible()"
             icon="pi pi-trash"
         />

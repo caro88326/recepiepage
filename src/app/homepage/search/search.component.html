@@ -23,7 +23,7 @@
             label="Filter Löschen" 
             severity="success" 
             icon="pi pi-trash" 
-            (onClick)="recepieService.deleteFilter()"
+            (onClick)="filterService.deleteAllFilters()"
         />
         <p-button 
             label="Neues Rezept" 
@@ -32,9 +32,10 @@
         />
 
     </div>
-    @if (recepieService.allSelectedFilters.length > 0) {
+
+    @if (filterService.allSelectedFilters.length > 0) {
         <div class="tags">
-            @for (tag of recepieService.allSelectedFilters; track $index) {
+            @for (tag of filterService.allSelectedFilters; track $index) {
                 <p-tag 
                     severity="success" 
                     value="{{tag}}"

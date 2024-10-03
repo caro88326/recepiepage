@@ -11,5 +11,5 @@ export interface RecepieInterface {
     author: string
     tagE: string,
     tagN: string,
-    duration: string,
+    duration: string
 }

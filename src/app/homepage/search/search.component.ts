@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 
 import { RecepieService } from '../../recepie.service';
+import { FilterService } from '../../filter.service';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 
 @Component({
@@ -17,6 +18,7 @@ import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component'
 })
 export class SearchComponent {
   recepieService = inject(RecepieService);
+  filterService = inject(FilterService)
   searchFilter: string = '';
  
   FilterDialogVisible: boolean = false;
@@ -26,7 +28,7 @@ export class SearchComponent {
       }
 
   updateSearchFilter () {
-    this.recepieService.applySearch(this.searchFilter)
+    this.filterService.applySearch(this.searchFilter)
   }
 }
 

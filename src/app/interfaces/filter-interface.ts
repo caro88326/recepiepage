@@ -11,3 +11,14 @@ export interface ListboxFiltersInterface { //F
   options : string[],
   selected : string []
 } 
+
+export interface NewFiltersInterfaceTags {
+  groups : string, 
+  value : string, 
+  selected : boolean
+  } 
+
+export interface NewFiltersInterfaceIngs {
+  groups : string, 
+  value : string, 
+  selected : 'include' | 'neutral' | 'exclude'  } 

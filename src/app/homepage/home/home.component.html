@@ -3,7 +3,7 @@
         <app-search ></app-search> 
     </div>
 
-    <div class="recepie-scss" *ngFor = "let recepie of recepieService.filteredRecepies()" [routerLink]="['/details', recepie.id]">
+    <div class="recepie-scss" *ngFor = "let recepie of filterService.filteredRecepies()" [routerLink]="['/details', recepie.id]">
         <div>
             <img 
                 class="food-picture-scss" 
