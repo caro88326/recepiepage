@@ -1,6 +1,12 @@
 <div class="header">
     <p [routerLink]="['']">Einkaufen leichtgemacht</p>
     <div style="flex: 1;"></div>
-    <i class="pi pi-shopping-bag" pBadge value="2" severity="success" ></i>
-    <i class="pi pi-list-check"></i>
+    <i 
+        class="pi pi-shopping-bag" 
+        pBadge value="2" 
+        severity="success" 
+        [routerLink]="['cart']">
+    </i>
+    <i class="pi pi-list-check">
+    </i>
 </div>

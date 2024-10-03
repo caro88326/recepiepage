@@ -1,0 +1,107 @@
+.head {
+    display: flex;
+    flex-direction: row;
+    margin: 0 2rem;
+    
+    justify-content: space-between;
+
+    .head-text{
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+
+
+        .cart-text {
+            font-size: 2rem;
+            padding: 1rem;
+        }
+    
+        .recepie-number {
+            font-size: 1.5rem;
+            padding: 1rem;
+            font-weight: 100;
+        }
+    }    
+    
+    .button-delete-all {
+        display: flex;
+        padding: 1rem 1.5rem;
+        
+    }
+}
+.recepie-section {
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+
+    .recepie-list {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid gray;
+        gap: 0.5rem;
+        padding: 1.3rem;
+        border-radius: 0.4rem;
+        justify-content: left;
+        margin: 0.7rem 2rem;
+        cursor: pointer; 
+        background-color: white;
+    
+        .food-picture-scss {
+            width: 9.5rem;
+            height: 7.14rem;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+    
+        .recepie-titel-data {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+            margin: 0.5rem;
+    
+            .recepie-titel-scss {
+                font-size: 1.45rem;
+                color: var(--titel-green);
+            }
+        
+            .recepie-data-scss {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+    
+                .recepie-time-person {
+                    display: flex;
+                    gap: 1.4rem;
+    
+                    .recepie-time-scss {
+                        background: url("/assets/icons/clock.svg") no-repeat 0.36rem;
+                        background-size: 1.4rem;
+                        padding-left: 2.1rem;
+                    }
+    
+                    .recepie-person-scss {
+                        background: url("/assets/icons/group.svg") no-repeat 0.36rem;
+                        background-size: 1.7rem;
+                        padding-left: 2.5rem;
+                    }
+                }
+            
+                .all-tags {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 0.6rem;
+                }
+            }}
+                .cart-button-section {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                }  
+    }
+}
+
+.summary-section {
+    display: flex;
+    flex: 1;
+}

@@ -1,5 +1,5 @@
 import { Component, inject} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
@@ -16,7 +16,7 @@ import { changeIngredientServings, formatTime } from '../utils/recepieUtils';
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule, InputNumberModule, FormsModule],
+  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule, InputNumberModule, FormsModule, RouterModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })

@@ -1,19 +1,33 @@
 <div class="detailpage">
-    <div class="recepie-name">{{recepie.name}}</div>
+    <div class="recepie-name">
+        {{recepie.name}}
+    </div>
     <div class="top-section">
         <div class="info">
             <div class="picture-ingrediants">
-                <img class="recepie-picture" src="{{recepie.picture}}">
+                <img 
+                    class="recepie-picture"     
+                    src="{{recepie.picture}}">
                 <div class="card">
-                    <p-table [columns]="cols" [value]="ing" [tableStyle]="{ 'min-width': '20rem' }" [styleClass]="'p-datatable-sm' " id="tabel" >
-                        <ng-template pTemplate="header" let-columns>
+                    <p-table 
+                        [columns]="cols" 
+                        [value]="ing" 
+                        [tableStyle]="{ 'min-width': '20rem' }" 
+                        [styleClass]="'p-datatable-sm' " 
+                        id="tabel" >
+                        <ng-template 
+                            pTemplate="header" 
+                            let-columns>
                             <tr>
                                 <th *ngFor="let col of columns">
                                     {{ col.header }}
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <ng-template 
+                            pTemplate="body" 
+                            let-rowData 
+                            let-columns="columns">
                             <tr>
                                 @for (column of columns; track $index) {
                                     <td>
@@ -30,11 +44,22 @@
         </div> 
         <div class="variables">
             <div class="time-person">
-                <div class="time">{{timeUnit(recepie.time)}}</div>
-                <div class="person">{{recepie.person}}</div>
+                <div class="time">
+                    {{timeUnit(recepie.time)}}
+                </div>
+                <div class="person">
+                    {{recepie.person}}
+                </div>
             </div>
-            <p-button label="Personenanzahl ändern" severity="success" [text]="true" (onClick)="op.toggle($event)"/>
-            <p-button label="Klingt lecker!" severity="success" />
+            <p-button 
+                label="Personenanzahl ändern" 
+                severity="success" 
+                [text]="true" 
+                (onClick)="op.toggle($event)"/>
+            <p-button 
+                label="Klingt lecker!" 
+                severity="success" 
+                />
 
             <p-overlayPanel #op>
                 <p-inputNumber 
@@ -47,12 +72,18 @@
                 placeholder="{{recepie.person}}"
                 size="1"
                 /> 
-                <p-button label="Speichern" severity="success" (onClick)="updatePerson()" (onClick)="op.hide()" />
+                <p-button 
+                    label="Speichern" 
+                    severity="success" 
+                    (onClick)="updatePerson()" 
+                    (onClick)="op.hide()" />
             </p-overlayPanel>
         </div>    
     </div>
     <div class="bottom-section">
-        <p class="zubereitung">Zubereitung</p>
+        <p class="zubereitung">
+            Zubereitung
+        </p>
         <div class="instruction">
             <ol>
                 @for (instruction of recepie.instruction; track $index) {
@@ -66,6 +97,8 @@
                 } 
             </ol>
         </div>
-        <p class="author">{{recepie.author}}</p>
+        <p class="author">
+            {{recepie.author}}
+        </p>
     </div>
 </div>

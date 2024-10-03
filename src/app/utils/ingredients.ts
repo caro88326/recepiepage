@@ -85,6 +85,7 @@ export const ingredients = {
     // Gemüse
     chinakohl :     createIngredient('Chinakohl', Texture.notDefined, FoodGroup.vegetables),
     karotten :      createIngredient('Karotte(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
+    kartoffeln :    createIngredient('Kartoffel(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     tomaten :       createIngredient('Tomate(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     zucchini :      createIngredient('Zucchini(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     zwiebeln :      createIngredient('Zwiebel(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
@@ -153,6 +154,8 @@ export const ingredients = {
     // Gewürze flüssig
     sojasauce :     createIngredient('Sojasauce', Texture.fluid, FoodGroup.spice, Unit.ml),
     zitronensaft :  createIngredient('Zitronensaft', Texture.fluid, FoodGroup.spice, Unit.ml),
+    rotwein :       createIngredient('Rotwein', Texture.fluid, FoodGroup.spice, Unit.ml),
+    weißwein :       createIngredient('Weißwein', Texture.fluid, FoodGroup.spice, Unit.ml),
 
     // Öl
     öl :            createIngredient('Öl', Texture.fluid, FoodGroup.spice, Unit.ml),

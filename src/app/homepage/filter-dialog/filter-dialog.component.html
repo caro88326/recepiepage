@@ -1,9 +1,20 @@
-<p-dialog class="dialog" header="Filter" [(visible)]="FilterDialog" [style]="{ width: '55rem' }" 
-    closeOnEscape="true" dismissableMask="true" [modal]="true" (onHide)="updateDialogVisible()">
+<p-dialog 
+    class="dialog" 
+    header="Filter" 
+    [(visible)]="FilterDialog" 
+    [style]="{ width: '55rem' }" 
+    closeOnEscape="true" 
+    dismissableMask="true" 
+    [modal]="true" 
+    (onHide)="updateDialogVisible()">
+    
     <div class="middelSection" >
         <div class="tagSection">
             @for (tag of recepieService.allSelectedFilters; track $index) {
-            <p-tag severity="success" value="{{tag}}"/>
+            <p-tag 
+                severity="success" 
+                value="{{tag}}"
+            />
             }
         </div>
     </div>
@@ -19,7 +30,7 @@
                 [style]="{ width: '9.5rem' }" 
                 [listStyle]="{'max-height': '220px'}"
                 [multiple]="true"
-                (onChange)="updateCurrentFilter()" 
+                (onChange)="recepieService.applyFilter()" 
                 /> 
             }
     </div>
@@ -32,8 +43,8 @@
         <p-button 
             label="Löschen" 
             severity="success" 
-            (onClick)="updateDialogVisible()"
             (onClick)="recepieService.deleteFilter()"
+            (onClick)="updateDialogVisible()"
             icon="pi pi-trash"
         />
     </div>

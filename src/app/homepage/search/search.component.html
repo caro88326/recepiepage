@@ -4,17 +4,41 @@
     <div class="topSection">
         <p-iconField iconPosition="left" styleClass="text">
             <p-inputIcon styleClass="pi pi-search"/>
-            <input class="search-bar" type="text" pInputText placeholder="Suche..." style="width: 35.7rem;" 
+            <input 
+            class="search-bar" 
+            type="text" 
+            pInputText 
+            placeholder="Suche..." 
+            style="width: 35.7rem;" 
             [(ngModel)]="searchFilter" 
             (input)="updateSearchFilter()">
         </p-iconField>
-        <p-button label="Filter" severity="success" icon="pi pi-sliders-h" (onClick)="updateDialogVisible()" />
-        <p-button label="Filter Löschen" severity="success" icon="pi pi-trash" (onClick)="recepieService.deleteFilter()"/>
+        <p-button 
+            label="Filter" 
+            severity="success" 
+            icon="pi pi-sliders-h" 
+            (onClick)="updateDialogVisible()" 
+        />
+        <p-button 
+            label="Filter Löschen" 
+            severity="success" 
+            icon="pi pi-trash" 
+            (onClick)="recepieService.deleteFilter()"
+        />
+        <p-button 
+            label="Neues Rezept" 
+            severity="success" 
+            text="true" 
+        />
+
     </div>
     @if (recepieService.allSelectedFilters.length > 0) {
         <div class="tags">
             @for (tag of recepieService.allSelectedFilters; track $index) {
-                <p-tag severity="success" value="{{tag}}"/>
+                <p-tag 
+                    severity="success" 
+                    value="{{tag}}"
+                />
                 }
         </div>    
     }

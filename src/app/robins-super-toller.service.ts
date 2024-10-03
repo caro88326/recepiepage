@@ -9,37 +9,41 @@ import { FilterService } from 'primeng/api';
 @Injectable({
   providedIn: 'root'
 })
+export class RobinsSuperTollerService {
 
-export class RecepieService {
-
-  allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
-  cart = signal<RecepieInterface[]>([])
-
-  private filteredByFilters : RecepieInterface[] = [...RecepiesData.recepieList]
+  readonly allRecepies = RecepiesData.recepieList
   filteredRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList)
-  currentFilters : FilterInterface = { duration : [''], tagE : [''], tagN : [''], includedIngredients : [''], excludedIngredients : [''] } 
 
-  includedFilter : any[] = [] 
-  allSelectedFilters : string[] = []
-  filters! : ListboxFiltersInterface[] 
+  filters = signal<ListboxFiltersInterface[]>([
+    { label : 'Dauer', options : [], selected : [] },
+    { label : 'Ernärung', options : [], selected : [] },
+    { label : 'Nationalität', options : [], selected : [] },
+    { label : 'Mit', options : [], selected : [] },
+    { label : 'Ohne', options : [], selected : [] }
+  ])
 
-
-  constructor(private filterService: FilterService) { 
-    this.filters = [
-      { label : 'Dauer', options : [], selected : [] },
-      { label : 'Ernärung', options : [], selected : [] },
-      { label : 'Nationalität', options : [], selected : [] },
-      { label : 'Mit', options : [], selected : [] },
-      { label : 'Ohne', options : [], selected : [] },
-    ]
+  
+  {
+    label : '',
+    group : '',
+    selected : true,
   }
 
-
+  {
+    label : '',
+    selected : 'include | exclude | neural'
+  }
+  
+  private readonly dauer = 0
+  private readonly ernährung = 1
+  private readonly nationalität = 2
+  private readonly mit = 3
+  private readonly ohne = 4
 
   // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
     // this returns a deep copy of the object
-    var obj = this.allRecepies().find(recepie => recepie.id === id);
+    var obj = this.allRecepies.find(recepie => recepie.id === id);
     return JSON.parse(JSON.stringify(obj));
   }
 
@@ -57,37 +61,51 @@ export class RecepieService {
 
   // Change dataset
   updateRecepie(newRecepie : RecepieInterface) {
-    this.allRecepies.update( recepies => {  
-      const index = recepies.findIndex(recepie => recepie.id === newRecepie.id);
-      if (index === -1) {
-        return recepies;
-      } 
-      recepies[index] = newRecepie;
-      return [...recepies]
-    });
+    // this.allRecepies.update( recepies => {  
+    //   const index = recepies.findIndex(recepie => recepie.id === newRecepie.id);
+    //   if (index === -1) {
+    //     return recepies;
+    //   } 
+    //   recepies[index] = newRecepie;
+    //   return [...recepies]
+    // });
   }
 
   // filtered
   applySearch(newSearchTerm : string) {
-    let filtered = this.allRecepies().filter( value => {
+    let filtered = this.allRecepies.filter( value => {
       return value.name.toLocaleLowerCase().includes(newSearchTerm.toLocaleLowerCase()) 
     })
     this.filteredRecepies.set(filtered)
   }
 
+  private includeAll(filters : any, recepie : any) {
+    if (filters.length === 0) return true
+    for (let r of recepie) {
+      if (!filters.includes(r)) return false
+    }
+    return true
+  }
+
+  private includeNone(filters : any, recepie : any) {
+
+  }
+
   applyFilter() {
-    var filtered = this.allRecepies().filter( recepie => {
-      if (this.filters[0].selected.length > 0 && !this.filters[0].selected.includes(recepie.duration)) return false
 
-      if (this.filters[1].selected.length > 0 && !this.filters[1].selected.includes(recepie.tagE)) return false
+    var filtered = this.allRecepies.filter( recepie => {
+      if (!include(this.filters()[this.dauer], recepie.duration) 
+          || !include(this.filters()[this.ernährung], recepie.tagE)
+          || !include(this.filters()[this.nationalität], recepie.tagN)) {
+        return false
+      }
 
-      if (this.filters[2].selected.length > 0 && !this.filters[2].selected.includes(recepie.tagN)) return false
 
       const ingredients = recepie.ingredients.map(item => item.ingredient.rep)
-      if (!this.filters[3].selected.every(fingIngredient => ingredients.includes(fingIngredient))) return false
+      if (!this.filters()[3].selected.every(fingIngredient => ingredients.includes(fingIngredient))) return false
 
       const notIngredients = recepie.ingredients.map(item => item.ingredient.rep)
-      if (this.filters[4].selected.some(fingIngredient => notIngredients.includes(fingIngredient) )) return false 
+      if (this.filters()[4].selected.some(fingIngredient => notIngredients.includes(fingIngredient) )) return false 
 
       return true
     })

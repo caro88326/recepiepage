@@ -5,18 +5,35 @@
 
     <div class="recepie-scss" *ngFor = "let recepie of recepieService.filteredRecepies()" [routerLink]="['/details', recepie.id]">
         <div>
-            <img class="food-picture-scss" [src]="recepie.picture" alt="Exterior photo of {{recepie.picture}}">
+            <img 
+                class="food-picture-scss" 
+                [src]="recepie.picture" 
+                alt="Exterior photo of {{recepie.picture}}">
         </div>
         <div class="recepie-titel-data">
-            <div class="recepie-titel-scss">{{recepie.name}}</div>
+            <div class="recepie-titel-scss">
+                {{recepie.name}}
+            </div>
             <div class="recepie-data-scss">
                 <div class="recepie-time-person">
-                    <div class="recepie-time-scss">{{timeUnit(recepie.time)}}</div>
-                    <div class="recepie-person-scss">{{recepie.person}}</div>
+                    <div class="recepie-time-scss">
+                        {{timeUnit(recepie.time)}}
+                    </div>
+                    <div class="recepie-person-scss">
+                        {{recepie.person}}
+                    </div>
                 </div>
                 <div class="all-tags">
-                    <p-tag severity="success" value="{{recepie.tagN}}" [hidden] = "recepie.tagN  === ''" />
-                    <p-tag severity="success" value="{{recepie.tagE}}" [hidden] = "recepie.tagE  === ''"/>
+                    <p-tag 
+                        severity="success" 
+                        value="{{recepie.tagN}}" 
+                        [hidden] = "recepie.tagN  === ''" 
+                    />
+                    <p-tag 
+                        severity="success" 
+                        value="{{recepie.tagE}}" 
+                        [hidden] = "recepie.tagE  === ''"
+                    />
                 </div>        
             </div>
         </div>

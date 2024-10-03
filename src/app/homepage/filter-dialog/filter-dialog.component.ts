@@ -62,15 +62,17 @@ export class FilterDialogComponent {
     this.recepieService.filters[4].options = allIngredients
   }
 
-  updateCurrentFilter () {
-    this.recepieService.applyFilter({
-      duration : this.recepieService.filters[0].selected,
-      tagE : this.recepieService.filters[1].selected,
-      tagN : this.recepieService.filters[2].selected,
-      includedIngredients : this.recepieService.filters[3].selected,
-      excludedIngredients : this.recepieService.filters[4].selected
-    })
-  }  
+  // updateCurrentFilter () {
+  //   this.recepieService.applyFilter(
+  //     // {
+  //   //   duration : this.recepieService.filters[0].selected,
+  //   //   tagE : this.recepieService.filters[1].selected,
+  //   //   tagN : this.recepieService.filters[2].selected,
+  //   //   includedIngredients : this.recepieService.filters[3].selected,
+  //   //   excludedIngredients : this.recepieService.filters[4].selected
+  //   // }
+  // )
+  // }  
   
 }
 

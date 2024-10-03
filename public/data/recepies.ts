@@ -184,5 +184,35 @@ export class RecepiesData{
         tagE: 'Vegetarisch',
         tagN: 'schwäbisch',
         duration: 'über 30 min bis 1h'
+      }, {
+        id: 5,
+        name: 'Zucchinisuppe', 
+        picture: '../assets/images/Zucchinisuppe.jpg',
+        time: 60, //min
+        person: 4,
+        ingredients: [
+          item(ingredients.zucchini, 700, Unit.g),
+          item(ingredients.kartoffeln, 200, Unit.g),
+          item(ingredients.zwiebeln, 2),
+
+          item(ingredients.knoblauchzehen, 2),
+          item(ingredients.ingwer, 1),
+          item(ingredients.gemüsebrühe, 600, Unit.ml),
+          item(ingredients.weißwein, 1, Unit.nb),
+          item(ingredients.salz, 1, Unit.nb),
+          item(ingredients.pfeffer, 1, Unit.nb),
+          item(ingredients.öl, 1, Unit.nb),
+        ],
+        instruction: [
+          'Die Zucchini, wahlweise gelb oder grün, halbieren und, falls voranden, die großen Kerne entfernen. Die Zucchinis, Kartoffeln, Zwiebeln sowie der Knoblauch und Ingwer klein schneiden.', 
+          'Die Kartoffeln in einem Topf mit etwas Öl anbraten. Nach ein paar Minuten die Zwiebeln und die Zucchini dazu geben. Kurz dannach auch noch den Knoblauch und Ingwer mit anbraten.',
+          'Mit der Gemüsebrühe und dem Weißwein das angebratene Gemüse ablöschen und köcheln lassen.',
+          'Wenn die Zutaten gar sind, die Suppe mit einem Pürierstab fein pürieren und mit Salz und Pfeffer abschmecken.', 
+          'Zu der Suppe passen Backerbsen gut.'
+        ],
+        author: 'Von Gaby Amann',
+        tagE: 'Vegan',
+        tagN: '',
+        duration: 'über 30 min bis 1h'
       }, 
 ]}

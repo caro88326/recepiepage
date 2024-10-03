@@ -1,0 +1,82 @@
+<div style="display: flex; flex-direction: column;">
+    <div class="head">
+        <div class="head-text">
+            <div class="cart-text">Warenkorb</div>
+            <div class="recepie-number">XX Rezepte</div>
+        </div>
+        <p-button
+            class="button-delete-all"
+            severity="success"
+            text="true"
+            icon="pi pi-trash"/>
+    </div>
+    <div class="recepie-section">
+        @for (recepie of recepies; track $index) {
+        <div class="recepie-list">
+            <div>
+                <img 
+                    class="food-picture-scss" 
+                    [src]="recepie.picture" 
+                    alt="Exterior photo of {{recepie.picture}}">
+            </div>
+            <div class="recepie-titel-data">
+                <div class="recepie-titel-scss">
+                    {{recepie.name}}
+                </div>
+                <div class="recepie-data-scss">
+                    <div class="recepie-time-person">
+                        <div class="recepie-time-scss">
+                            {{formatTime(recepie.time)}}
+                        </div>
+                        <div class="recepie-person-scss">
+                            {{recepie.person}}
+                        </div>
+                    </div>  
+                    <div class="all-tags">
+                        <p-tag 
+                        severity="success" 
+                        value="{{recepie.tagN}}" 
+                        [hidden] = "recepie.tagN  === ''" 
+                    />
+                    <p-tag 
+                        severity="success" 
+                        value="{{recepie.tagE}}" 
+                        [hidden] = "recepie.tagE  === ''"
+                    />
+                    </div>
+                </div>
+            </div>
+            <p-divider layout="vertical"/>
+            <div class="cart-button-section">
+                <p-button 
+                    icon="pi pi-user-edit"
+                    severity="success" 
+                    [text]="true" 
+                    (onClick)="op.toggle($event)"/>
+                <p-button 
+                    icon="pi pi-trash"
+                    severity="success" 
+                    [text]="true"/>
+                <p-overlayPanel #op>
+                    <p-inputNumber 
+                    [(ngModel)]="inputValue"
+                    inputId="integeronly"
+                    mode="decimal"
+                    inputId="minmax"
+                    [min]="1" 
+                    [max]="100" 
+                    placeholder="{{recepie.person}}"
+                    size="1"
+                    /> 
+                    <p-button 
+                        icon="pi pi-check"
+                        severity="success" 
+                        text="true"
+                        (onClick)="op.hide()" />
+                        <!-- (onClick)="updatePerson()"  -->
+                </p-overlayPanel>
+            </div>
+        </div>
+        }
+    </div>
+</div>
