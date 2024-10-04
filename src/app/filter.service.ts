@@ -15,9 +15,9 @@ export class FilterService {
   
   filters = signal<(NewFiltersInterfaceTags | NewFiltersInterfaceIngs) []>([])
 
-  duration = Array.from(new Set(this.allRecepies.map(recepie => recepie.duration).filter(tag => tag !== ''))).sort()
-  tagE = Array.from(new Set(this.allRecepies.map(recepie => recepie.tagE).filter(tag => tag !== '')))
-  tagN = Array.from(new Set(this.allRecepies.map(recepie => recepie.tagN).filter(tag => tag !== '')))
+  duration = Array.from(new Set(this.allRecepies.map(recepie => recepie.duration).filter(tag => tag !== '')))
+  tagE = Array.from(new Set(this.allRecepies.map(recepie => recepie.tagE).filter(tag => tag !== ''))).sort()
+  tagN = Array.from(new Set(this.allRecepies.map(recepie => recepie.tagN).filter(tag => tag !== ''))).sort()
   allIngredients = getAllIngredients().map(i => i.rep).sort()
   allSelectedFilters : string [] = []
   
@@ -77,7 +77,6 @@ export class FilterService {
         return value.name.toLocaleLowerCase().includes(newSearchTerm.toLocaleLowerCase()) 
       })
       this.filteredRecepies.set(filtered)
-      console.log(this.filters)
     }
 
     applyFilter (newFilters : (NewFiltersInterfaceTags | NewFiltersInterfaceIngs) []) {
@@ -86,7 +85,7 @@ export class FilterService {
         for (let filter of this.filters()) {
           if (filter.groups === 'Dauer' && filter.selected === true && !filter.value.includes(recepie.duration)) return false
           if (filter.groups === 'Ernährung' && filter.selected === true && !filter.value.includes(recepie.tagE)) return false
-          if (filter.groups === 'Nationalität' && filter.selected === true && !filter.value.includes(recepie.tagN) && filter.value.length === 0) return false
+          if (filter.groups === 'Nationalität' && filter.selected === true && !filter.value.includes(recepie.tagN)) return false
           const ingredients = recepie.ingredients.map(item => item.ingredient.rep)
           if (filter.selected === 'include' && !ingredients.includes(filter.value)) return false
           if (filter.selected === 'exclude' && ingredients.includes(filter.value)) return false

@@ -10,16 +10,16 @@ export class RecepiesData{
     //   time: 0000, //min
     //   person: 00,
     //   ingredients: [
-      // item(ingredients.zutat, 000),
-  // ]
+    //    item(ingredients.zutat, 000),
+    //   ],
     //   instruction: [
     //     'text', 
     //     'text',
     //   ],
-    //   author: 'Aus...
+    //   author: 'Aus...',
     //   tagE: 'Fleisch',
     //   tagN: 'chinesisch',
-    //   duration: 'bis zu 30 min', 'über 30 min bis 1h', 'über 1h'
+    //   duration: 'bis zu 30 min', 'über 30 min bis 1 h', 'über 1 h'
     // }, 
 
     {
@@ -54,7 +54,7 @@ export class RecepiesData{
       author : 'Genius Rezeptewelt: Gastrezept - Klassische Dumplings von Ute',
       tagE: 'Fleisch',
       tagN: 'chinesisch',
-      duration: 'über 1h'
+      duration: 'über 1 h '
     }, 
     
     
@@ -183,7 +183,7 @@ export class RecepiesData{
         author: 'Teigrezept aus "Emmi kocht einfach" "Omas Spätzle Rezept - Spätzleteig selber machen"',
         tagE: 'Vegetarisch',
         tagN: 'schwäbisch',
-        duration: 'über 30 min bis 1h'
+        duration: 'über 30 min bis 1 h'
       }, {
         id: 5,
         name: 'Zucchinisuppe', 
@@ -213,6 +213,6 @@ export class RecepiesData{
         author: 'Von Gaby Amann',
         tagE: 'Vegan',
         tagN: '',
-        duration: 'über 30 min bis 1h'
+        duration: 'über 30 min bis 1 h'
       }, 
 ]}

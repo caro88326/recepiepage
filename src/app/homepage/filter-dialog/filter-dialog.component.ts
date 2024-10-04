@@ -36,6 +36,7 @@ export class FilterDialogComponent {
   private readonly nationalität = 2
   private readonly mit = 3
   private readonly ohne = 4
+ 
 
   // Dialog 
   @Input() FilterDialog : boolean = true;
@@ -54,6 +55,7 @@ export class FilterDialogComponent {
       { label : 'Ohne', options : [], selected : [] },
     ]
     this.filterCopy = this.filterService.getFilters()
+    console.log('filterCopy', this.filterCopy)
     for (let filter of this.filterCopy){
       for (let listbox of this.listboxFilters){
         if (filter.groups === listbox.label){
@@ -65,6 +67,15 @@ export class FilterDialogComponent {
         if (filter.groups === 'Zutaten' && listbox.label === 'Ohne') {
           listbox.options.push(filter.value)
         } 
+        if (filter.groups === listbox.label && filter.selected === true) {
+          listbox.selected.push(filter.value)
+        }
+        if (filter.groups === 'Zutaten' && listbox.label === 'Mit' && filter.selected === 'include') {
+          listbox.selected.push(filter.value)
+        }
+        if (filter.groups === 'Zutaten' && listbox.label === 'Ohne' && filter.selected === 'exclude') {
+          listbox.selected.push(filter.value)
+        }
       }
     }
     this.selectedFilter()
@@ -73,15 +84,18 @@ export class FilterDialogComponent {
   updateDialogVisible ():void {
     this.FilterDialog = false;
     this.FilterDialogChange.emit(this.FilterDialog)
-    
   }
 
   selectedFilter(){
     // selected filter on top of the Listbox
+    console.log('Mit','before', this.listboxFilters[3].options)
+    console.log('Ohne','before', this.listboxFilters[4].options)
     for (let i of [0,1,2,3,4]) {
       let notSelected = this.listboxFilters[i].options.filter(ings => !this.listboxFilters[i].selected.includes(ings))
       this.listboxFilters[i].options = [...this.listboxFilters[i].selected.sort(), ...notSelected.sort()]
     }
+    console.log('Mit','after', this.listboxFilters[3].options)
+    console.log('Ohne','after', this.listboxFilters[4].options)
 
     // create Tags in the Dialog
     let filterOhne = this.listboxFilters[this.ohne].selected.map(i => i = 'ohne '+ i)
@@ -100,13 +114,19 @@ export class FilterDialogComponent {
         this.listboxFilters[i[0]].options = [...this.listboxFilters[i[0]].options, ...addingValues].sort()
       }
     }
+
+    // selected filter on top of the Listbox
+    for (let i of [0,1,2,3,4]) {
+      let notSelected = this.listboxFilters[i].options.filter(ings => !this.listboxFilters[i].selected.includes(ings))
+      this.listboxFilters[i].options = [...this.listboxFilters[i].selected.sort(), ...notSelected.sort()]
+    }
   }
 
   saveFilter (){
-    let filters : (NewFiltersInterfaceTags | NewFiltersInterfaceIngs) [] = []
+    let filterTags : NewFiltersInterfaceTags [] = []
     for (let listbox of this.listboxFilters.slice(0, 3)){
       for (let filter of listbox.options) {
-        filters.push({
+        filterTags.push({
           groups : listbox.label,
           value : filter,
           selected : listbox.selected.includes(filter)
@@ -115,32 +135,49 @@ export class FilterDialogComponent {
     }
 
     let mit = this.listboxFilters[this.mit]
-    let ohne = this.listboxFilters[this.ohne]
+    let ohne = this.listboxFilters[this.ohne]    
+    let filterIngs : NewFiltersInterfaceIngs [] = []
 
-    for (let filter of mit.options){
+    for (let filter of mit.options) {
       let s : 'include' | 'neutral' | 'exclude' = 'neutral'
       if (mit.selected.includes(filter)) {
         s = 'include'
       }
-      filters.push({
-        groups : 'Zutaten',
-        value : filter,
-        selected : s
-      })}
-
-    for (let filter of ohne.options){
-      let s : 'include' | 'neutral' | 'exclude' = 'neutral'
-      if (ohne.selected.includes(filter)) {
-        s = 'exclude'
-      }
-      filters.push({
+      filterIngs.push({
         groups : 'Zutaten',
         value : filter,
         selected : s
       })
     }
 
+    for (let filter of ohne.options) {
+      let s : 'include' | 'neutral' | 'exclude' = 'neutral'
+      if (ohne.selected.includes(filter)) {
+        s = 'exclude'
+      }
+
+      if (!filterIngs.find(f => f.value === filter)){
+        filterIngs.push({
+          groups : 'Zutaten',
+          value : filter,
+          selected : s
+        })}
+      
+      for (let f of filterIngs) {
+        if (f.value === filter && s === 'exclude') {
+          f = {
+            groups : 'Zutaten',
+            value : filter,
+            selected : s
+          }
+        }
+      }   
+    }
+
+    let filters : (NewFiltersInterfaceTags | NewFiltersInterfaceIngs) [] = [...filterTags, ...filterIngs.sort()]
+
     this.filterService.applyFilter(filters)
+
   }
 
   deleteFilter(){
@@ -163,21 +200,23 @@ export class FilterDialogComponent {
           value : filter,
           selected : false
         })
-      }
-      for (let filter of this.listboxFilters[this.mit].options){
+      }}
+    for (let filter of this.listboxFilters[this.mit].options){
+      filters.push({
+        groups : 'Zutaten',
+        value : filter,
+        selected : 'neutral'
+      })}
+
+    for (let filter of this.listboxFilters[this.ohne].options){
+      if (!filters.find(f => f.value === filter)){
         filters.push({
           groups : 'Zutaten',
           value : filter,
           selected : 'neutral'
         })}
-
-        for (let filter of this.listboxFilters[this.ohne].options){
-          filters.push({
-            groups : 'Zutaten',
-            value : filter,
-            selected : 'neutral'
-          })}
       }
-    this.filterService.applyFilter(filters)
+
+    this.filterService.applyFilter(filters.sort())
   }
 }
