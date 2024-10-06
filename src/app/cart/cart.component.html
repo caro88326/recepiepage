@@ -4,12 +4,20 @@
             <div class="cart-text">Warenkorb</div>
             <div class="recepie-number"> {{numberOfRecepies()}}</div>
         </div>
+        <div class="header-buttons">
+            <p-button
+            class="button"
+            severity="success"
+            label="Einkaufsliste erstellen"
+            icon="pi pi-list-check"
+            />
         <p-button
-            class="button-delete-all"
+            class="button"
             severity="success"
             text="true"
             icon="pi pi-trash"
             (onClick)="recepieService.removeAllFromCart()"/>
+        </div>
     </div>
     <div class="recepie-section">
         @for (recepie of recepieService.cart(); track $index) {

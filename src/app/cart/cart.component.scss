@@ -21,11 +21,16 @@
             font-weight: 100;
         }
     }    
-    
-    .button-delete-all {
+
+    .header-buttons {
         display: flex;
-        padding: 1rem 1.5rem;
-        
+        flex-direction: row;
+
+        .button {
+            display: flex;
+            padding: 1rem 1.5rem;
+            padding-left: 0rem;
+        }
     }
 }
 .recepie-section {
