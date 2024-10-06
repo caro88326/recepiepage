@@ -2,7 +2,7 @@
     <div class="head">
         <div class="head-text">
             <div class="cart-text">Warenkorb</div>
-            <div class="recepie-number">XX Rezepte</div>
+            <div class="recepie-number"> {{numberOfRecepies()}}</div>
         </div>
         <p-button
             class="button-delete-all"
@@ -13,7 +13,7 @@
     </div>
     <div class="recepie-section">
         @for (recepie of recepieService.cart(); track $index) {
-        <div class="recepie-list">
+        <div class="recepie-list" (click)="getSelectedRecepie(recepie)">
             <div class="recepie" [routerLink]="['/details', recepie.id]">
                 <div>
                     <img 
@@ -70,15 +70,15 @@
                     inputId="minmax"
                     [min]="1" 
                     [max]="100" 
-                    placeholder="{{recepie.person}}"
+
                     size="1"
                     /> 
                     <p-button 
                         icon="pi pi-check"
                         severity="success" 
                         text="true"
-                        (onClick)="op.hide()" />
-                        <!-- (onClick)="updatePerson()"  -->
+                        (onClick)="op.hide()" 
+                        (onClick)="updatePerson()" />
                 </p-overlayPanel>
             </div>
         </div>

@@ -28,7 +28,6 @@ export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   recepieService = inject(RecepieService);
   recepie: RecepieInterface;
-  ogRecepie: RecepieInterface;
   timeUnit = formatTime;
   cols! : {field : string, header : string} [];
   ing! : any [];
@@ -36,9 +35,7 @@ export class DetailsComponent {
 
   constructor (private messageService: MessageService) {
     const recepieId = Number(this.route.snapshot.params['id'])
-    this.ogRecepie = this.recepieService.getRecepiesById(recepieId)!;
     this.recepie = this.recepieService.getRecepiesById(recepieId)!; // deep copy for local copy
-
     if (this.recepieService.cart().find(r => r.id === this.recepie.id)){
       this.recepie = this.recepieService.cart().find(r => r.id === this.recepie.id)!
     }
@@ -63,7 +60,8 @@ export class DetailsComponent {
   }
   
   updatePerson() {
-    this.recepie = changeIngredientServings(this.recepie, this.ogRecepie, this.inputValue)
+    let ogRecepie : RecepieInterface =  this.recepieService.allRecepies.find(r => r.id === this.recepie.id)!
+    this.recepie = changeIngredientServings(this.recepie, ogRecepie, this.inputValue)
     this.ing = this.recepie.ingredients.map(i => {
       return {
         quantity : i.quantity, 
@@ -73,7 +71,7 @@ export class DetailsComponent {
     })
 
     if (this.recepieService.cart().find(r => r.id === this.recepie.id)){
-      this.recepie = changeIngredientServings(this.recepie, this.ogRecepie, this.inputValue)
+      this.recepie = changeIngredientServings(this.recepie, ogRecepie, this.inputValue)
       this.recepieService.addToCart(this.recepie)
     }
   }

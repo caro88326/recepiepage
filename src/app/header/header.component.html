@@ -1,12 +1,21 @@
 <div class="header">
     <p [routerLink]="['']">Einkaufen leichtgemacht</p>
     <div style="flex: 1;"></div>
-    <i 
+    @if (recepieService.cartLength()>0){
+        <i 
         class="pi pi-shopping-bag" 
-        pBadge value="2" 
+        pBadge value="{{recepieService.cartLength()}}" 
         severity="success" 
         [routerLink]="['cart']">
     </i>
+    } 
+    @else {
+        <i 
+        class="pi pi-shopping-bag" 
+        severity="success" 
+        [routerLink]="['cart']">
+    </i>
+    }
     <i class="pi pi-list-check">
     </i>
 </div>

@@ -2,7 +2,6 @@ import { Injectable, signal } from '@angular/core';
 
 import { RecepiesData } from '../../public/data/recepies';
 import { RecepieInterface } from './interfaces/recepie-interface';
-import { changeIngredientServings } from './utils/recepieUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +9,14 @@ import { changeIngredientServings } from './utils/recepieUtils';
 
 export class RecepieService {
 
-  allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
+  readonly allRecepies = RecepiesData.recepieList
+  // allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
   cart = signal<RecepieInterface[]>([])
 
   // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
     // this returns a deep copy of the object
-    var obj = this.allRecepies().find(recepie => recepie.id === id);
+    var obj = this.allRecepies.find(recepie => recepie.id === id);
     return JSON.parse(JSON.stringify(obj));
     
   }
@@ -36,6 +36,7 @@ export class RecepieService {
         return [...recepies]
       })
     }
+    this.cartLength()
   }
 
 
@@ -50,6 +51,10 @@ export class RecepieService {
 
   removeAllFromCart() {
     this.cart.set([])
+  }
+
+  cartLength () {
+    return this.cart().length
   }
 
   // // Change dataset
