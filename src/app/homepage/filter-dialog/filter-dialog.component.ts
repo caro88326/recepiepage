@@ -55,7 +55,6 @@ export class FilterDialogComponent {
       { label : 'Ohne', options : [], selected : [] },
     ]
     this.filterCopy = this.filterService.getFilters()
-    console.log('filterCopy', this.filterCopy)
     for (let filter of this.filterCopy){
       for (let listbox of this.listboxFilters){
         if (filter.groups === listbox.label){
@@ -88,14 +87,10 @@ export class FilterDialogComponent {
 
   selectedFilter(){
     // selected filter on top of the Listbox
-    console.log('Mit','before', this.listboxFilters[3].options)
-    console.log('Ohne','before', this.listboxFilters[4].options)
     for (let i of [0,1,2,3,4]) {
       let notSelected = this.listboxFilters[i].options.filter(ings => !this.listboxFilters[i].selected.includes(ings))
       this.listboxFilters[i].options = [...this.listboxFilters[i].selected.sort(), ...notSelected.sort()]
     }
-    console.log('Mit','after', this.listboxFilters[3].options)
-    console.log('Ohne','after', this.listboxFilters[4].options)
 
     // create Tags in the Dialog
     let filterOhne = this.listboxFilters[this.ohne].selected.map(i => i = 'ohne '+ i)

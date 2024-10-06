@@ -79,7 +79,7 @@ export class RecepiesData{
         item(ingredients.paprikaEdelsüß, 1, Unit.TL),
         item(ingredients.garamMasala, 1, Unit.TL),
         item(ingredients.gemüsebrühe, 780, Unit.ml),
-        item(ingredients.zitronensaft, 2||3, Unit.EL),
+        item(ingredients.zitronensaft, 2, Unit.EL),
         item(ingredients.salz, 1, Unit.nb),
         item(ingredients.pfeffer, 1, Unit.nb),
         item(ingredients.olivenöl, 1, Unit.nb),

@@ -8,31 +8,41 @@ import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import { changeIngredientServings, formatTime } from '../utils/recepieUtils';
 
+
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule, InputNumberModule, FormsModule, RouterModule],
+  imports: [CommonModule, ButtonModule, TableModule,  DividerModule, OverlayPanelModule, InputNumberModule, FormsModule, ToastModule, RouterModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
-  
   route: ActivatedRoute = inject(ActivatedRoute);
   recepieService = inject(RecepieService);
   recepie: RecepieInterface;
+  ogRecepie: RecepieInterface;
   timeUnit = formatTime;
   cols! : {field : string, header : string} [];
   ing! : any [];
   inputValue! : number 
 
-  constructor () {
+  constructor (private messageService: MessageService) {
     const recepieId = Number(this.route.snapshot.params['id'])
+    this.ogRecepie = this.recepieService.getRecepiesById(recepieId)!;
     this.recepie = this.recepieService.getRecepiesById(recepieId)!; // deep copy for local copy
+
+    if (this.recepieService.cart().find(r => r.id === this.recepie.id)){
+      this.recepie = this.recepieService.cart().find(r => r.id === this.recepie.id)!
+    }
+    this.inputValue = this.recepie.person
   }
   
   ngOnInit() {
@@ -49,19 +59,51 @@ export class DetailsComponent {
         ingredient : i.ingredient.rep
       }
     })
-
     this.ing = ingredientOfRecepie
-
-
-    // this.recepieService.changeIngredientServings(this.ing, this.inputValue)
   }
   
   updatePerson() {
-    // falls in cart: in cart ändern
-    // falls nicht, lokale copie hier ändern
-    this.ing = changeIngredientServings(this.ing, this.inputValue, this.recepie.person) //Muss darüber stehen, anson
-    this.recepie.person = this.inputValue
-    // this.recepie = this.recepieService.changeServings(this.recepie.id, this.inputValue)!;
+    this.recepie = changeIngredientServings(this.recepie, this.ogRecepie, this.inputValue)
+    this.ing = this.recepie.ingredients.map(i => {
+      return {
+        quantity : i.quantity, 
+        unit : i.unit as string,
+        ingredient : i.ingredient.rep
+      }
+    })
 
+    if (this.recepieService.cart().find(r => r.id === this.recepie.id)){
+      this.recepie = changeIngredientServings(this.recepie, this.ogRecepie, this.inputValue)
+      this.recepieService.addToCart(this.recepie)
+    }
+  }
+
+  // Verändert die Anzeige, je nach dem, ob das Rezept im Cart liegt
+  recepieInCartLabel(){
+    if (!this.recepieService.cart().find(r => r.id === this.recepie.id)){
+      return "In den Warenkorb"
+    }
+    else if (this.recepieService.cart().find(r => r.id === this.recepie.id))  {
+      return "Aus dem Warenkorb löschen"
+    }
+    return "Error"
+  }
+
+  addRemoveFromCart(){
+    if (!this.recepieService.cart().find(r => r.id === this.recepie.id)){
+      return this.recepieService.addToCart(this.recepie)
+    }
+    else if (this.recepieService.cart().find(r => r.id === this.recepie.id))  {
+      return this.recepieService.removeFromCart(this.recepie)
+    }
+  }
+
+  showToast(){
+    if (!this.recepieService.cart().find(r => r.id === this.recepie.id)){
+      return this.messageService.add({ severity: 'error', summary: 'Update', detail: 'Rezept wurde aus dem Warenkorb entfernt.' });
+    }
+    else if (this.recepieService.cart().find(r => r.id === this.recepie.id))  {
+      return this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Rezept wurde zum Warenkorb hinzugefügt.' });
+    }
   }
 }

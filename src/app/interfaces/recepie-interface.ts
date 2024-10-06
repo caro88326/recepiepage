@@ -13,3 +13,4 @@ export interface RecepieInterface {
     tagN: string,
     duration: string
 }
+

@@ -1,4 +1,4 @@
-<div style="display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: column; max-width: 1400px;">
     <div class="head">
         <div class="head-text">
             <div class="cart-text">Warenkorb</div>
@@ -8,43 +8,47 @@
             class="button-delete-all"
             severity="success"
             text="true"
-            icon="pi pi-trash"/>
+            icon="pi pi-trash"
+            (onClick)="recepieService.removeAllFromCart()"/>
     </div>
     <div class="recepie-section">
-        @for (recepie of recepies; track $index) {
+        @for (recepie of recepieService.cart(); track $index) {
         <div class="recepie-list">
-            <div>
-                <img 
-                    class="food-picture-scss" 
-                    [src]="recepie.picture" 
-                    alt="Exterior photo of {{recepie.picture}}">
-            </div>
-            <div class="recepie-titel-data">
-                <div class="recepie-titel-scss">
-                    {{recepie.name}}
+            <div class="recepie" [routerLink]="['/details', recepie.id]">
+                <div>
+                    <img 
+                        class="food-picture-scss" 
+                        [src]="recepie.picture" 
+                        alt="Exterior photo of {{recepie.picture}}">
                 </div>
-                <div class="recepie-data-scss">
-                    <div class="recepie-time-person">
-                        <div class="recepie-time-scss">
-                            {{formatTime(recepie.time)}}
-                        </div>
-                        <div class="recepie-person-scss">
-                            {{recepie.person}}
-                        </div>
-                    </div>  
-                    <div class="all-tags">
+                <div class="recepie-titel-data">
+                    <div class="recepie-titel-scss">
+                        {{recepie.name}}
+                    </div>
+                    <div class="recepie-data-scss">
+                        <div class="recepie-time-person">
+                            <div class="recepie-time-scss">
+                                {{formatTime(recepie.time)}}
+                            </div>
+                            <div class="recepie-person-scss">
+                                {{recepie.person}}
+                            </div>
+                        </div>  
+                        <div class="all-tags">
+                            <p-tag 
+                            severity="success" 
+                            value="{{recepie.tagN}}" 
+                            [hidden] = "recepie.tagN  === ''" 
+                        />
                         <p-tag 
-                        severity="success" 
-                        value="{{recepie.tagN}}" 
-                        [hidden] = "recepie.tagN  === ''" 
-                    />
-                    <p-tag 
-                        severity="success" 
-                        value="{{recepie.tagE}}" 
-                        [hidden] = "recepie.tagE  === ''"
-                    />
+                            severity="success" 
+                            value="{{recepie.tagE}}" 
+                            [hidden] = "recepie.tagE  === ''"
+                        />
+                        </div>
                     </div>
                 </div>
+
             </div>
             <p-divider layout="vertical"/>
             <div class="cart-button-section">
@@ -56,7 +60,8 @@
                 <p-button 
                     icon="pi pi-trash"
                     severity="success" 
-                    [text]="true"/>
+                    [text]="true"
+                    (onClick)="removeFromCart(recepie)"/>
                 <p-overlayPanel #op>
                     <p-inputNumber 
                     [(ngModel)]="inputValue"
