@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
-import { changeIngredientServings, formatTime } from '../utils/recepieUtils';
+import { changeIngredientServings, formatIngredientsForView, formatTime, ingredientsOfRecepies } from '../utils/recepieUtils';
 
 
 @Component({
@@ -49,26 +49,27 @@ export class DetailsComponent {
       { field: 'ingredient', header: 'Zutat' },
     ];
 
-    const ingredientOfRecepie = this.recepie.ingredients.map(i => {
-      return {
-        quantity : i.quantity, 
-        unit : i.unit as string,
-        ingredient : i.ingredient.rep
-      }
-    })
-    this.ing = ingredientOfRecepie
+    // const ingredientOfRecepie = this.recepie.ingredients.map(i => {
+    //   return {
+    //     quantity : i.quantity, 
+    //     unit : i.unit as string,
+    //     ingredient : i.ingredient.rep
+    //   }
+    // })
+    this.ing = formatIngredientsForView(this.recepie.ingredients)!
   }
   
   updatePerson() {
     let ogRecepie : RecepieInterface =  this.recepieService.allRecepies.find(r => r.id === this.recepie.id)!
     this.recepie = changeIngredientServings(this.recepie, ogRecepie, this.inputValue)
-    this.ing = this.recepie.ingredients.map(i => {
-      return {
-        quantity : i.quantity, 
-        unit : i.unit as string,
-        ingredient : i.ingredient.rep
-      }
-    })
+    this.ing = formatIngredientsForView(this.recepie.ingredients)
+    // this.recepie.ingredients.map(i => {
+    //   return {
+    //     quantity : i.quantity, 
+    //     unit : i.unit as string,
+    //     ingredient : i.ingredient.rep
+    //   }
+    // })
 
     if (this.recepieService.cart().find(r => r.id === this.recepie.id)){
       this.recepie = changeIngredientServings(this.recepie, ogRecepie, this.inputValue)

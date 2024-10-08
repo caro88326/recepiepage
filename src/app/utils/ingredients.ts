@@ -67,6 +67,7 @@ function createIngredient(rep : string, tex : Texture, group : FoodGroup, defaul
     return { rep : rep, texture : tex, group : group, defaultUnit : defaultUnit }
 }
 
+// BEI EINFÜHRUNG  NEUER KATEGORIEN, AUCH BEI CREATELIST ANPASSEN
 export const ingredients = {
     // Wasser
     wasser :        createIngredient('Wasser', Texture.fluid, FoodGroup.water, Unit.ml), 
@@ -104,7 +105,7 @@ export const ingredients = {
     eiweiß :        createIngredient('Eiweiß', Texture.notDefined, FoodGroup.eggs, Unit.stk),
     eigelb :        createIngredient('Eigelb', Texture.notDefined, FoodGroup.eggs, Unit.stk),
 
-    // Konservendosen
+    // Konserven
     kokosmilch :    createIngredient('Kokosnussmilch', Texture.notDefined, FoodGroup.cans, Unit.dose),
     passierteTomaten : createIngredient('Passierte Tomaten', Texture.notDefined, FoodGroup.cans),
 

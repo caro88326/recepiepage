@@ -1,0 +1,22 @@
+<div style="display: flex; flex-direction: column;">
+    @for (group of viewIngredients; track $index) {
+        @if (group.ings.length>0) {
+            <div>
+                {{group.titel}}
+            </div>  
+            @for (ingredient of group.ings; track $index) {
+                <div style="display: flex; flex-direction: row;">
+                    <div>
+                        {{ingredient.quantity}}
+                    </div>
+                    <div>
+                        {{ingredient.unit}}
+                    </div>
+                    <div>
+                        {{ingredient.ingredient}}
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
