@@ -79,102 +79,11 @@ export class CreateListComponent {
     this.gewürze.ings = Object.values(this.allIngredients).filter(ing => 
       ing.ingredient.group === FoodGroup.spice)
 
-
-
-
-
-
-  //   let groups = [
-  //     {title : 'Obst und Gemüse',  groups : [FoodGroup.vegetables, FoodGroup.fruit]}
-  // ]
-
-  //   for (let group of groups) {
-  //     let g : ListIngInterface = {
-  //       titel : 'Obst und Gemüse', 
-  //       ings: Object.values(this.allIngredients).filter(ing => 
-  //         ing.ingredient.group === FoodGroup.vegetables || ing.ingredient.group === FoodGroup.fruit)
-  //     }  
-  //     this.sortedIngredients.push(g)
-  //   }
-
-  //   let obstgemüse : ListIngInterface = {
-  //     titel : 'Obst und Gemüse', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.vegetables || ing.ingredient.group === FoodGroup.fruit)
-  //   }
-  //   this.sortedIngredients.push(obstgemüse)
-
-  //   let gebäck : ListIngInterface = {
-  //     titel : 'Gebäck', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.bakingProducts)
-  //   }
-  //   this.sortedIngredients.push(gebäck)
-
-  //   let lebensmittel : ListIngInterface = {
-  //     titel : 'Lebensmittel', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.backedGoods || ing.ingredient.group === FoodGroup.dryProducts 
-  //       || ing.ingredient.group === FoodGroup.eggs || ing.ingredient.group === FoodGroup.nutsAndSeeds 
-  //       || ing.ingredient.group === FoodGroup.readyMadeDough )
-  //   }
-  //   this.sortedIngredients.push(lebensmittel)
-
-  //   let konserven : ListIngInterface = {
-  //     titel : 'Konserven', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.cans)
-  //   }
-  //   this.sortedIngredients.push(konserven)
-
-  //   let kühlregal : ListIngInterface = {
-  //     titel : 'Kühlregal', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.dairyProducts)
-  //   }
-  //   this.sortedIngredients.push(kühlregal)
-
-  //   let fleischfisch : ListIngInterface = {
-  //     titel : 'Fleisch und Fisch', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.meat || ing.ingredient.group === FoodGroup.fish)
-  //   }
-  //   this.sortedIngredients.push(fleischfisch)
-
-  //   let snacks : ListIngInterface = {
-  //     titel : 'Snacks', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.saltySnacks || ing.ingredient.group === FoodGroup.sweets)
-  //   }
-  //   this.sortedIngredients.push(snacks)
-
-  //   let getränke : ListIngInterface = {
-  //     titel : 'Getränke', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.water || ing.ingredient.group === FoodGroup.juice)
-  //   }
-  //   this.sortedIngredients.push(getränke)
-
-  //   let gewürze : ListIngInterface = {
-  //     titel : 'Gewürze', 
-  //     ings: Object.values(this.allIngredients).filter(ing => 
-  //       ing.ingredient.group === FoodGroup.spice)
-  //   }
-    // console.log('before',this.sortedIngredients)
-    // console.log(gewürze)
-
     this.viewIngredients = this.sortedIngredients
     for (let group of this.viewIngredients) {
       group.ings = formatIngredientsForView(group.ings)
-      console.log('group',group.ings)
-      for (let i of group.ings) {
-        console.log(i)
-      }
     }
 
-
-
-    // console.log('after',this.viewIngredients)
 
   }
 }
