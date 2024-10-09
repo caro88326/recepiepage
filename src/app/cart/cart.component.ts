@@ -9,7 +9,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
-import { changeIngredientServings } from '../utils/recepieUtils';
+import { changeIngredientServings, numberOfRecepies } from '../utils/recepieUtils';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class CartComponent {
   formatTime = formatTime
   recepie! : RecepieInterface
   inputValue! : number 
+  numberOfRecepies = numberOfRecepies()
 
   getSelectedRecepie(recepieData : RecepieInterface) {
     this.recepie = recepieData
@@ -40,12 +41,12 @@ export class CartComponent {
     this.recepieService.removeFromCart(recepie)
   }
 
-  numberOfRecepies () {
-    if (this.recepieService.cartLength() ===  1) {
-      return '1 Rezept'
-    } else {
-      return this.recepieService.cartLength() + ' Rezepte'
-    }
-  }
+  // numberOfRecepies () {
+  //   if (this.recepieService.cartLength() ===  1) {
+  //     return '1 Rezept'
+  //   } else {
+  //     return this.recepieService.cartLength() + ' Rezepte'
+  //   }
+  // }
 
 }

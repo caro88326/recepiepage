@@ -1,22 +1,136 @@
-<div style="display: flex; flex-direction: column;">
+<div class="list">
+    <div class="head">
+        <div class="head-text">
+            <div class="cart-text">Einkaufsliste bearbeiten</div>
+            <div class="recepie-number"> {{numberOfRecepies}}</div>
+        </div>
+        <div class="header-buttons">
+            <p-button
+                class="button"
+                severity="success"
+                text="true"
+                icon="pi pi-arrow-left"
+                [routerLink]="['/cart']"
+                />
+            <p-button
+                class="button"
+                severity="success"
+                text="true"
+                icon="pi pi-arrow-right"
+                />
+        </div>
+    </div>
+
     @for (group of viewIngredients; track $index) {
-        @if (group.ings.length>0) {
-            <div>
-                {{group.titel}}
+        @if (group.ingredients.length>0) {
+            <div class="titel">
+                {{group.title}}
             </div>  
-            @for (ingredient of group.ings; track $index) {
-                <div style="display: flex; flex-direction: row;">
-                    <div>
-                        {{ingredient.quantity}}
+            @for (ingredient of group.ingredients; track $index) {
+                <div class="ingredients" (click)="getSelectedIng(ingredient)">
+                    <div class="left-section">
+                        <div class="quantity">
+                            {{ingredient.quantity}}
+                        </div>
+                        <div class="unit">
+                            {{ingredient.unit}}
+                        </div>
+                        <div class="ingredient">
+                            {{ingredient.ingredient}}
+                        </div>
                     </div>
                     <div>
-                        {{ingredient.unit}}
-                    </div>
-                    <div>
-                        {{ingredient.ingredient}}
+                        <p-button
+                            icon="pi pi-pencil"
+                            text="true"
+                            severity="success"
+                            (onClick)="op.toggle($event)"/>
+                        <p-button
+                            icon="pi pi-times"
+                            text="true"
+                            severity="success"
+                            (onClick)="getSelectedIng(ingredient)"
+                            (onClick)="removeIng()"
+                        />
                     </div>
                 </div>
+            }}}
+    <p-divider type="solid" align="center" [style]="{'color' : 'var(--titel-green)', 'font-size' : '1.5rem'}">Nicht Ausgewählt</p-divider>
+    @for (group of hiddelViewIngredients; track $index) {
+        @if (group.ingredients.length>0) {
+            <div class="titel">
+                {{group.title}}
+            </div>  
+            @for (ingredient of group.ingredients; track $index) {
+                <div (click)="getSelectedIng(ingredient)">
+                    <div class="ingredients">
+                        <div class="left-section">
+                            <div class="quantity">
+                                {{ingredient.quantity}}
+                            </div>
+                            <div class="unit">
+                                {{ingredient.unit}}
+                            </div>
+                            <div class="ingredient">
+                                {{ingredient.ingredient}}
+                            </div>
+                        </div>
+                        <div>
+                            <p-button
+                                icon="pi pi-pencil"
+                                text="true"
+                                severity="success"
+                                (onClick)="op.toggle($event)"/>
+                            <p-button
+                                icon="pi pi-plus"
+                                text="true"
+                                severity="success"
+                                (onClick)="getSelectedIng(ingredient)"
+                                (onClick)="addIng()"
+                            />
+                        </div>
+                    </div>
+                </div>
+
             }
         }
     }
+    <p-overlayPanel #op>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="edit-Ingredient">
+                <label for="quantity" class="label">Menge</label>
+                <p-inputNumber
+                    class="input"
+                    inputId="quantity"
+                    [(ngModel)]="quantityValue"
+                    />
+            </div>
+            <div class="edit-Ingredient">
+                <label for="unit" class="label">Einheit</label>
+                <p-dropdown 
+                    class="input"
+                    [options]="units"
+                    [(ngModel)]="selectedUnit"
+                    [filter]="true"
+                    id="unit"
+                     />
+            </div>
+            <div class="edit-Ingredient">
+                <label for="ing" class="label">Zutat</label>
+                <p-dropdown 
+                    class="input"
+                    [options]="i"
+                    [(ngModel)]="selectedI"
+                    [filter]="true"
+                    id="ing"
+                     />
+            </div>
+            <p-button 
+                severity="success"
+                label="Speichern"
+                (onClick)="saveEdit()"
+                (onClick)="op.hide()"
+                />
+        </div>
+    </p-overlayPanel>
 </div>

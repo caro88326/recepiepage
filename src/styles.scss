@@ -13,8 +13,13 @@ html, body {
     box-shadow: none !important;
   }
 
-  .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
-    background: none;
+.p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
+  background: none;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+  box-shadow: none;
+  border-color: #ced4da;
 }
 
 :root {

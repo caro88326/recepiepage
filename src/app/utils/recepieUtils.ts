@@ -1,5 +1,7 @@
 import { RecepieInterface } from "../interfaces/recepie-interface";
 import { FoodItem } from "./ingredients";
+import { RecepieService } from "../recepie.service";
+import { inject } from "@angular/core";
 
 export function changeIngredientServings(recepie : RecepieInterface, ogRecepie : RecepieInterface, inputValue : number){
   for (let i of recepie.ingredients){ 
@@ -34,4 +36,13 @@ export function formatIngredientsForView(ingredients : FoodItem []) {
       ingredient : i.ingredient.rep
     }
   })
+}
+
+export function numberOfRecepies () {
+  let recepieService = inject(RecepieService)
+  if (recepieService.cartLength() ===  1) {
+    return '1 Rezept'
+  } else {
+    return recepieService.cartLength() + ' Rezepte'
+  }
 }

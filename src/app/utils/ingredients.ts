@@ -10,7 +10,7 @@ export enum Unit {
     stk = 'Stk',
     pck = 'Pck',
     dose = 'Dose',
-    flasche = 'Flasche',
+    flasche = 'Fl',
     glas = 'Glas',
     nb = 'nb',
     bund = 'Bund',
@@ -54,12 +54,12 @@ export interface Ingredient {
     rep : string,
     texture : Texture,
     group : FoodGroup,
-    defaultUnit : Unit
+    defaultUnit : Unit,
 }
 
 export interface FoodItem {
     ingredient : Ingredient,
-    quantity : number
+    quantity : number,
     unit : Unit,
 }
 

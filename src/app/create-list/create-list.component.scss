@@ -1,0 +1,92 @@
+.head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .head-text{
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+
+
+        .cart-text {
+            font-size: 2rem;
+            padding: 1rem;
+            padding-left: 0rem;
+        }
+    
+        .recepie-number {
+            font-size: 1.5rem;
+            padding: 1rem;
+            font-weight: 100;
+        }
+    }    
+
+    .header-buttons {
+        display: flex;
+        flex-direction: row;
+
+        .button {
+            display: flex;
+            padding: 1rem 1.5rem;
+            padding-left: 0rem;
+        }
+    }
+}
+
+.list {
+    margin: 0rem 2rem;
+
+    .titel {
+        font-size: 1.3rem;
+        padding: 0.5rem 0rem;
+        color: var(--titel-green);
+    }
+    
+    .ingredients {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid gray;
+        border-radius: 0.4rem;
+        font-size: 1.1rem;
+        padding: 0.3rem 0.5rem;
+        margin: 0.2rem 0rem;        
+        justify-content: space-between;
+
+        .left-section{
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+            padding: 0rem 0.5rem;
+
+            .quantity{
+                width: 2rem;
+            }
+
+            .unit{
+                min-width: 2rem;
+            }
+            .ingredient{
+                flex: 1;
+            }
+        }
+    }
+
+    i {
+        padding: 0rem 0.5rem;
+        border: none;
+    }
+}
+
+.edit-Ingredient{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+    .label{
+        width: 4rem;
+    }
+}
+
