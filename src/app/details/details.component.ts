@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 
 import { RecepieService } from '../recepie.service';
 import { RecepieInterface } from '../interfaces/recepie-interface';
-import { changeIngredientServings, formatIngredientsForView, formatTime, ingredientsOfRecepies } from '../utils/recepieUtils';
+import { changeIngredientServings, formatIngredientsForView, formatTime } from '../utils/recepieUtils';
 
 
 @Component({

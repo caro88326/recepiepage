@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { RecepieService } from '../../recepie.service'; 
-import { SearchComponent } from '../search/search.component';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
+
 import { TagModule } from 'primeng/tag';
 import { ScrollTopModule } from 'primeng/scrolltop';
+
+import { RecepieService } from '../../recepie.service'; 
+import { SearchComponent } from '../search/search.component';
 import { formatTime } from '../../utils/recepieUtils';
 import { FilterService } from '../../filter.service';
 

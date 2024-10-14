@@ -111,6 +111,8 @@ export class RecepiesData{
         item(ingredients.butter, 2, Unit.EL),
         item(ingredients.sahne, 250),
         item(ingredients.pinienkerne, 50),
+        item(ingredients.geriebenerGratinkäse, 1, Unit.kg),// Test
+        item(ingredients.geriebenerGratinkäse, 5, Unit.ml),//Test
 
         item(ingredients.salz, 1, Unit.nb),
         item(ingredients.pfeffer, 1, Unit.nb),
@@ -169,9 +171,11 @@ export class RecepiesData{
           item(ingredients.wasser, 220),
           item(ingredients.zwiebeln, 5),
           item(ingredients.geriebenerGratinkäse, 250),
+          item(ingredients.butter, 1, Unit.kg), //für tests, dannach löschen
 
           item(ingredients.salz, 1, Unit.TL),
           item(ingredients.muskat, 1, Unit.nb),
+          item(ingredients.pfeffer,1 , Unit.kg) //für Test
         ], 
         instruction: [
           'Mehl, Eier Wasser, Salz und Muskat zu einem glatten Teig verrühren. ', 

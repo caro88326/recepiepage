@@ -9,7 +9,7 @@
                 class="button"
                 label="Neues Lebensmittel"  
                 severity="success"
-                (onClick)="op.toggle($event)"
+                (onClick)="hz.toggle($event)"
             />
             <p-button
                 class="button"
@@ -23,11 +23,15 @@
                 severity="success"
                 text="true"
                 icon="pi pi-arrow-right"
+                label="Speichern"
+                [routerLink]="['/shoppingList']"
+                
                 />
+                <!-- (onClick)="formatUnits(groups)" -->
         </div>
     </div>
 
-    @for (group of viewIngredients; track $index) {
+    @for (group of viewIngredients(); track $index) {
         @if (group.ingredients.length>0) {
             <div class="titel">
                 {{group.title}}
@@ -102,6 +106,44 @@
         }
     }
     <p-overlayPanel #op>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="edit-Ingredient">
+                <label for="quantity" class="label">Menge</label>
+                <p-inputNumber
+                    class="input"
+                    inputId="quantity"
+                    [(ngModel)]="quantityValue"
+                    />
+            </div>
+            <div class="edit-Ingredient">
+                <label for="unit" class="label">Einheit</label>
+                <p-dropdown 
+                    class="input"
+                    [options]="units"
+                    [(ngModel)]="selectedUnit"
+                    [filter]="true"
+                    id="unit"
+                     />
+            </div>
+            <div class="edit-Ingredient">
+                <label for="ing" class="label">Zutat</label>
+                <p-dropdown 
+                    class="input"
+                    [options]="i"
+                    [(ngModel)]="selectedI"
+                    [filter]="true"
+                    id="ing"
+                     />
+            </div>
+            <p-button 
+                severity="success"
+                label="Speichern"
+                (onClick)="saveEdit()"
+                (onClick)="op.hide()"
+                />
+        </div>
+    </p-overlayPanel>
+    <p-overlayPanel #hz>
         <div style="display: flex; flex-direction: column; gap: 1rem;">
             <div class="edit-Ingredient">
                 <label for="quantity" class="label">Menge</label>

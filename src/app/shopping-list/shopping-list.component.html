@@ -1,1 +1,38 @@
-<p>shopping-list works!</p>
+<div class="list">
+    <div class="head">
+        <div class="head-text">
+            <div class="cart-text">Einkaufsliste</div>
+            <div class="recepie-number"> {{numberOfRecepies}}</div>
+        </div>
+        <div class="header-buttons">
+            <p-button
+                class="button"
+                severity="success"
+                text="true"
+                icon="pi pi-arrow-left"
+                [routerLink]="['/createList']"
+                />
+        </div>
+    </div>
+
+    @for (group of shoppingIngredients(); track $index) {
+        @if (group.ingredients.length>0) {
+            <div class="titel">
+                {{group.title}}
+            </div>  
+            @for (ingredient of group.ingredients; track $index) {
+                <div class="ingredients">
+                    <div class="left-section">
+                        <div class="quantity">
+                            {{ingredient.quantity}}
+                        </div>
+                        <div class="unit">
+                            {{ingredient.unit}}
+                        </div>
+                        <div class="ingredient">
+                            {{ingredient.ingredient}}
+                        </div>
+                    </div>
+                </div>
+            }}}
+</div>

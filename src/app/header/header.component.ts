@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 import { RouterModule } from '@angular/router';
+
+import { BadgeModule } from 'primeng/badge';
+
 import { RecepieService } from '../recepie.service';
 
 @Component({

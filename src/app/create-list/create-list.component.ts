@@ -1,15 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
-import { RecepieService } from '../recepie.service';
 import { RouterModule } from '@angular/router';
-import { formatIngredientsForView, numberOfRecepies } from '../utils/recepieUtils';
-import { FoodGroup, FoodItem } from '../utils/ingredients';
+import { FormsModule } from '@angular/forms';
+
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { Unit, ingredients } from '../utils/ingredients';
+
+import { RecepieService } from '../recepie.service';
+import { formatIngredientsForView, numberOfRecepies } from '../utils/recepieUtils';
+import { Unit, ingredients, FoodGroup, FoodItem } from '../utils/ingredients';
 
 @Component({
   selector: 'app-create-list',
@@ -22,9 +23,11 @@ import { Unit, ingredients } from '../utils/ingredients';
 export class CreateListComponent {
   recepieService = inject(RecepieService)
   numberOfRecepies = numberOfRecepies()
+  // formatUnits = formatUnits
 
   allIngredients = signal<FoodItem[]>([])
-  viewIngredients : { title : string, ingredients : any[]}[] = []
+  viewIngredients = this.recepieService.selectedIngredients
+  // : { title : string, ingredients : any[]}[] = []
   hiddelViewIngredients : { title : string, ingredients : any[]}[] = []
 
   ing : any
@@ -44,8 +47,8 @@ export class CreateListComponent {
     { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
     { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
     { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
-    { title : 'Extra Hinzugefügt',      g : [],                                         ingredients : [], selected : true }
-  ]
+    { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }]
+  
 
   constructor() {
     // get all ingredients of the cart recepies
@@ -63,11 +66,19 @@ export class CreateListComponent {
             return [...ingredients]
         })
         } //TODO funktion die alle Einheiten umrechnet, sodass mehr zusammengefasst werden kann
-      }
-      )
+      })
     }
 
     // sort ingredients into groups
+    // for (let ingredient of this.allIngredients()) {
+    //   for (let group of this.groups) {
+    //     if ( group.g.includes(ingredient.ingredient.group)) {
+    //       group.ingredients.push(ingredient);
+    //       break;
+    //     }
+    //   }
+    // }
+
     for (let ingredient of this.allIngredients()) {
       for (let group of this.groups) {
         if ( group.g.includes(ingredient.ingredient.group)) {
@@ -90,13 +101,17 @@ export class CreateListComponent {
   }
 
   formatIngredients () {
-    this.viewIngredients = []
+    this.viewIngredients.set([])
     this.hiddelViewIngredients = []
     // format into view
     for (let group of this.groups) {
       if (group.selected === true) {
         let selectedGroup : { title : string, ingredients : any[]} = {title : group.title, ingredients : formatIngredientsForView(group.ingredients)}
-        this.viewIngredients.push(selectedGroup)
+        this.viewIngredients.update(sI =>{
+          sI.push(selectedGroup)
+          return [...sI]}
+        )
+        // this.viewIngredients.push(selectedGroup)
       } else if (group.selected === false) {
         let notSelectedGroup : { title : string, ingredients : any[]} = {title : group.title, ingredients : formatIngredientsForView(group.ingredients)}
         this.hiddelViewIngredients.push(notSelectedGroup)
@@ -111,6 +126,7 @@ export class CreateListComponent {
     this.selectedI = this.ing.ingredient
   }
 
+  // FUNTIONIERT NICHT GANZ RICHTIG
   saveEdit(){
     let newIng : FoodItem = {
       ingredient : Object.values(ingredients).find(i => i.rep === this.selectedI)!,
@@ -142,28 +158,42 @@ export class CreateListComponent {
           group.ingredients.push(newIng)
         }
       }
-    } else { // dafür dann neue Funktion schreiben, bei Hinzufügen, kann man auch Produkte hinschreiben, die nicht in der Ingredientliste stehen
-        this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
+    } else { 
+      this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
       }
 
     this.formatIngredients()
+  }
+
+  saveNew(){
+    let newIng : FoodItem = {
+      ingredient : Object.values(ingredients).find(i => i.rep === this.selectedI)!,
+      quantity : this.quantityValue,
+      unit : this.selectedUnit,
+    }
+    // dafür dann neue Funktion schreiben, bei Hinzufügen, kann man auch Produkte hinschreiben, die nicht in der Ingredientliste stehen
+    this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
   }
 
   addIng(){
     for (let group of this.hiddelViewIngredients) {
       if (group.ingredients.find(i => i === this.ing)) {
         group.ingredients.splice(group.ingredients.indexOf(this.ing),1)
-        if (!this.viewIngredients.find(g => g.title === group.title)) {
-          this.viewIngredients.push({title : group.title , ingredients : [this.ing]})
-        } else {
-          this.viewIngredients.find(g => g.title === group.title)?.ingredients.push(this.ing)
-        }
+        this.viewIngredients.update( sI => {
+          if (!sI.find(g => g.title === group.title)) {
+            sI.push({title : group.title, ingredients : [this.ing]})
+            return [...sI]
+          } else {
+            sI.find(g => g.title === group.title)?.ingredients.push(this.ing)
+            return [...sI]
+          }
+        })
       }
     }
   }
 
   removeIng(){
-    for (let group of this.viewIngredients) {
+    for (let group of this.viewIngredients()) {
       if (group.ingredients.find(i => i === this.ing)) {
         group.ingredients.splice(group.ingredients.indexOf(this.ing),1)
         if (!this.hiddelViewIngredients.find(g => g.title === group.title)) {

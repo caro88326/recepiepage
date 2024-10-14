@@ -8,8 +8,6 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 
 import { RecepieService } from '../../recepie.service';
-import { RecepieInterface } from '../../interfaces/recepie-interface';
-import { getAllIngredients } from '../../utils/ingredients';
 import { FilterService } from '../../filter.service';
 import { ListboxFiltersInterface, NewFiltersInterfaceIngs, NewFiltersInterfaceTags } from '../../interfaces/filter-interface';
 
