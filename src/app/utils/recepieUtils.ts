@@ -119,17 +119,23 @@ export function formatUnitsOfIngredients(groups : { title : string, g : FoodGrou
   for (let value of Object.entries(ingredientsMap)){
     if (value[1].length > 1){
       let gValues = []
+      let mlValues = []
       for (let i of value[1]){
         formatUnit(i)
         if (i.unit === Unit.g){
           gValues.push(i.quantity)
+        } else if (i.unit === Unit.ml){
+          mlValues.push(i.quantity)
         } else {
           ingredientsIntoGroups.push(i)
         }
       }
-      let sum = gValues.reduce((pSum, quantity) => pSum + quantity, 0)
-      let newV : FoodItem = {ingredient: value[1][0].ingredient, quantity : sum, unit : Unit.g}
-      ingredientsIntoGroups.push(newV)
+      let gSum = gValues.reduce((pSum, quantity) => pSum + quantity, 0)
+      let newGV : FoodItem = {ingredient: value[1][0].ingredient, quantity : gSum, unit : Unit.g}
+      ingredientsIntoGroups.push(newGV)
+      let mlSum = mlValues.reduce((pSum, quantity) => pSum + quantity, 0)
+      let newMlV : FoodItem = {ingredient: value[1][0].ingredient, quantity : mlSum, unit : Unit.g}
+      ingredientsIntoGroups.push(newMlV)
     } else {
       for (let i of value[1]){
         ingredientsIntoGroups.push(i)
@@ -147,113 +153,6 @@ export function formatUnitsOfIngredients(groups : { title : string, g : FoodGrou
   }
   return groups
 }
-
-// export function formatUnits(groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[]){
-//   for (let group of groups) {
-//     let uniqueElements = new Array();
-//     let duplicates : FoodItem[] = [];
-//     let d : FoodItem[] = []
-//     let valuesOfDuplicats : string[] = []
-//     let newValue : FoodItem = {ingredient: {rep: '', texture: Texture.notDefined, group: FoodGroup.water, defaultUnit: Unit.g}, quantity:0, unit: Unit.g}
-  
-//     // array of duplicates
-//     duplicates = group.ingredients.filter((ing, index) => 
-//       group.ingredients.some((elem, idx) => 
-//         elem.ingredient.rep === ing.ingredient.rep && idx !== index))
-
-//     // array of all unique eleemnts
-//     for (let ing of group.ingredients) {
-//       if (!duplicates.includes(ing)){
-//         uniqueElements.push(ing)
-//       }
-//     }
-
-//     // array of names of the dubble ingredients
-//     duplicates.forEach((element) =>{
-//       if (!valuesOfDuplicats.includes(element.ingredient.rep)) {
-//         valuesOfDuplicats.push(element.ingredient.rep)
-//       }
-//     })
-
-//     for (let i of valuesOfDuplicats){
-//       let array = duplicates.filter(ing => ing.ingredient.rep === i)
-      
-//       for (let value of array) {
-//         // allgemiene Umrechnungen
-//         if (value.unit === Unit.kg) {shortcutFormatUnitToG(value, 1000)} 
-
-//         if (value.unit === Unit.l) {
-//           value.quantity *= 1000
-//           value.unit = Unit.ml
-//         }
-
-//         // Umrechnungen nach texture
-//         if (value.ingredient.texture === 'fein (z.B. Backpulver)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
-//         }
-
-//         if (value.ingredient.texture === 'körnig (z.B. Salz/Trockenhefe)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
-//         }
-
-//         if (value.ingredient.texture === 'Gewürz-Pulver (z.B. Currypulver, Paprikapulver)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 8)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 4)}
-//         }
-
-//         if (value.ingredient.texture === 'cremig (z.B. Honig)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 15)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
-//         }
-
-//         if (value.ingredient.texture === 'gemahlen (z.B. Pfeffer)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 20)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
-//         }
-
-//         if (value.ingredient.texture === 'getrocknet (z.B. getrockneter Oregano)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 6)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 2)}
-//         }
-
-//         if (value.ingredient.texture === 'Butter'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 5)}
-//         }
-
-//         if (value.ingredient.texture === 'flüssig (z.B. Öl, Sojasauce)'){
-//           if (value.unit === Unit.EL){
-//             value.quantity *= 15
-//             value.unit = Unit.ml
-//           }
-//           if (value.unit === Unit.TL){
-//             value.quantity *= 5
-//             value.unit = Unit.ml
-//           }
-//         }
-//       }
-
-
-//       // // Was ist, wenn 2x ml und 2x g angegeben sind?
-//       // // combine to new value
-//       if (array.filter((ing, index) => array.some((elem, idx) => elem.unit === ing.unit && idx !== index))){
-//         let addUp = array.filter((ing, index) => array.some((elem, idx) => elem.unit === ing.unit && idx !== index))
-//         for (let value of addUp){
-//           if (newValue.ingredient.rep.length === 0){
-//             newValue = value
-//           } else {
-//             newValue.quantity += value.quantity
-//           }
-//           }
-//           d.push(newValue)
-//           newValue =  {ingredient: {rep: '', texture: Texture.notDefined, group: FoodGroup.water, defaultUnit: Unit.g}, quantity:0, unit: Unit.g}
-//         }
-//       }
-//       console.log(d)
-//       }
-//   }
 
 //   // notDefined = 'nicht Definiert',
 //   //   fine = 'fein (z.B. Backpulver)',
