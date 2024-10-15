@@ -25,9 +25,8 @@
                 icon="pi pi-arrow-right"
                 label="Speichern"
                 [routerLink]="['/shoppingList']"
-                
+                (onClick)="formatUnitsOfIngredients(groups)"
                 />
-                <!-- (onClick)="formatUnits(groups)" -->
         </div>
     </div>
 
@@ -54,7 +53,8 @@
                             icon="pi pi-pencil"
                             text="true"
                             severity="success"
-                            (onClick)="op.toggle($event)"/>
+                            (onClick)="op.toggle($event)"
+                            />
                         <p-button
                             icon="pi pi-times"
                             text="true"

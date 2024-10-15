@@ -37,11 +37,116 @@ export function numberOfRecepies () {
   }
 }
 
-// function shortcutFormatUnitsToG(value : FoodItem ,conversionNumber : number){
-//   value.quantity *= conversionNumber
-//   value.unit = Unit.g
-//   return value
-// }
+function shortcutFormatUnitToG(value : FoodItem ,conversionNumber : number){
+  value.quantity *= conversionNumber
+  value.unit = Unit.g
+  return value
+}
+
+function formatUnit(value : FoodItem){
+  // allgemiene Umrechnungen
+  if (value.unit === Unit.kg) {shortcutFormatUnitToG(value, 1000)} 
+
+  if (value.unit === Unit.l) {
+    value.quantity *= 1000
+    value.unit = Unit.ml
+  }
+
+  // Umrechnungen nach texture
+  if (value.ingredient.texture === 'fein (z.B. Backpulver)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
+  }
+
+  if (value.ingredient.texture === 'körnig (z.B. Salz/Trockenhefe)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
+  }
+
+  if (value.ingredient.texture === 'Gewürz-Pulver (z.B. Currypulver, Paprikapulver)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 8)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 4)}
+  }
+
+  if (value.ingredient.texture === 'cremig (z.B. Honig)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 15)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
+  }
+
+  if (value.ingredient.texture === 'gemahlen (z.B. Pfeffer)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 20)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
+  }
+
+  if (value.ingredient.texture === 'getrocknet (z.B. getrockneter Oregano)'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 6)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 2)}
+  }
+
+  if (value.ingredient.texture === 'Butter'){
+    if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+    if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 5)}
+  }
+
+  if (value.ingredient.texture === 'flüssig (z.B. Öl, Sojasauce)'){
+    if (value.unit === Unit.EL){
+      value.quantity *= 15
+      value.unit = Unit.ml
+    }
+    if (value.unit === Unit.TL){
+      value.quantity *= 5
+      value.unit = Unit.ml
+    }
+  }
+}
+
+export function formatUnitsOfIngredients(groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[]){
+  let ingredientsMap : {[key : string] : FoodItem[]}= {}
+  let ingredientsIntoGroups : FoodItem[] = []
+  // group dubbel all ingredients 
+  for (let group of groups){
+    for (let ing of group.ingredients) {
+      let key = ing.ingredient.rep
+      if (key in ingredientsMap) {
+        ingredientsMap[key].push(ing)
+      } else {
+        ingredientsMap[key] = [ing]
+      }
+    }
+    group.ingredients = []
+  }
+  // format the unit of the ingredients and summ up
+  for (let value of Object.entries(ingredientsMap)){
+    if (value[1].length > 1){
+      let gValues = []
+      for (let i of value[1]){
+        formatUnit(i)
+        if (i.unit === Unit.g){
+          gValues.push(i.quantity)
+        } else {
+          ingredientsIntoGroups.push(i)
+        }
+      }
+      let sum = gValues.reduce((pSum, quantity) => pSum + quantity, 0)
+      let newV : FoodItem = {ingredient: value[1][0].ingredient, quantity : sum, unit : Unit.g}
+      ingredientsIntoGroups.push(newV)
+    } else {
+      for (let i of value[1]){
+        ingredientsIntoGroups.push(i)
+      }
+    }
+  }
+  // convert the new ingredients into the groups
+  for (let i of ingredientsIntoGroups){
+    for (let group of groups){
+      if ( group.g.includes(i.ingredient.group)) {
+        group.ingredients.push(i);
+        break;
+      }
+    }
+  }
+  return groups
+}
 
 // export function formatUnits(groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[]){
 //   for (let group of groups) {
@@ -75,48 +180,47 @@ export function numberOfRecepies () {
       
 //       for (let value of array) {
 //         // allgemiene Umrechnungen
-//         if (value.unit === Unit.kg) {shortcutFormatUnitsToG(value, 1000)} 
+//         if (value.unit === Unit.kg) {shortcutFormatUnitToG(value, 1000)} 
 
 //         if (value.unit === Unit.l) {
 //           value.quantity *= 1000
 //           value.unit = Unit.ml
 //         }
-//         // console.log('array',array)
 
 //         // Umrechnungen nach texture
 //         if (value.ingredient.texture === 'fein (z.B. Backpulver)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 3)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
 //         }
 
 //         if (value.ingredient.texture === 'körnig (z.B. Salz/Trockenhefe)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 3)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 3)}
 //         }
 
 //         if (value.ingredient.texture === 'Gewürz-Pulver (z.B. Currypulver, Paprikapulver)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 8)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 4)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 8)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 4)}
 //         }
 
 //         if (value.ingredient.texture === 'cremig (z.B. Honig)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 15)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 6)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 15)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
 //         }
 
 //         if (value.ingredient.texture === 'gemahlen (z.B. Pfeffer)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 20)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 6)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 20)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 6)}
 //         }
 
 //         if (value.ingredient.texture === 'getrocknet (z.B. getrockneter Oregano)'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 6)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 2)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 6)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 2)}
 //         }
 
 //         if (value.ingredient.texture === 'Butter'){
-//           if (value.unit === Unit.EL) {shortcutFormatUnitsToG(value, 10)}
-//           if (value.unit === Unit.TL) {shortcutFormatUnitsToG(value, 5)}
+//           if (value.unit === Unit.EL) {shortcutFormatUnitToG(value, 10)}
+//           if (value.unit === Unit.TL) {shortcutFormatUnitToG(value, 5)}
 //         }
 
 //         if (value.ingredient.texture === 'flüssig (z.B. Öl, Sojasauce)'){

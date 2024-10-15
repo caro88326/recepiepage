@@ -9,7 +9,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 
 import { RecepieService } from '../recepie.service';
-import { formatIngredientsForView, numberOfRecepies } from '../utils/recepieUtils';
+import { formatIngredientsForView, numberOfRecepies, formatUnitsOfIngredients } from '../utils/recepieUtils';
 import { Unit, ingredients, FoodGroup, FoodItem } from '../utils/ingredients';
 
 @Component({
@@ -23,10 +23,12 @@ import { Unit, ingredients, FoodGroup, FoodItem } from '../utils/ingredients';
 export class CreateListComponent {
   recepieService = inject(RecepieService)
   numberOfRecepies = numberOfRecepies()
+  groups = this.recepieService.groups
   // formatUnits = formatUnits
+  formatUnitsOfIngredients = formatUnitsOfIngredients
 
   allIngredients = signal<FoodItem[]>([])
-  viewIngredients = this.recepieService.selectedIngredients
+  viewIngredients = this.recepieService.selectedIngredients 
   // : { title : string, ingredients : any[]}[] = []
   hiddelViewIngredients : { title : string, ingredients : any[]}[] = []
 
@@ -37,21 +39,24 @@ export class CreateListComponent {
   i : any[] = []
   selectedI! : string
 
-  groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[] = [
-    { title : 'Obst und Gemüse',  g : [FoodGroup.fruit, FoodGroup.vegetables],    ingredients : [], selected : true },
-    { title : 'Gebäck',           g : [FoodGroup.bakingProducts],                 ingredients : [], selected : true },
-    { title : 'Lebensmittel',     g : [FoodGroup.backedGoods, FoodGroup.dryProducts, FoodGroup.eggs, FoodGroup.nutsAndSeeds, FoodGroup.readyMadeDough], ingredients : [], selected : true },
-    { title : 'Konserven',        g : [FoodGroup.cans],                           ingredients : [], selected : true },
-    { title : 'Kühlregal',        g : [FoodGroup.dairyProducts],                  ingredients : [], selected : true },
-    { title : 'Fleisch und Fisch',g : [FoodGroup.meat, FoodGroup.fish],           ingredients : [], selected : true },
-    { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
-    { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
-    { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
-    { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }]
+  // groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[] = [
+  //   { title : 'Obst und Gemüse',  g : [FoodGroup.fruit, FoodGroup.vegetables],    ingredients : [], selected : true },
+  //   { title : 'Gebäck',           g : [FoodGroup.bakingProducts],                 ingredients : [], selected : true },
+  //   { title : 'Lebensmittel',     g : [FoodGroup.backedGoods, FoodGroup.dryProducts, FoodGroup.eggs, FoodGroup.nutsAndSeeds, FoodGroup.readyMadeDough], ingredients : [], selected : true },
+  //   { title : 'Konserven',        g : [FoodGroup.cans],                           ingredients : [], selected : true },
+  //   { title : 'Kühlregal',        g : [FoodGroup.dairyProducts],                  ingredients : [], selected : true },
+  //   { title : 'Fleisch und Fisch',g : [FoodGroup.meat, FoodGroup.fish],           ingredients : [], selected : true },
+  //   { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
+  //   { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
+  //   { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
+  //   { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }]
   
 
   constructor() {
     // get all ingredients of the cart recepies
+    for (let group of this.groups){
+      group.ingredients = []
+    }
     for (let recepie of this.recepieService.cart()) {
       recepie.ingredients.map(i => {
         if (this.allIngredients().find(ing => 
@@ -70,15 +75,6 @@ export class CreateListComponent {
     }
 
     // sort ingredients into groups
-    // for (let ingredient of this.allIngredients()) {
-    //   for (let group of this.groups) {
-    //     if ( group.g.includes(ingredient.ingredient.group)) {
-    //       group.ingredients.push(ingredient);
-    //       break;
-    //     }
-    //   }
-    // }
-
     for (let ingredient of this.allIngredients()) {
       for (let group of this.groups) {
         if ( group.g.includes(ingredient.ingredient.group)) {
@@ -88,16 +84,12 @@ export class CreateListComponent {
       }
     }
 
+    formatUnitsOfIngredients(this.groups)
     this.formatIngredients()
 
-    const valuesUnit = Object.values(Unit)
-    valuesUnit.forEach((value) => {
-      this.units.push(value)})
+    this.units = Object.values(Unit)
 
-    const valuesIngredient = Object.values(ingredients)
-    valuesIngredient.forEach((value) => {
-      this.i.push(value.rep)
-    })
+    this.i = Object.values(ingredients).map( v => v.rep)
   }
 
   formatIngredients () {
@@ -134,33 +126,35 @@ export class CreateListComponent {
       unit : this.selectedUnit,
     }
 
-    if (this.ing){
-      let removeIng : FoodItem = {
-        ingredient : Object.values(ingredients).find(i => i.rep === this.ing.ingredient)!,
-        quantity : this.ing.quantity,
-        unit : this.ing.unit,
-      }
+    let removeIng : FoodItem = {
+      ingredient : Object.values(ingredients).find(i => i.rep === this.ing.ingredient)!,
+      quantity : this.ing.quantity,
+      unit : this.ing.unit,
+    }
 
-      // remove old value
-      for (let group of this.groups) {
-        let ings = group.ingredients.map(i => JSON.stringify(i))
-        if (ings.includes(JSON.stringify(removeIng))){
-          group.ingredients.splice(group.ingredients.indexOf(removeIng), 1)
-        }    
-      }
+    // remove old value
+    let jsonRemoveIng = JSON.stringify(removeIng)
+    for (let group of this.groups) {
 
-      // add new value
-      for (let group of this.groups) {
-        if (group.ingredients.find(ing => 
-          ing.ingredient.rep === newIng.ingredient.rep && ing.unit === newIng.unit)){
-            group.ingredients.find(ing => ing.ingredient.rep === newIng.ingredient.rep)!.quantity += newIng.quantity
-        } else if (group.g.includes(newIng.ingredient.group)){
-          group.ingredients.push(newIng)
-        }
+      let ings = group.ingredients.map(i => JSON.stringify(i))
+      let index = ings.indexOf(jsonRemoveIng)
+      if (index >= 0) {
+        group.ingredients.splice(index, 1)
+        break          
       }
-    } else { 
-      this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
+    }
+
+    // add new value
+    for (let group of this.groups) {
+      let f = group.ingredients.find(ing => ing.ingredient.rep === newIng.ingredient.rep && ing.unit === newIng.unit)
+      if (f) {
+        f.quantity += newIng.quantity
+        break
+      } else if (group.g.includes(newIng.ingredient.group)){
+        group.ingredients.push(newIng)
+        break
       }
+    } 
 
     this.formatIngredients()
   }
@@ -173,6 +167,8 @@ export class CreateListComponent {
     }
     // dafür dann neue Funktion schreiben, bei Hinzufügen, kann man auch Produkte hinschreiben, die nicht in der Ingredientliste stehen
     this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
+    this.formatIngredients()
+
   }
 
   addIng(){

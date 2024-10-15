@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 import { RecepiesData } from '../../public/data/recepies';
 import { RecepieInterface } from './interfaces/recepie-interface';
+import { FoodGroup, FoodItem } from './utils/ingredients';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,19 @@ export class RecepieService {
   // allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
   cart = signal<RecepieInterface[]>([])
   selectedIngredients = signal<{ title : string, ingredients : any[]}[]>([])
+
+  // sollte groups ein signal sein?
+  groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[] = [
+    { title : 'Obst und Gemüse',  g : [FoodGroup.fruit, FoodGroup.vegetables],    ingredients : [], selected : true },
+    { title : 'Gebäck',           g : [FoodGroup.bakingProducts],                 ingredients : [], selected : true },
+    { title : 'Lebensmittel',     g : [FoodGroup.backedGoods, FoodGroup.dryProducts, FoodGroup.eggs, FoodGroup.nutsAndSeeds, FoodGroup.readyMadeDough], ingredients : [], selected : true },
+    { title : 'Konserven',        g : [FoodGroup.cans],                           ingredients : [], selected : true },
+    { title : 'Kühlregal',        g : [FoodGroup.dairyProducts],                  ingredients : [], selected : true },
+    { title : 'Fleisch und Fisch',g : [FoodGroup.meat, FoodGroup.fish],           ingredients : [], selected : true },
+    { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
+    { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
+    { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
+    { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }] 
 
   // all recepies
   getRecepiesById (id:number) : RecepieInterface | undefined {
