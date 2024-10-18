@@ -130,12 +130,31 @@ export function formatUnitsOfIngredients(groups : { title : string, g : FoodGrou
           ingredientsIntoGroups.push(i)
         }
       }
-      let gSum = gValues.reduce((pSum, quantity) => pSum + quantity, 0)
-      let newGV : FoodItem = {ingredient: value[1][0].ingredient, quantity : gSum, unit : Unit.g}
-      ingredientsIntoGroups.push(newGV)
-      let mlSum = mlValues.reduce((pSum, quantity) => pSum + quantity, 0)
-      let newMlV : FoodItem = {ingredient: value[1][0].ingredient, quantity : mlSum, unit : Unit.g}
-      ingredientsIntoGroups.push(newMlV)
+
+      if (gValues.length > 0){
+        let gSum = gValues.reduce((pSum, quantity) => pSum + quantity, 0)
+        if (gSum >= 1000){
+          gSum/=1000
+          let newGV : FoodItem = {ingredient: value[1][0].ingredient, quantity : gSum, unit : Unit.kg}
+          ingredientsIntoGroups.push(newGV)
+        } else {
+          let newGV : FoodItem = {ingredient: value[1][0].ingredient, quantity : gSum, unit : Unit.g}
+          ingredientsIntoGroups.push(newGV)
+        }
+      }
+
+      if (mlValues.length > 0){
+        let mlSum = mlValues.reduce((pSum, quantity) => pSum + quantity, 0)
+        if (mlSum >= 1000){
+          mlSum/=1000
+          let newMlV : FoodItem = {ingredient: value[1][0].ingredient, quantity : mlSum, unit : Unit.l}
+          ingredientsIntoGroups.push(newMlV)
+        } else {
+          let newMlV : FoodItem = {ingredient: value[1][0].ingredient, quantity : mlSum, unit : Unit.ml}
+          ingredientsIntoGroups.push(newMlV)
+        }
+      }
+      
     } else {
       for (let i of value[1]){
         ingredientsIntoGroups.push(i)
@@ -151,7 +170,9 @@ export function formatUnitsOfIngredients(groups : { title : string, g : FoodGrou
       }
     }
   }
+  console.log(groups)
   return groups
+  
 }
 
 //   // notDefined = 'nicht Definiert',

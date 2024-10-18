@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { RecepiesData } from '../../public/data/recepies';
 import { RecepieInterface } from './interfaces/recepie-interface';
 import { FoodGroup, FoodItem } from './utils/ingredients';
+import { numberOfRecepies } from './utils/recepieUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class RecepieService {
   // allRecepies = signal<RecepieInterface[]>(RecepiesData.recepieList) 
   cart = signal<RecepieInterface[]>([])
   selectedIngredients = signal<{ title : string, ingredients : any[]}[]>([])
+  // viewProducts = signal<{ title : string, ingredients : any[]}>({title: 'Produkte', ingredients : []})
+  viewProducts : { title : string, ingredients : any[]} = {title: 'Produkte', ingredients : []}
 
   // sollte groups ein signal sein?
   groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[] = [

@@ -20,6 +20,7 @@ export class ShoppingListComponent {
   shoppingIngredients = this.recepieService.selectedIngredients
   numberOfRecepies = numberOfRecepies()
   groups = this.recepieService.groups
+  viewProducts = this.recepieService.viewProducts
 
   constructor(){
     formatUnitsOfIngredients(this.groups)
@@ -34,6 +35,23 @@ export class ShoppingListComponent {
         )
       } 
     }
+    this.shoppingIngredients.update(sI => {
+      sI.push(this.viewProducts)
+      return [...sI]}
+    )
+
+    let x = []
+    for (let group of this.shoppingIngredients()){
+      for (let v of group.ingredients){
+        let c = []
+        c.push(v.quantity)
+        c.push(v.unit)
+        c.push(v.ingredient)
+        x.push(c)
+      }
+    }
+
+    console.log(JSON.stringify(x))
   }
 
 }

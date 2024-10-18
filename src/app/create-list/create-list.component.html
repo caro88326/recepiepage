@@ -143,42 +143,114 @@
                 />
         </div>
     </p-overlayPanel>
-    <p-overlayPanel #hz>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="edit-Ingredient">
-                <label for="quantity" class="label">Menge</label>
-                <p-inputNumber
-                    class="input"
-                    inputId="quantity"
-                    [(ngModel)]="quantityValue"
-                    />
-            </div>
-            <div class="edit-Ingredient">
-                <label for="unit" class="label">Einheit</label>
-                <p-dropdown 
-                    class="input"
-                    [options]="units"
-                    [(ngModel)]="selectedUnit"
-                    [filter]="true"
-                    id="unit"
-                     />
-            </div>
-            <div class="edit-Ingredient">
-                <label for="ing" class="label">Zutat</label>
-                <p-dropdown 
-                    class="input"
-                    [options]="i"
-                    [(ngModel)]="selectedI"
-                    [filter]="true"
-                    id="ing"
-                     />
+    <p-overlayPanel #hz [showCloseIcon]="true">
+        <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: row; gap: 1rem;">
+                <div class="edit-Ingredient">
+                    <label for="quantity" class="label">Menge</label>
+                    <p-inputNumber
+                        class="input"
+                        inputId="quantity"
+                        [(ngModel)]="seleQ"
+                        />
+                </div>
+                <p-divider layout="vertical"/>
+                <div class="edit-Ingredient">
+                    <label for="unit" class="label">Einheit</label>
+                    <p-dropdown 
+                        class="input"
+                        [options]="units"
+                        [(ngModel)]="seleU"
+                        [filter]="true"
+                        id="unit"
+                        />
+                </div>
+                <p-divider layout="vertical"/>
+                <div class="edit-Ingredient">
+                    <label for="ing" class="label">Zutat</label>
+                    <div style="display: flex; flex-direction: row; gap: 0.5rem;">
+                        @if (dropdownD === true) {
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <p-dropdown 
+                                    class="input"
+                                    [options]="i"
+                                    [(ngModel)]="seleI"
+                                    [filter]="true"
+                                    id="ing"
+                                    [disabled]="dropdownD"
+                                    variant="filled"
+                                    [style]="{ display: 'flex', width: '100px' }"
+                                />
+                                <p-button
+                                    severity="success"
+                                    label="Lebensmittel"
+                                    (onClick)="dropdownDisabel(false)"
+                                    (onClick)="inputDisabel(true)"
+                                />
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <input
+                                    class="input"
+                                    type="text"
+                                    pInputText
+                                    [disabled]="inputD"
+                                    [(ngModel)]="seleP"
+                                />
+                                <p-button
+                                    severity="success"
+                                    label="anderes Produkt"
+                                    text="true"
+                                    (onClick)="dropdownDisabel(true)"
+                                    (onClick)="inputDisabel(false)"
+                                />
+                            </div>
+
+                        }
+                        @else {
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <p-dropdown 
+                                    class="input"
+                                    [options]="i"
+                                    [(ngModel)]="seleI"
+                                    [filter]="true"
+                                    id="ing"
+                                    [disabled]="dropdownD"
+                                    [style]="{ display: 'flex', width: '100px' }"
+                                />
+                                <p-button
+                                    severity="success"
+                                    label="Lebensmittel"
+                                    text="true"
+                                    (onClick)="dropdownDisabel(false)"
+                                    (onClick)="inputDisabel(true)"
+                                />
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <input
+                                    class="input"
+                                    type="text"
+                                    pInputText
+                                    [disabled]="inputD"
+                                    [(ngModel)]="seleP"
+                                    variant="filled"
+                                />
+                                <p-button
+                                    severity="success"
+                                    label="anderes Produkt"
+                                    (onClick)="dropdownDisabel(true)"
+                                    (onClick)="inputDisabel(false)"
+                                />
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
             <p-button 
-                severity="success"
-                label="Speichern"
-                (onClick)="saveEdit()"
-                (onClick)="op.hide()"
-                />
+            severity="success"
+            label="Speichern"
+            (onClick)="saveNew()"
+            (onClick)="hz.hide()"
+            />
         </div>
     </p-overlayPanel>
 </div>

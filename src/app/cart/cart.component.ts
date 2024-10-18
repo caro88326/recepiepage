@@ -26,6 +26,8 @@ export class CartComponent {
   recepie! : RecepieInterface
   inputValue! : number 
   numberOfRecepies = numberOfRecepies()
+  buttonD = true
+
 
   getSelectedRecepie(recepieData : RecepieInterface) {
     this.recepie = recepieData
@@ -40,5 +42,12 @@ export class CartComponent {
 
   removeFromCart (recepie : RecepieInterface) {
     this.recepieService.removeFromCart(recepie)
+  }
+
+  buttonDisabel(){
+    if (this.recepieService.cart().length >0){
+      this.buttonD = false
+    } else {this.buttonD =  true}
+    return this.buttonD
   }
 }

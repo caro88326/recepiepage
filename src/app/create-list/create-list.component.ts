@@ -7,15 +7,16 @@ import { ButtonModule } from 'primeng/button';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { RecepieService } from '../recepie.service';
 import { formatIngredientsForView, numberOfRecepies, formatUnitsOfIngredients } from '../utils/recepieUtils';
-import { Unit, ingredients, FoodGroup, FoodItem } from '../utils/ingredients';
+import { Unit, ingredients, FoodItem } from '../utils/ingredients';
 
 @Component({
   selector: 'app-create-list',
   standalone: true,
-  imports: [RouterModule, DividerModule, ButtonModule, OverlayPanelModule, InputNumberModule, FormsModule, DropdownModule],
+  imports: [RouterModule, DividerModule, ButtonModule, OverlayPanelModule, InputNumberModule, FormsModule, DropdownModule, InputTextModule],
   templateUrl: './create-list.component.html',
   styleUrl: './create-list.component.scss'
 })
@@ -24,33 +25,47 @@ export class CreateListComponent {
   recepieService = inject(RecepieService)
   numberOfRecepies = numberOfRecepies()
   groups = this.recepieService.groups
-  // formatUnits = formatUnits
   formatUnitsOfIngredients = formatUnitsOfIngredients
 
   allIngredients = signal<FoodItem[]>([])
   viewIngredients = this.recepieService.selectedIngredients 
-  // : { title : string, ingredients : any[]}[] = []
   hiddelViewIngredients : { title : string, ingredients : any[]}[] = []
 
+  viewProducts = this.recepieService.viewProducts
+
+  units : any [] = []
+  i : any[] = []
+
+  // edit dropdown
   ing : any
   quantityValue! : number
-  units : any [] = []
   selectedUnit : any
-  i : any[] = []
   selectedI! : string
 
-  // groups : { title : string, g : FoodGroup[], ingredients : FoodItem[], selected : boolean }[] = [
-  //   { title : 'Obst und Gemüse',  g : [FoodGroup.fruit, FoodGroup.vegetables],    ingredients : [], selected : true },
-  //   { title : 'Gebäck',           g : [FoodGroup.bakingProducts],                 ingredients : [], selected : true },
-  //   { title : 'Lebensmittel',     g : [FoodGroup.backedGoods, FoodGroup.dryProducts, FoodGroup.eggs, FoodGroup.nutsAndSeeds, FoodGroup.readyMadeDough], ingredients : [], selected : true },
-  //   { title : 'Konserven',        g : [FoodGroup.cans],                           ingredients : [], selected : true },
-  //   { title : 'Kühlregal',        g : [FoodGroup.dairyProducts],                  ingredients : [], selected : true },
-  //   { title : 'Fleisch und Fisch',g : [FoodGroup.meat, FoodGroup.fish],           ingredients : [], selected : true },
-  //   { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
-  //   { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
-  //   { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
-  //   { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }]
-  
+  // new dropdown and input
+  dropdownD : boolean = false
+  inputD : boolean = true
+  seleI! : string 
+  seleP! : string 
+  seleU : any 
+  seleQ : number = 1
+
+  dropdownDisabel(x : boolean){
+    if (x === true) {
+      this.dropdownD = true
+    } else if (x === false){
+      this.dropdownD = false
+    } 
+    return this.dropdownD
+  }
+  inputDisabel(x : boolean){
+    if (x === true) {
+      this.inputD = true
+    } else if (x === false){
+      this.inputD = false
+    } 
+    return this.inputD
+  }
 
   constructor() {
     // get all ingredients of the cart recepies
@@ -160,15 +175,32 @@ export class CreateListComponent {
   }
 
   saveNew(){
-    let newIng : FoodItem = {
-      ingredient : Object.values(ingredients).find(i => i.rep === this.selectedI)!,
-      quantity : this.quantityValue,
-      unit : this.selectedUnit,
+    if (Object.values(ingredients).find(i => i.rep === this.seleI)) {
+      let newIng : FoodItem = {
+        ingredient : Object.values(ingredients).find(i => i.rep === this.seleI)!,
+        quantity : this.seleQ,
+        unit : this.seleU,
+      }
+      this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
+      this.formatIngredients()
+    } else {
+      let newPrd = {
+        ingredient : this.seleP,
+        quantity : this.seleQ,
+        unit : this.seleU,
+      }
+      this.viewProducts.ingredients.push(newPrd)
+      this.viewIngredients.update(ings => {
+        ings.splice(ings.indexOf(this.viewProducts))
+        ings.push(this.viewProducts)
+        return[...ings]
+      }
+      )
     }
-    // dafür dann neue Funktion schreiben, bei Hinzufügen, kann man auch Produkte hinschreiben, die nicht in der Ingredientliste stehen
-    this.groups.find(group => group.title === 'Extra Hinzugefügt')!.ingredients.push(newIng)
-    this.formatIngredients()
-
+    this.seleI=''
+    this.seleP=''
+    this.seleQ
+    this.seleU=NaN
   }
 
   addIng(){

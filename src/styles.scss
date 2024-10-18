@@ -2,7 +2,8 @@
 
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-@import "primeng/resources/themes/saga-green/theme.css";
+// @import "primeng/resources/themes/nano/theme.css";
+@import "primeng/resources/themes/saga-purple/theme.css";
 
 html, body {
     font-size: 14px;
@@ -27,11 +28,12 @@ html, body {
 }
 
 i {
-    padding: 0.5rem;
-    border-radius:100%;
-    transition: 0.15s;
-    border: 1px solid gray;
-    cursor: pointer;
+  padding: 0.5rem;
+  border-radius:100%;
+  transition: 0.15s;
+  border: 1px solid gray;
+  cursor: pointer;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
