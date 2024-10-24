@@ -35,5 +35,21 @@ i {
   cursor: pointer;
 }
 
+button {
+  font-family: Nunito;
+}
+
+table {
+  font-family: Nunito;
+}
+
+input {
+  font-family: Nunito;
+}
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Nunito; }
+
+
+// in details.html --> font-family
+// home.scss --> font-family
