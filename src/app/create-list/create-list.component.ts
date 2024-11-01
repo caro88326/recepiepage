@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { RecepieService } from '../recepie.service';
 import { formatIngredientsForView, numberOfRecepies, formatUnitsOfIngredients } from '../utils/recepieUtils';
-import { Unit, ingredients, FoodItem } from '../utils/ingredients';
+import { Unit, ingredients, FoodItem, FoodGroup } from '../utils/ingredients';
 
 @Component({
   selector: 'app-create-list',
@@ -29,7 +29,7 @@ export class CreateListComponent {
 
   allIngredients = signal<FoodItem[]>([])
   viewIngredients = this.recepieService.selectedIngredients 
-  hiddelViewIngredients : { title : string, ingredients : any[]}[] = []
+  hiddenViewIngredients : { title : string, ingredients : any[]}[] = []
 
   viewProducts = this.recepieService.viewProducts
 
@@ -104,12 +104,12 @@ export class CreateListComponent {
 
     this.units = Object.values(Unit)
 
-    this.i = Object.values(ingredients).map( v => v.rep)
+    this.i = Object.values(ingredients).map( v => v.rep).sort()
   }
 
   formatIngredients () {
     this.viewIngredients.set([])
-    this.hiddelViewIngredients = []
+    this.hiddenViewIngredients = []
     // format into view
     for (let group of this.groups) {
       if (group.selected === true) {
@@ -121,7 +121,7 @@ export class CreateListComponent {
         // this.viewIngredients.push(selectedGroup)
       } else if (group.selected === false) {
         let notSelectedGroup : { title : string, ingredients : any[]} = {title : group.title, ingredients : formatIngredientsForView(group.ingredients)}
-        this.hiddelViewIngredients.push(notSelectedGroup)
+        this.hiddenViewIngredients.push(notSelectedGroup)
       }
     }
   }
@@ -204,7 +204,7 @@ export class CreateListComponent {
   }
 
   addIng(){
-    for (let group of this.hiddelViewIngredients) {
+    for (let group of this.hiddenViewIngredients) {
       if (group.ingredients.find(i => i === this.ing)) {
         group.ingredients.splice(group.ingredients.indexOf(this.ing),1)
         this.viewIngredients.update( sI => {
@@ -224,10 +224,10 @@ export class CreateListComponent {
     for (let group of this.viewIngredients()) {
       if (group.ingredients.find(i => i === this.ing)) {
         group.ingredients.splice(group.ingredients.indexOf(this.ing),1)
-        if (!this.hiddelViewIngredients.find(g => g.title === group.title)) {
-          this.hiddelViewIngredients.push({title : group.title , ingredients : [this.ing]})
+        if (!this.hiddenViewIngredients.find(g => g.title === group.title)) {
+          this.hiddenViewIngredients.push({title : group.title , ingredients : [this.ing]})
         } else {
-          this.hiddelViewIngredients.find(g => g.title === group.title)?.ingredients.push(this.ing)
+          this.hiddenViewIngredients.find(g => g.title === group.title)?.ingredients.push(this.ing)
         }
       }
     }

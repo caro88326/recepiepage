@@ -54,7 +54,7 @@ export class RecepiesData{
       author : 'Genius Rezeptewelt: Gastrezept - Klassische Dumplings von Ute',
       tagE: 'Fleisch',
       tagN: 'chinesisch',
-      duration: 'über 1 h '
+      duration: 'über 1 h'
     }, 
     
     
@@ -168,7 +168,7 @@ export class RecepiesData{
         ingredients: [        
           item(ingredients.mehl, 400),
           item(ingredients.eier, 4),
-          item(ingredients.wasser, 220),
+          item(ingredients.wasserStill, 220),
           item(ingredients.zwiebeln, 5),
           item(ingredients.geriebenerGratinkäse, 250),
           item(ingredients.butter, 1, Unit.kg), //für tests, dannach löschen
@@ -218,5 +218,35 @@ export class RecepiesData{
         tagE: 'Vegan',
         tagN: '',
         duration: 'über 30 min bis 1 h'
-      }, 
+      }, {
+      id: 6,
+      name: 'Baklava', 
+      picture: '../assets/images/Beispielbild.jpg',
+      time: 80, //min
+      person: 4,
+      ingredients: [
+       item(ingredients.baklavateig, 0.5),
+       item(ingredients.butter, 100),
+       item(ingredients.pistazienGehackt, 125),
+       item(ingredients.zucker, 300),
+       item(ingredients.wasserStill, 250),
+       item(ingredients.zitronensaft, 1, Unit.nb),
+      ],
+      instruction: [
+        'Die Butter in einem Topf schmelzen, aber nicht zum kochen bringen. Der dabei entstandene weiße Schaum entfernen, entweder mit einem Löffel wegnehmen oder in einem mit Küchenpapier ausgelegten Sieb durchfließen lassen.', 
+        'Eine rechteckige tiefe Form (am besten aus Glas) bereit stellen und den Teig (225-240g) passend dazu ausschneiden. Die Hälfte der Teigsblätter zur Seite legen und mit einem Küchentuch abdecken, dass sie nicht austrocknen.',
+        'Die Form mit der geschmolzenen Butter einfetten und ein Teigblatt hineinlegen. Darüber etwas Butter geben und zwei Teigblätter darauf legen, auf welche wieder Butter kommt. Dies immer mit zwei Teigblättern wiederholen, bis die erste Hälfte verbraucht ist.',
+        'Nun die gehackten Pistazien (nicht gesalzen) gleichmäßig darüber verteilen.',
+        'Jetzt kommen die restlichen Teigblätter und ebenfalls in zweier Schichten abwechselnd mit der Butter darüber. Die übrig gebliebene Butter gleichmäßig darüber verteilen.',
+        'Das Baklava in 16-20 Quadrate einschneiden und in dem vorgeheizten Backofen (170°C Ober-/Unterhitze) für ca. 45-50 Minuten leicht goldbraun ausbacken. Ist der Boden nach der backzeit noch nicht goldbraun (ist mit einer Glasform gut zu erkennen), kann man ihn für ca. 5-10 Minuten auf den Boden vom Backofen stellen und bei 170°C Unterhitze backen.',
+        'Während den letzten 15 Minuten der Backzeit, wird der Sirup vorbereitet. Dafür den Zucker, das Wasser und einen Spritzer Zirtonensaft in einen Topf geben und bei mittlerer Hitze für ca. 12-15 Minuten köcheln lassen. Er sollte eine dickflüssige Konsistenz haben.',
+        'Ist das Baklava gut durchgebacken, aus dem Ofen holen und den heißen Sirup gleichmäßig darübergießen. Dabei sollte es weiterhin köcheln und ein lautes Geräuch von sich geben.',
+        'Den Sirup für ca. 3 Stunden durchziehen lassen. Es kann noch etwas gemalene oder gehackte Pistazien darübergestreut werden.',
+        'Das Baklava hält sich an einem kühlen und trockenen Ort 4-5 Tage frisch. Wird es, vorallem wenn das Baklava noch warm ist, überdeckt, ist es nocht mehr kross.'
+      ],
+      author: 'Aus gruensteinKitchen Youtube Video : "Kuru Baklava / einfaches Baklava Rezept mit Pistazien | Antep Fistikli Kuru Baklava Tarifi"',
+      tagE: 'Vegetarisch',
+      tagN: 'türkisch',
+      duration: 'über 1 h'
+    }, 
 ]}

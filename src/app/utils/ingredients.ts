@@ -45,7 +45,8 @@ export enum FoodGroup {
     sweets = 'Süßigkeiten',
     saltySnacks = 'salzige Snacks',
     backedGoods = 'Backwaren', 
-    juice = 'Saft', 
+    juice = 'Saft',
+    softdrinks = 'Softdrinks', 
     // Maultaschen, Ravioli, ...
     spice = 'Gewürz',
 }
@@ -70,7 +71,7 @@ function createIngredient(rep : string, tex : Texture, group : FoodGroup, defaul
 // BEI EINFÜHRUNG  NEUER KATEGORIEN, AUCH BEI CREATELIST ANPASSEN
 export const ingredients = {
     // Wasser
-    wasser :        createIngredient('Wasser', Texture.fluid, FoodGroup.water, Unit.ml), 
+    wasserStill :        createIngredient('Wasser still', Texture.fluid, FoodGroup.water, Unit.ml), 
 
     // Trockenprodukte
     lasangplatten : createIngredient('Lasangeplatte(n)', Texture.notDefined, FoodGroup.dryProducts),
@@ -102,6 +103,7 @@ export const ingredients = {
     knollensellerie : createIngredient('Knollenselerie', Texture.notDefined, FoodGroup.vegetables),
     paprika :       createIngredient('Paprika(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     salat :         createIngredient('Salat', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
+    spinat :        createIngredient('Spinat', Texture.notDefined, FoodGroup.vegetables),
     tomaten :       createIngredient('Tomate(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     zucchini :      createIngredient('Zucchini(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     zwiebeln :      createIngredient('Zwiebel(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
@@ -145,12 +147,14 @@ export const ingredients = {
     passierteTomaten : createIngredient('Passierte Tomaten', Texture.notDefined, FoodGroup.cans),
 
     // Fertigteig
+    baklavateig :   createIngredient('Baklavateig', Texture.notDefined, FoodGroup.readyMadeDough, Unit.pck),
     dumplingteig :  createIngredient('TK-Dumplingteig', Texture.notDefined, FoodGroup.readyMadeDough, Unit.pck),
     quicheteig : createIngredient('Quicheteig', Texture.notDefined, FoodGroup.readyMadeDough),
 
     // Nüsse und Kerne
     pinienkerne :   createIngredient('Pinienkerne', Texture.notDefined, FoodGroup.nutsAndSeeds),
     pistazien :     createIngredient('Pistazien', Texture.notDefined, FoodGroup.nutsAndSeeds),
+    pistazienGehackt : createIngredient('Gehackte Pistazien', Texture.notDefined, FoodGroup.nutsAndSeeds),
     walnüsse :      createIngredient('Walnüsse', Texture.notDefined, FoodGroup.nutsAndSeeds),
 
     // Backprodukte

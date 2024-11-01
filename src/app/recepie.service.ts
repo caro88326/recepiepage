@@ -27,7 +27,8 @@ export class RecepieService {
     { title : 'Kühlregal',        g : [FoodGroup.dairyProducts],                  ingredients : [], selected : true },
     { title : 'Fleisch und Fisch',g : [FoodGroup.meat, FoodGroup.fish],           ingredients : [], selected : true },
     { title : 'Snacks',           g : [FoodGroup.sweets, FoodGroup.saltySnacks],  ingredients : [], selected : true },
-    { title : 'Getränke',         g : [FoodGroup.water, FoodGroup.juice],         ingredients : [], selected : true },
+    { title : 'Getränke',         g : [FoodGroup.juice, FoodGroup.softdrinks],    ingredients : [], selected : true },
+    { title : 'Wasser Still',   g : [FoodGroup.water],                          ingredients : [], selected : false },
     { title : 'Gewürze',          g : [FoodGroup.spice],                          ingredients : [], selected : false },
     { title : 'Extra Hinzugefügt',g : [],                                         ingredients : [], selected : true }] 
 

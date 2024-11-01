@@ -66,7 +66,7 @@
                 </div>
             }}}
     <p-divider type="solid" align="center" [style]="{'color' : 'var(--titel-green)', 'font-size' : '1.5rem'}">Nicht Ausgewählt</p-divider>
-    @for (group of hiddelViewIngredients; track $index) {
+    @for (group of hiddenViewIngredients; track $index) {
         @if (group.ingredients.length>0) {
             <div class="titel">
                 {{group.title}}
@@ -106,34 +106,38 @@
         }
     }
     <p-overlayPanel #op>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="edit-Ingredient">
-                <label for="quantity" class="label">Menge</label>
-                <p-inputNumber
-                    class="input"
-                    inputId="quantity"
-                    [(ngModel)]="quantityValue"
-                    />
-            </div>
-            <div class="edit-Ingredient">
-                <label for="unit" class="label">Einheit</label>
-                <p-dropdown 
-                    class="input"
-                    [options]="units"
-                    [(ngModel)]="selectedUnit"
-                    [filter]="true"
-                    id="unit"
-                     />
-            </div>
-            <div class="edit-Ingredient">
-                <label for="ing" class="label">Zutat</label>
-                <p-dropdown 
-                    class="input"
-                    [options]="i"
-                    [(ngModel)]="selectedI"
-                    [filter]="true"
-                    id="ing"
-                     />
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+            <div style="display: flex; flex-direction: row; gap: 1rem;">
+                <div class="edit-Ingredient">
+                    <label for="quantity" class="label">Menge</label>
+                    <p-inputNumber
+                        class="input"
+                        inputId="quantity"
+                        [(ngModel)]="quantityValue"
+                        />
+                </div>
+                <p-divider layout="vertical"/>
+                <div class="edit-Ingredient">
+                    <label for="unit" class="label">Einheit</label>
+                    <p-dropdown 
+                        class="input"
+                        [options]="units"
+                        [(ngModel)]="selectedUnit"
+                        [filter]="true"
+                        id="unit"
+                        />
+                </div>
+                <p-divider layout="vertical"/>
+                <div class="edit-Ingredient">
+                    <label for="ing" class="label">Zutat</label>
+                    <p-dropdown 
+                        class="input"
+                        [options]="i"
+                        [(ngModel)]="selectedI"
+                        [filter]="true"
+                        id="ing"
+                        />
+                </div>
             </div>
             <p-button 
                 severity="success"
@@ -143,7 +147,7 @@
                 />
         </div>
     </p-overlayPanel>
-    <p-overlayPanel #hz [showCloseIcon]="true">
+    <p-overlayPanel #hz>
         <div style="display: flex; flex-direction: column;">
             <div style="display: flex; flex-direction: row; gap: 1rem;">
                 <div class="edit-Ingredient">
