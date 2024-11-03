@@ -73,15 +73,28 @@ export class FilterService {
     }
 
     applySearch(newSearchTerm : string) {
-      let filtered = this.allRecepies.filter( value => {
-        return value.name.toLocaleLowerCase().includes(newSearchTerm.toLocaleLowerCase()) 
+      const search = newSearchTerm.toLowerCase()
+      let beginning : RecepieInterface[] = []
+      let rest : RecepieInterface[] = []
+      this.allRecepies.filter( r => {
+        return r.name.toLowerCase().includes(search)
       })
+      .forEach( r => {
+        if (r.name.toLowerCase().startsWith(search)) {
+          beginning.push(r)
+        } else {
+          rest.push(r)
+        }
+      })
+      const filtered = [...beginning, ...rest]
+ 
       this.filteredRecepies.set(filtered)
     }
 
     applyFilter (newFilters : (NewFiltersInterfaceTags | NewFiltersInterfaceIngs) []) {
       this.filters.update(filters => filters = newFilters)
       let filtered = this.allRecepies.filter(recepie => {
+        if (recepie.tagN === '') return false
         for (let filter of this.filters()) {
           if (filter.groups === 'Dauer' && filter.selected === true && !filter.value.includes(recepie.duration)) return false
           if (filter.groups === 'Ernährung' && filter.selected === true && !filter.value.includes(recepie.tagE)) return false
@@ -104,7 +117,7 @@ export class FilterService {
           this.allSelectedFilters.push(filter.value)
         }
         if (filter.selected === 'exclude') {
-          this.allSelectedFilters.push('ohne' + filter.value)
+          this.allSelectedFilters.push('ohne ' + filter.value)
         }
       }
     }

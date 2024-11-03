@@ -221,7 +221,7 @@ export class RecepiesData{
       }, {
       id: 6,
       name: 'Baklava', 
-      picture: '../assets/images/Beispielbild.jpg',
+      picture: '../assets/images/Baklava.jpg',
       time: 80, //min
       person: 4,
       ingredients: [
@@ -248,5 +248,40 @@ export class RecepiesData{
       tagE: 'Vegetarisch',
       tagN: 'türkisch',
       duration: 'über 1 h'
+    }, {
+      id: 7,
+      name: 'Spinatknödel', 
+      picture: '../assets/images/Spinatknödel.jpg',
+      time: 35, //min
+      person: 4,
+      ingredients: [
+        item(ingredients.spinatBlattTK, 500),
+        item(ingredients.milch, 125),
+        item(ingredients.brot, 240, Unit.g),
+        item(ingredients.eier, 2),
+        item(ingredients.zwiebeln, 1),
+        item(ingredients.parmesan, 10),
+        item(ingredients.paniermehl, 3, Unit.EL),
+        item(ingredients.butter, 1, Unit.EL),
+
+        item(ingredients.salz, 1, Unit.TL),
+        item(ingredients.pfeffer, 1, Unit.nb),
+        item(ingredients.muskat, 1, Unit.nb),
+      ],
+      instruction: [
+        'Den TK-Blattspinat bei Zimmertemperatur auftauen lassen oder in 100 ml Wasser sanft für 3-5 Minuten dünsten und abkühlen lassen. Dannach den Spinat fest mit den Händen ausdrücken, damit er so viel Wasser wie möglich verliert und fein schneiden.',
+        'Das Brot in ca 1 cm große Würfel schneiden und in eine große Schüssel geben.',
+        'Die Zwiebel schälen und in feine Würfel schneiden. Dann in einem kleinen Topf mit der Butter glasig andünsten.',
+        'Nun in den Topf die Milch dazugeben, mit dem Salz, Pfeffer und Muskat würzen und kurz heiß werden lassen.',
+        'Die heiße Milchmasse über die Brotwürfel gießen und den Parmesan, das Paniermehl, den Spinat und die Eier hinzugeben.',
+        'Im Anschluss alles vermischen. Ist die Masse zu weich, kann nochmals Paniermehl dazugegeben werden. Ist sie zu trocken, etwas Milch.',
+        'In einem großen Topf Salzwasser erhitzen und währenddessen die Knödel mit nassen Händen formen.',
+        'Die Knödel in siedendem Wasser ca. 15 Minuten ziehen lassen - das Wasser darf nicht kochen!', 
+        'Zu den Knödeln passt beispielsweise eine Pilzsauce oder sind eine Beilage zu Fleischgerichten. Auch schmecken sie in Scheiben geschnitten und angebraten in einer Pfanne lecker.',
+      ],
+      author: 'Aus emmikochteinfach.de Spinatknödel schnell & einfach',
+      tagE: 'Vegetarisch',
+      tagN: '',
+      duration: 'über 30 min bis 1 h'
     }, 
 ]}

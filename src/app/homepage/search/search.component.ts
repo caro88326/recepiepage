@@ -26,6 +26,7 @@ export class SearchComponent {
 
   updateDialogVisible() : void {
     this.FilterDialogVisible = true;
+    this.filterService.allSelectedFilters=[]
       }
 
   updateSearchFilter () {
