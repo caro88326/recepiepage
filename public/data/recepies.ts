@@ -17,7 +17,7 @@ export class RecepiesData{
     //     'text',
     //   ],
     //   author: 'Aus...',
-    //   tagE: 'Fleisch',
+    //   tagE: 'Fleisch', 'Vegetarisch', 'Vegan',
     //   tagN: 'chinesisch',
     //   duration: 'bis zu 30 min', 'über 30 min bis 1 h', 'über 1 h'
     // }, 
@@ -55,10 +55,7 @@ export class RecepiesData{
       tagE: 'Fleisch',
       tagN: 'chinesisch',
       duration: 'über 1 h'
-    }, 
-    
-    
-    {
+    }, {
       id: 1,
       name: 'Indischer rote Linsen Dal', 
       picture: '../assets/images/Beispielbild.jpg',
@@ -111,8 +108,6 @@ export class RecepiesData{
         item(ingredients.butter, 2, Unit.EL),
         item(ingredients.sahne, 250),
         item(ingredients.pinienkerne, 50),
-        item(ingredients.geriebenerGratinkäse, 1, Unit.kg),// Test
-        item(ingredients.geriebenerGratinkäse, 5, Unit.ml),//Test
 
         item(ingredients.salz, 1, Unit.nb),
         item(ingredients.pfeffer, 1, Unit.nb),
@@ -135,7 +130,7 @@ export class RecepiesData{
     }, {
       id: 3,
       name: 'Tomate-Mozarella-Salat', 
-      picture: '../assets/images/Beispielbild.jpg',
+      picture: '../assets/images/TomateMozarellaSalat.jpg',
       time: 10, //min
       person: 2,
       ingredients: [        
@@ -171,11 +166,9 @@ export class RecepiesData{
           item(ingredients.wasserStill, 220),
           item(ingredients.zwiebeln, 5),
           item(ingredients.geriebenerGratinkäse, 250),
-          item(ingredients.butter, 1, Unit.kg), //für tests, dannach löschen
 
           item(ingredients.salz, 1, Unit.TL),
           item(ingredients.muskat, 1, Unit.nb),
-          item(ingredients.pfeffer,1 , Unit.kg) //für Test
         ], 
         instruction: [
           'Mehl, Eier Wasser, Salz und Muskat zu einem glatten Teig verrühren. ', 
@@ -219,69 +212,124 @@ export class RecepiesData{
         tagN: '',
         duration: 'über 30 min bis 1 h'
       }, {
-      id: 6,
-      name: 'Baklava', 
-      picture: '../assets/images/Baklava.jpg',
-      time: 80, //min
-      person: 4,
-      ingredients: [
-       item(ingredients.baklavateig, 0.5),
-       item(ingredients.butter, 100),
-       item(ingredients.pistazienGehackt, 125),
-       item(ingredients.zucker, 300),
-       item(ingredients.wasserStill, 250),
-       item(ingredients.zitronensaft, 1, Unit.nb),
-      ],
-      instruction: [
-        'Die Butter in einem Topf schmelzen, aber nicht zum kochen bringen. Der dabei entstandene weiße Schaum entfernen, entweder mit einem Löffel wegnehmen oder in einem mit Küchenpapier ausgelegten Sieb durchfließen lassen.', 
-        'Eine rechteckige tiefe Form (am besten aus Glas) bereit stellen und den Teig (225-240g) passend dazu ausschneiden. Die Hälfte der Teigsblätter zur Seite legen und mit einem Küchentuch abdecken, dass sie nicht austrocknen.',
-        'Die Form mit der geschmolzenen Butter einfetten und ein Teigblatt hineinlegen. Darüber etwas Butter geben und zwei Teigblätter darauf legen, auf welche wieder Butter kommt. Dies immer mit zwei Teigblättern wiederholen, bis die erste Hälfte verbraucht ist.',
-        'Nun die gehackten Pistazien (nicht gesalzen) gleichmäßig darüber verteilen.',
-        'Jetzt kommen die restlichen Teigblätter und ebenfalls in zweier Schichten abwechselnd mit der Butter darüber. Die übrig gebliebene Butter gleichmäßig darüber verteilen.',
-        'Das Baklava in 16-20 Quadrate einschneiden und in dem vorgeheizten Backofen (170°C Ober-/Unterhitze) für ca. 45-50 Minuten leicht goldbraun ausbacken. Ist der Boden nach der backzeit noch nicht goldbraun (ist mit einer Glasform gut zu erkennen), kann man ihn für ca. 5-10 Minuten auf den Boden vom Backofen stellen und bei 170°C Unterhitze backen.',
-        'Während den letzten 15 Minuten der Backzeit, wird der Sirup vorbereitet. Dafür den Zucker, das Wasser und einen Spritzer Zirtonensaft in einen Topf geben und bei mittlerer Hitze für ca. 12-15 Minuten köcheln lassen. Er sollte eine dickflüssige Konsistenz haben.',
-        'Ist das Baklava gut durchgebacken, aus dem Ofen holen und den heißen Sirup gleichmäßig darübergießen. Dabei sollte es weiterhin köcheln und ein lautes Geräuch von sich geben.',
-        'Den Sirup für ca. 3 Stunden durchziehen lassen. Es kann noch etwas gemalene oder gehackte Pistazien darübergestreut werden.',
-        'Das Baklava hält sich an einem kühlen und trockenen Ort 4-5 Tage frisch. Wird es, vorallem wenn das Baklava noch warm ist, überdeckt, ist es nocht mehr kross.'
-      ],
-      author: 'Aus gruensteinKitchen Youtube Video : "Kuru Baklava / einfaches Baklava Rezept mit Pistazien | Antep Fistikli Kuru Baklava Tarifi"',
-      tagE: 'Vegetarisch',
-      tagN: 'türkisch',
-      duration: 'über 1 h'
-    }, {
-      id: 7,
-      name: 'Spinatknödel', 
-      picture: '../assets/images/Spinatknödel.jpg',
-      time: 35, //min
-      person: 4,
-      ingredients: [
-        item(ingredients.spinatBlattTK, 500),
-        item(ingredients.milch, 125),
-        item(ingredients.brot, 240, Unit.g),
-        item(ingredients.eier, 2),
-        item(ingredients.zwiebeln, 1),
-        item(ingredients.parmesan, 10),
-        item(ingredients.paniermehl, 3, Unit.EL),
-        item(ingredients.butter, 1, Unit.EL),
+        id: 6,
+        name: 'Baklava', 
+        picture: '../assets/images/Baklava.jpg',
+        time: 80, //min
+        person: 4,
+        ingredients: [
+        item(ingredients.baklavateig, 0.5),
+        item(ingredients.butter, 100),
+        item(ingredients.pistazienGehackt, 125),
+        item(ingredients.zucker, 300),
+        item(ingredients.wasserStill, 250),
+        item(ingredients.zitronensaft, 1, Unit.nb),
+        ],
+        instruction: [
+          'Die Butter in einem Topf schmelzen, aber nicht zum kochen bringen. Der dabei entstandene weiße Schaum entfernen, entweder mit einem Löffel wegnehmen oder in einem mit Küchenpapier ausgelegten Sieb durchfließen lassen.', 
+          'Eine rechteckige tiefe Form (am besten aus Glas) bereit stellen und den Teig (225-240g) passend dazu ausschneiden. Die Hälfte der Teigsblätter zur Seite legen und mit einem Küchentuch abdecken, dass sie nicht austrocknen.',
+          'Die Form mit der geschmolzenen Butter einfetten und ein Teigblatt hineinlegen. Darüber etwas Butter geben und zwei Teigblätter darauf legen, auf welche wieder Butter kommt. Dies immer mit zwei Teigblättern wiederholen, bis die erste Hälfte verbraucht ist.',
+          'Nun die gehackten Pistazien (nicht gesalzen) gleichmäßig darüber verteilen.',
+          'Jetzt kommen die restlichen Teigblätter und ebenfalls in zweier Schichten abwechselnd mit der Butter darüber. Die übrig gebliebene Butter gleichmäßig darüber verteilen.',
+          'Das Baklava in 16-20 Quadrate einschneiden und in dem vorgeheizten Backofen (170°C Ober-/Unterhitze) für ca. 45-50 Minuten leicht goldbraun ausbacken. Ist der Boden nach der backzeit noch nicht goldbraun (ist mit einer Glasform gut zu erkennen), kann man ihn für ca. 5-10 Minuten auf den Boden vom Backofen stellen und bei 170°C Unterhitze backen.',
+          'Während den letzten 15 Minuten der Backzeit, wird der Sirup vorbereitet. Dafür den Zucker, das Wasser und einen Spritzer Zirtonensaft in einen Topf geben und bei mittlerer Hitze für ca. 12-15 Minuten köcheln lassen. Er sollte eine dickflüssige Konsistenz haben.',
+          'Ist das Baklava gut durchgebacken, aus dem Ofen holen und den heißen Sirup gleichmäßig darübergießen. Dabei sollte es weiterhin köcheln und ein lautes Geräuch von sich geben.',
+          'Den Sirup für ca. 3 Stunden durchziehen lassen. Es kann noch etwas gemalene oder gehackte Pistazien darübergestreut werden.',
+          'Das Baklava hält sich an einem kühlen und trockenen Ort 4-5 Tage frisch. Wird es, vorallem wenn das Baklava noch warm ist, überdeckt, ist es nocht mehr kross.'
+        ],
+        author: 'Aus gruensteinKitchen Youtube Video : "Kuru Baklava / einfaches Baklava Rezept mit Pistazien | Antep Fistikli Kuru Baklava Tarifi"',
+        tagE: 'Vegetarisch',
+        tagN: 'türkisch',
+        duration: 'über 1 h'
+      }, {
+        id: 7,
+        name: 'Spinatknödel', 
+        picture: '../assets/images/Spinatknödel.jpg',
+        time: 35, //min
+        person: 4,
+        ingredients: [
+          item(ingredients.spinatBlattTK, 500),
+          item(ingredients.milch, 125),
+          item(ingredients.brot, 240, Unit.g),
+          item(ingredients.eier, 2),
+          item(ingredients.zwiebeln, 1),
+          item(ingredients.parmesan, 10),
+          item(ingredients.paniermehl, 3, Unit.EL),
+          item(ingredients.butter, 1, Unit.EL),
 
-        item(ingredients.salz, 1, Unit.TL),
-        item(ingredients.pfeffer, 1, Unit.nb),
-        item(ingredients.muskat, 1, Unit.nb),
-      ],
-      instruction: [
-        'Den TK-Blattspinat bei Zimmertemperatur auftauen lassen oder in 100 ml Wasser sanft für 3-5 Minuten dünsten und abkühlen lassen. Dannach den Spinat fest mit den Händen ausdrücken, damit er so viel Wasser wie möglich verliert und fein schneiden.',
-        'Das Brot in ca 1 cm große Würfel schneiden und in eine große Schüssel geben.',
-        'Die Zwiebel schälen und in feine Würfel schneiden. Dann in einem kleinen Topf mit der Butter glasig andünsten.',
-        'Nun in den Topf die Milch dazugeben, mit dem Salz, Pfeffer und Muskat würzen und kurz heiß werden lassen.',
-        'Die heiße Milchmasse über die Brotwürfel gießen und den Parmesan, das Paniermehl, den Spinat und die Eier hinzugeben.',
-        'Im Anschluss alles vermischen. Ist die Masse zu weich, kann nochmals Paniermehl dazugegeben werden. Ist sie zu trocken, etwas Milch.',
-        'In einem großen Topf Salzwasser erhitzen und währenddessen die Knödel mit nassen Händen formen.',
-        'Die Knödel in siedendem Wasser ca. 15 Minuten ziehen lassen - das Wasser darf nicht kochen!', 
-        'Zu den Knödeln passt beispielsweise eine Pilzsauce oder sind eine Beilage zu Fleischgerichten. Auch schmecken sie in Scheiben geschnitten und angebraten in einer Pfanne lecker.',
-      ],
-      author: 'Aus emmikochteinfach.de Spinatknödel schnell & einfach',
-      tagE: 'Vegetarisch',
-      tagN: '',
-      duration: 'über 30 min bis 1 h'
-    }, 
+          item(ingredients.salz, 1, Unit.TL),
+          item(ingredients.pfeffer, 1, Unit.nb),
+          item(ingredients.muskat, 1, Unit.nb),
+        ],
+        instruction: [
+          'Den TK-Blattspinat bei Zimmertemperatur auftauen lassen oder in 100 ml Wasser sanft für 3-5 Minuten dünsten und abkühlen lassen. Dannach den Spinat fest mit den Händen ausdrücken, damit er so viel Wasser wie möglich verliert und fein schneiden.',
+          'Das Brot in ca 1 cm große Würfel schneiden und in eine große Schüssel geben.',
+          'Die Zwiebel schälen und in feine Würfel schneiden. Dann in einem kleinen Topf mit der Butter glasig andünsten.',
+          'Nun in den Topf die Milch dazugeben, mit dem Salz, Pfeffer und Muskat würzen und kurz heiß werden lassen.',
+          'Die heiße Milchmasse über die Brotwürfel gießen und den Parmesan, das Paniermehl, den Spinat und die Eier hinzugeben.',
+          'Im Anschluss alles vermischen. Ist die Masse zu weich, kann nochmals Paniermehl dazugegeben werden. Ist sie zu trocken, etwas Milch.',
+          'In einem großen Topf Salzwasser erhitzen und währenddessen die Knödel mit nassen Händen formen.',
+          'Die Knödel in siedendem Wasser ca. 15 Minuten ziehen lassen - das Wasser darf nicht kochen!', 
+          'Zu den Knödeln passt beispielsweise eine Pilzsauce oder sind eine Beilage zu Fleischgerichten. Auch schmecken sie in Scheiben geschnitten und angebraten in einer Pfanne lecker.',
+        ],
+        author: 'Aus emmikochteinfach.de Spinatknödel schnell & einfach',
+        tagE: 'Vegetarisch',
+        tagN: '',
+        duration: 'über 30 min bis 1 h'
+      }, {
+        id: 8,
+        name: 'Kartoffelbrei', 
+        picture: '../assets/images/Kartoffelbrei.jpg',
+        time: 40, //min
+        person: 2,
+        ingredients: [
+         item(ingredients.kartoffeln, 250, Unit.g),
+         item(ingredients.milch, 2000),
+
+         item(ingredients.salz, 1, Unit.nb),
+         item(ingredients.pfeffer, 1, Unit.nb),
+         item(ingredients.muskat, 1, Unit.nb),
+        ],
+        instruction: [
+          'Kartoffeln klein schneiden und sehr weich kochen.', 
+          'Das Wasser abgießen und etwas Milch dazugeben. Nun mit einem Handrührgerät rühren und Milch dazugeben bis ein Brei entsteht. Diesen mit Salz, Pfeffer und Muskat würzen.',
+          'Alternativ können die Kartoffeln duch eine Kartoffelpresse gepresst werden. Zu den Kartoffeln die Milch und Gewürze geben und verrühren.', 
+          'Dazu passen Würstchen, Fisch, Fischstäbchen, Erbsen, ...'
+        ],
+        author: 'Von Matrin Preiß / Robin Amann',
+        tagE: 'Vegetarisch',
+        tagN: '',
+        duration: 'über 30 min bis 1 h',
+      }, {
+          id: 9,
+          name: 'Kürbissuppe', 
+          picture: '../assets/images/Kürbissuppe.jpg',
+          time: 60, //min
+          person: 4,
+          ingredients: [
+           item(ingredients.kürbis, 1),
+           item(ingredients.kartoffeln, 4),
+           item(ingredients.karotten, 1),
+           item(ingredients.zwiebeln, 2),
+           item(ingredients.sahne, 1, Unit.becher),
+           item(ingredients.orangensaft, 1, Unit.nb),
+
+           item(ingredients.ingwer, 1, Unit.stk),
+           item(ingredients.knoblauchzehen, 2),
+           item(ingredients.salz, 1, Unit.nb),
+           item(ingredients.pfeffer, 1, Unit.nb),
+           item(ingredients.muskat, 1, Unit.nb),
+           item(ingredients.gemüsebrühe, 1, Unit.nb),
+          ],
+          instruction: [
+            'Den Kürbis, die Kartoffeln, die Karotten und die Zwiebeln schälen und klein schneiden.', 
+            'Zwiebeln in einem Topf anbraten, den Ingwer und den Knoblauch andünsten und den Kürbis, die Kartoffeln und die Karotten kurz mit anbraten. Nun mit der Gemüsebrühe ablöschen und weich kochen lassen.',
+            'Wenn das Gemüse fertig gekocht ist, zu einem Brei prüieren und die Sahne und den Orangensaft dazugeben, dannach würzen.',
+            'Dazu passen Crema mit Aceto Balsamico und Backerbsen, sowie Brot.  '
+          ],
+          author: 'von Carolin Büchter',
+          tagE: 'Vegetarisch', 
+          tagN: '',
+          duration: 'über 30 min bis 1 h', 
+        }, 
 ]}

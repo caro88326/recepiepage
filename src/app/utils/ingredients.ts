@@ -15,6 +15,7 @@ export enum Unit {
     nb = 'nb',
     bund = 'Bund',
     stängel = 'Stängel',
+    becher = 'Becher'
 }
 
 export enum Texture {
@@ -102,6 +103,7 @@ export const ingredients = {
     karotten :      createIngredient('Karotte(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     kartoffeln :    createIngredient('Kartoffel(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     knollensellerie : createIngredient('Knollenselerie', Texture.notDefined, FoodGroup.vegetables),
+    kürbis :        createIngredient('Kürbis', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     paprika :       createIngredient('Paprika(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     salat :         createIngredient('Salat', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     spinatBlattTK : createIngredient('TK-Blattspinat', Texture.notDefined, FoodGroup.vegetables),
@@ -175,11 +177,12 @@ export const ingredients = {
     brötchen :      createIngredient('Brötchen', Texture.fluid, FoodGroup.juice),
 
     // Saft
-    apfelsaft :     createIngredient('Apfelsaft', Texture.fluid, FoodGroup.juice),
-    bananensaft :   createIngredient('Bananensaft', Texture.fluid, FoodGroup.juice),
+    apfelsaft :     createIngredient('Apfelsaft', Texture.fluid, FoodGroup.juice, Unit.ml),
+    bananensaft :   createIngredient('Bananensaft', Texture.fluid, FoodGroup.juice, Unit.ml),
     johannisbeersaft : createIngredient('Johannisbeersaft', Texture.fluid, FoodGroup.juice),
-    pfirsichsaft :  createIngredient('Pfirsichsaft', Texture.fluid, FoodGroup.juice),
-    traubensaft :   createIngredient('Traubensaft', Texture.fluid, FoodGroup.juice),      
+    orangensaft :   createIngredient('Orangensaft', Texture.fluid, FoodGroup.juice, Unit.ml),
+    pfirsichsaft :  createIngredient('Pfirsichsaft', Texture.fluid, FoodGroup.juice, Unit.ml),
+    traubensaft :   createIngredient('Traubensaft', Texture.fluid, FoodGroup.juice, Unit.ml),      
 
     // ---------------------------------------------------------------------------------------
     // ----------------GEWÜRZE---------------------GEWÜRZE------------------------------------
