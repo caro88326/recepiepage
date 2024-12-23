@@ -6,7 +6,7 @@ export class RecepiesData{
     // {
     //   id: 000000,
     //   name: 'Name', 
-    //   picture: '../assets/images/Beispielbild.jpg',
+    //   picture: './assets/images/Beispielbild.jpg',
     //   time: 0000, //min
     //   person: 00,
     //   ingredients: [
@@ -25,7 +25,7 @@ export class RecepiesData{
     {
       id: 0,
       name: 'Dumplings', 
-      picture: '../assets/images/Dumplings.jpg',
+      picture: './assets/images/Dumplings.jpg',
       time: 120, //min
       person: 4,
       ingredients: [
@@ -58,7 +58,7 @@ export class RecepiesData{
     }, {
       id: 1,
       name: 'Indischer rote Linsen Dal', 
-      picture: '../assets/images/Beispielbild.jpg',
+      picture: './assets/images/Beispielbild.jpg',
       time: 30, //min
       person: 4,
       ingredients: [
@@ -98,7 +98,7 @@ export class RecepiesData{
     {
       id: 2,
       name: 'Fusilli mit Zucchini', 
-      picture: '../assets/images/Beispielbild.jpg',
+      picture: './assets/images/Beispielbild.jpg',
       time: 20, //min
       person: 4,
       ingredients: [
@@ -130,7 +130,7 @@ export class RecepiesData{
     }, {
       id: 3,
       name: 'Tomate-Mozarella-Salat', 
-      picture: '../assets/images/TomateMozarellaSalat.jpg',
+      picture: './assets/images/TomateMozarellaSalat.jpg',
       time: 10, //min
       person: 2,
       ingredients: [        
@@ -157,7 +157,7 @@ export class RecepiesData{
     {
         id: 4,
         name: 'Kässpätzle', 
-        picture: '../assets/images/Kässpätzle.jpg',
+        picture: './assets/images/Kässpätzle.jpg',
         time: 60, //min
         person: 4,
         ingredients: [        
@@ -184,7 +184,7 @@ export class RecepiesData{
       }, {
         id: 5,
         name: 'Zucchinisuppe', 
-        picture: '../assets/images/Zucchinisuppe.jpg',
+        picture: './assets/images/Zucchinisuppe.jpg',
         time: 60, //min
         person: 4,
         ingredients: [
@@ -214,7 +214,7 @@ export class RecepiesData{
       }, {
         id: 6,
         name: 'Baklava', 
-        picture: '../assets/images/Baklava.jpg',
+        picture: './assets/images/Baklava.jpg',
         time: 80, //min
         person: 4,
         ingredients: [
@@ -244,7 +244,7 @@ export class RecepiesData{
       }, {
         id: 7,
         name: 'Spinatknödel', 
-        picture: '../assets/images/Spinatknödel.jpg',
+        picture: './assets/images/Spinatknödel.jpg',
         time: 35, //min
         person: 4,
         ingredients: [
@@ -279,7 +279,7 @@ export class RecepiesData{
       }, {
         id: 8,
         name: 'Kartoffelbrei', 
-        picture: '../assets/images/Kartoffelbrei.jpg',
+        picture: './assets/images/Kartoffelbrei.jpg',
         time: 40, //min
         person: 2,
         ingredients: [
@@ -303,7 +303,7 @@ export class RecepiesData{
       }, {
           id: 9,
           name: 'Kürbissuppe', 
-          picture: '../assets/images/Kürbissuppe.jpg',
+          picture: './assets/images/Kürbissuppe.jpg',
           time: 60, //min
           person: 4,
           ingredients: [
