@@ -85,7 +85,7 @@ export class CreateListComponent {
             ingredients.push(i)
             return [...ingredients]
         })
-        } //TODO funktion die alle Einheiten umrechnet, sodass mehr zusammengefasst werden kann
+        } 
       })
     }
 
@@ -133,7 +133,6 @@ export class CreateListComponent {
     this.selectedI = this.ing.ingredient
   }
 
-  // FUNTIONIERT NICHT GANZ RICHTIG
   saveEdit(){
     let newIng : FoodItem = {
       ingredient : Object.values(ingredients).find(i => i.rep === this.selectedI)!,

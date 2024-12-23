@@ -29,8 +29,8 @@ export class RecepiesData{
       time: 120, //min
       person: 4,
       ingredients: [
-        item(ingredients.dumplingteig, 1),
-        item(ingredients.hackfleisch, 400),
+        item(ingredients.dumplingteig, 1.5),
+        item(ingredients.hackfleisch, 500),
         item(ingredients.chinakohl, 300),
         item(ingredients.karotten, 4),
 

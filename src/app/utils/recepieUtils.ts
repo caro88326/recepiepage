@@ -170,7 +170,6 @@ export function formatUnitsOfIngredients(groups : { title : string, g : FoodGrou
       }
     }
   }
-  console.log(groups)
   return groups
   
 }
