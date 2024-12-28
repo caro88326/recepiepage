@@ -80,6 +80,7 @@ export const ingredients = {
     nudeln :        createIngredient('Nudeln', Texture.notDefined, FoodGroup.dryProducts),
     paniermehl :    createIngredient('Paniermehl', Texture.notDefined, FoodGroup.dryProducts),
     roteLinsen:     createIngredient('Rote Linsen', Texture.notDefined, FoodGroup.dryProducts),
+    tellerlinsen :  createIngredient('Tellerlinsen', Texture.notDefined, FoodGroup.dryProducts),
     weizenmehl405 : createIngredient('Weizenmehl Typ 405', Texture.notDefined, FoodGroup.dryProducts),
     weizenmehl550 : createIngredient('Weizenmehl Typ 550', Texture.notDefined, FoodGroup.dryProducts),
     weizenmehl1050 : createIngredient('Weizenmehl Typ 1050', Texture.notDefined, FoodGroup.dryProducts),
@@ -90,6 +91,7 @@ export const ingredients = {
     hackfleisch :   createIngredient('Hackfleisch', Texture.notDefined, FoodGroup.meat),
     hänchenbrust :  createIngredient('Hähnchenbrust', Texture.notDefined, FoodGroup.meat),
     ribeye :        createIngredient('Ribeyesteak', Texture.notDefined, FoodGroup.meat),
+    speckwürfel :   createIngredient('Speckwürfel', Texture.notDefined, FoodGroup.meat),
 
     // Fisch
     backfisch :     createIngredient('Backfisch', Texture.notDefined, FoodGroup.fish, Unit.stk),
@@ -106,6 +108,7 @@ export const ingredients = {
     kürbis :        createIngredient('Kürbis', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     paprika :       createIngredient('Paprika(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     salat :         createIngredient('Salat', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
+    sellerie :      createIngredient('Selerie', Texture.notDefined, FoodGroup.vegetables),
     spinatBlattTK : createIngredient('TK-Blattspinat', Texture.notDefined, FoodGroup.vegetables),
     tomaten :       createIngredient('Tomate(n)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
     zucchini :      createIngredient('Zucchini(s)', Texture.notDefined, FoodGroup.vegetables, Unit.stk),
@@ -223,12 +226,16 @@ export const ingredients = {
     knoblauchzehen : createIngredient('Knoblauchzehe(n)', Texture.notDefined, FoodGroup.spice, Unit.stk),
     knoblauchknolle : createIngredient('Knoblauchknolle', Texture.notDefined, FoodGroup.spice, Unit.stk),
     minze :         createIngredient('Minze', Texture.notDefined, FoodGroup.spice, Unit.stängel),
+    petersilie :    createIngredient('Petersilie', Texture.notDefined, FoodGroup.spice, Unit.bund),
 
     // Gewürze flüssig
     sojasauce :     createIngredient('Sojasauce', Texture.fluid, FoodGroup.spice, Unit.ml),
     zitronensaft :  createIngredient('Zitronensaft', Texture.fluid, FoodGroup.spice, Unit.ml),
     rotwein :       createIngredient('Rotwein', Texture.fluid, FoodGroup.spice, Unit.ml),
     weißwein :       createIngredient('Weißwein', Texture.fluid, FoodGroup.spice, Unit.ml),
+
+    // Gewürzpasten
+    tomatenmark :   createIngredient('Tomatenmark', Texture.notDefined, FoodGroup.spice),
 
     // Öl
     öl :            createIngredient('Öl', Texture.fluid, FoodGroup.spice, Unit.ml),
