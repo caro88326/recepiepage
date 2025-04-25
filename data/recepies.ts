@@ -98,7 +98,7 @@ export class RecepiesData{
     {
       id: 2,
       name: 'Fusilli mit Zucchini', 
-      picture: './assets/images/Beispielbild.jpg',
+      picture: './assets/images/FusilliMitZucchini.jpg',
       time: 20, //min
       person: 4,
       ingredients: [
