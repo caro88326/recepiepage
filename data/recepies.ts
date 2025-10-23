@@ -24,7 +24,7 @@ export class RecepiesData{
 
     {
       id: 0,
-      name: 'Dumplings', 
+      name: 'Dumplings mit Hackfeisch-Kohl-Füllung', 
       picture: './assets/images/Dumplings.jpg',
       time: 120, //min
       person: 4,
